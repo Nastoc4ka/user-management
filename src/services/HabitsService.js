@@ -11,6 +11,8 @@ let habits = [
         category: 'Spiritual'
     }];
 
+let week = ['Mn', 'Tu', 'Wd', 'Th', 'St',];
+
 export default class HabitsService {
 
     makeEditHabit({idx = habits.length, title, category, id}) {
@@ -26,7 +28,7 @@ export default class HabitsService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
-                //     reject(new Error('didn`t put new title'))
+                //      reject(new Error('mistake in making habit'));
                 // } else {
                     habits[idx] = newHabit;
                     resolve(habits)

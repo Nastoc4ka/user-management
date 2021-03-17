@@ -1,12 +1,41 @@
 import {
     FETCH_HABITS,
-    FETCH_HABITS_FAILURE,
-    FETCH_HABITS_REQUEST,
+    FETCH_HABITS_HIDE,
     FETCH_HABITS_SUCCESS,
+    HIDE_ERROR,
+    HIDE_INPUT,
+    HIDE_LOADER,
     MAKE_EDIT_HABIT,
     REMOVE_HABIT,
-    SHOW_INPUT
-} from "./types";
+    SHOW_ERROR,
+    SHOW_INPUT,
+    SHOW_LOADER,
+} from "./types"
+
+const showLoader = () => {
+    return {
+        type: SHOW_LOADER,
+    }
+};
+
+const hideLoader = () => {
+    return {
+        type: HIDE_LOADER,
+    }
+};
+
+const showError = (error) => {
+    return {
+        type: SHOW_ERROR,
+        payload: error
+    }
+};
+
+const hideError = () => {
+    return {
+        type: HIDE_ERROR,
+    }
+};
 
 const habitsLoaded = (habits) => {
     return {
@@ -15,23 +44,22 @@ const habitsLoaded = (habits) => {
     }
 };
 
-const habitsRequested = () => {
+const habitsHide = () => {
     return {
-        type: FETCH_HABITS_REQUEST,
+        type: FETCH_HABITS_HIDE,
     }
 };
 
-const habitsError = (error) => {
-    return {
-        type: FETCH_HABITS_FAILURE,
-        payload: error
-    }
-};
-
-const edit = (id) => {
+const showInput = (id) => {
     return {
         type: SHOW_INPUT,
         payload: id
+    }
+};
+
+const hideInput = () => {
+    return {
+        type: HIDE_INPUT,
     }
 };
 
@@ -56,11 +84,15 @@ const fetchHabits = () => {
 };
 
 export {
-    habitsRequested,
+    habitsHide,
     habitsLoaded,
     fetchHabits,
     makeEditHabit,
-    edit,
-    habitsError,
-    removeHabit
+    showInput,
+    hideInput,
+    removeHabit,
+    showLoader,
+    hideLoader,
+    showError,
+    hideError
 };

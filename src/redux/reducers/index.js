@@ -1,8 +1,7 @@
-import {FETCH_HABITS_FAILURE, FETCH_HABITS_REQUEST, FETCH_HABITS_SUCCESS, SHOW_INPUT} from "../actions/types";
+import {FETCH_HABITS_FAILURE, FETCH_HABITS_REQUEST, FETCH_HABITS_SUCCESS} from "../actions/types";
 
 const initialState = {
     habits: [],
-    newHabit: {},
     showInput: ''
 };
 
@@ -31,11 +30,6 @@ const reducer = (state = initialState, action) => {
                 habits: [],
                 loading: false,
                 error: action.payload
-            };
-        case SHOW_INPUT:
-            return {
-                ...state,
-                showInput: action.payload
             };
         default:
             return state

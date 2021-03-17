@@ -4,11 +4,11 @@ import {connect} from 'react-redux';
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {edit, fetchHabits, removeHabit} from '../../redux/actions';
+import {fetchHabits, removeHabit, showInput} from '../../redux/actions';
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
-const HabitList = ({ habits, showInput, edit, removeHabit }) => {
+const HabitList = ({habits, showInput, showInputId, removeHabit}) => {
 
     return (
         <Container className='container-habit-list'>
@@ -16,10 +16,10 @@ const HabitList = ({ habits, showInput, edit, removeHabit }) => {
                 <ListGroup className='w-100'>
                     {habits.map((habit, idx) => {
                         return (
-                            <HabitListItem edit={() => edit(habit.id)}
+                            <HabitListItem showInput={() => showInput(habit.id)}
                                            removeHabit={() => removeHabit(idx)}
                                            idx={idx}
-                                           showInput={showInput}
+                                           showInputId={showInputId}
                                            habit={habit}
                                            key={habit.id}/>
                         )
@@ -37,27 +37,32 @@ class HabitsContainer extends Component {
     }
 
     render() {
-        const {habits, loading, error, showInput, edit, removeHabit} = this.props;
+        const {habits, loading, error, showInput, showInputId, removeHabit} = this.props;
 
         if(loading) return <Spinner />;
 
         if(error) return <ErrorIndicator message={error.message} />;
 
-        return <HabitList edit={edit}
-                          showInput={showInput}
+        return <HabitList showInput={showInput}
+                          showInputId={showInputId}
                           habits={habits}
                           removeHabit={removeHabit}/>
     }
 }
 
-const mapStateToProps = ({ habits, loading, error, showInput }) => {
-    return { habits, error, loading, showInput };
+const mapStateToProps = ({
+                             showInputReducer: {showInputId},
+                             showLoaderReducer: {loading},
+                             showErrorReducer: {error},
+                             habitsReducer: {habits}
+                         }) => {
+    return {habits, error, loading, showInputId};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchHabits : () => dispatch(fetchHabits()),
-        edit: id => dispatch(edit(id)),
+        showInput: id => dispatch(showInput(id)),
         removeHabit: idx => dispatch(removeHabit(idx))
     }
 };

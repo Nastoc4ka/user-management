@@ -7,10 +7,10 @@ import {FiEdit2} from 'react-icons/fi';
 import {RiDeleteBinLine} from "react-icons/ri";
 import {MdCheck} from "react-icons/md";
 
-const HabitListItem = ({habit, showInput, idx, edit, removeHabit}) => {
+const HabitListItem = ({habit, showInputId, idx, showInput, removeHabit}) => {
     const {id, title, category} = habit;
 
-    const inputEdit = showInput === id ? <InputNewHabit idx={idx} habit={habit}/> : null;
+    const inputEdit = showInputId === id ? <InputNewHabit idx={idx} habit={habit}/> : null;
     return (
                 <ListGroup.Item >
                     <Row>
@@ -22,7 +22,7 @@ const HabitListItem = ({habit, showInput, idx, edit, removeHabit}) => {
                         </Col>
                             <Col sm={2.5} className='pr-0 pl-0'>
                                 <Button variant="outline-dark" className='mr-2' onClick={removeHabit}><RiDeleteBinLine/></Button>
-                                <Button variant="outline-warning" onClick={edit}><FiEdit2/></Button>
+                                <Button variant="outline-warning" onClick={showInput}><FiEdit2/></Button>
                         </Col></>}
                     </Row>
                 </ListGroup.Item>
