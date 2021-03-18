@@ -12,16 +12,17 @@ const initialState = () => ({
 
 class HabitCreate extends Component {
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    };
     onSubmit = (e) => {
         e.preventDefault();
         if (!this.state.name.trim()) return;
         const category = this.props.categories.find(category => category.id == this.state.category);
         this.props.createHabit({...this.state, category});
         this.setState(initialState());
+        this.props.hide();
+    };
 
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
     };
 
     constructor(props) {

@@ -13,8 +13,7 @@ const HabitListItem = ({habit, selectedId, showInput, removeHabit}) => {
 
     const habitItem = <><Col className={category.name.toLowerCase()}>
         <Row>
-            <Button className='mr-2' variant="outline-info"><MdCheck/> {category.name}</Button>
-            <p className='align-self-center mb-0'>{name}</p>
+            <Button className='mr-3' variant="outline-info"><MdCheck/> {name}</Button>
         </Row>
     </Col>
         <Col sm={2.5} className='pr-0 pl-0'>

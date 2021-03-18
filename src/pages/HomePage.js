@@ -1,14 +1,15 @@
 import React from 'react';
 import HabitList from "../components/habit-list/index";
-import InputEditHabit from "../components/habit-create";
 import {Col, Container, Row} from "react-bootstrap";
+import {AddHabit} from "../components/habit-create/AddHabit";
 
 const HomePage = () => {
     return (
         <Container className="mt-3">
             <Row>
                 <Col sm={7}>
-                    <InputEditHabit />
+
+                    <AddHabit/>
                     <HabitList />
                 </Col>
                 <Col sm={5} className='mt-2'>

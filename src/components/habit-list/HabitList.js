@@ -41,7 +41,7 @@ class HabitsContainer extends Component {
 
         const catList = habits.map(h => h.category.name);
 
-        const categories = [...new Set(catList)];
+        const categories = [...new Set(catList)].sort((a, b) => a - b);
 
         return (<>
             {

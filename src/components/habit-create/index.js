@@ -1,3 +1,4 @@
-import InputEditHabit from './HabitCreate'
+import HabitCreate from './HabitCreate'
+import {AddHabit} from './AddHabit'
 
-export default InputEditHabit
+export {HabitCreate, AddHabit}
