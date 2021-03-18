@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {habitUpdate} from "../../redux/actions";
+import {categoriesRequested, habitUpdate} from "../../redux/actions";
 import './habitEdit.css'
 import {FiEdit2} from 'react-icons/fi';
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
@@ -31,6 +31,7 @@ class HabitEdit extends Component {
     }
 
     componentDidMount() {
+        this.props.fetchCategories();
         this.setState({
             id: this.props.habit.id,
             category: this.props.habit.category.id,
@@ -93,6 +94,7 @@ const mapStateToProps = ({categoryReducer: {categories}}) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
+        fetchCategories: () => dispatch(categoriesRequested()),
         updateHabit: (habit) => dispatch(habitUpdate(habit)),
     }
 };
