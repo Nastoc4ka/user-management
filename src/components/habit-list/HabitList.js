@@ -11,22 +11,18 @@ import {Container, ListGroup, Row} from "react-bootstrap";
 const HabitList = ({habits, showInput, showInputId, removeHabit}) => {
 
     return (
-        <Container className='container-habit-list'>
-            <Row >
-                <ListGroup className='w-100'>
-                    {habits.map((habit, idx) => {
-                        return (
-                            <HabitListItem showInput={() => showInput(habit.id)}
-                                           removeHabit={() => removeHabit(idx)}
-                                           idx={idx}
-                                           showInputId={showInputId}
-                                           habit={habit}
-                                           key={habit.id}/>
-                        )
-                    })}
-                </ListGroup>
-            </Row>
-        </Container>
+        <ListGroup className='w-100'>
+            {habits.map((habit, idx) => {
+                return (
+                    <HabitListItem showInput={() => showInput(habit.id)}
+                                   removeHabit={() => removeHabit(idx)}
+                                   idx={idx}
+                                   showInputId={showInputId}
+                                   habit={habit}
+                                   key={habit.id}/>
+                )
+            })}
+        </ListGroup>
     )
 };
 
@@ -39,14 +35,39 @@ class HabitsContainer extends Component {
     render() {
         const {habits, loading, error, showInput, showInputId, removeHabit} = this.props;
 
-        if(loading) return <Spinner />;
+        if (loading) return <Spinner/>;
 
-        if(error) return <ErrorIndicator message={error.message} />;
+        if (error) return <ErrorIndicator message={error.message}/>;
 
-        return <HabitList showInput={showInput}
-                          showInputId={showInputId}
-                          habits={habits}
-                          removeHabit={removeHabit}/>
+        const cat = ['Sport', "Spiritual"];
+
+        return (
+            <Container className='container-habit-list'>
+                <Row>
+                    <ListGroup className='w-100'>
+                        {
+                            cat.map(category => {
+                                let filtered = habits.filter(h => h.category === category);
+                                console.log(category);
+                                console.log(filtered);
+                                console.log(habits);
+                                return (<>
+                                    <h3 className={category.toLowerCase()}>{category}</h3>
+                                    <HabitList
+                                        key={1}
+                                        showInput={showInput}
+                                        showInputId={showInputId}
+                                        habits={filtered}
+                                        categoryName={category}
+                                        removeHabit={removeHabit}/>
+                                </>)
+
+                            })
+                        }
+                    </ListGroup>
+                </Row>
+            </Container>
+        )
     }
 }
 
@@ -61,7 +82,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        fetchHabits : () => dispatch(fetchHabits()),
+        fetchHabits: () => dispatch(fetchHabits()),
         showInput: id => dispatch(showInput(id)),
         removeHabit: idx => dispatch(removeHabit(idx))
     }
