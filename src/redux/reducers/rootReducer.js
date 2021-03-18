@@ -3,7 +3,7 @@ import showInputReducer from "./showInput";
 //import reducer from "./index";
 import showLoaderReducer from "./showLoader";
 import showErrorReducer from "./showError";
-import habitsReducer from "./showHabits";
+import habitsReducer from "./habitsReducer";
 import categoryReducer from "./categoryReducer";
 
 

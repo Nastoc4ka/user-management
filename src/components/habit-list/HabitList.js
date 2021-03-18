@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {fetchCategories, fetchHabits, removeHabit, showInput} from '../../redux/actions';
+import {fetchCategories, removeHabit, requestHabits, showInput} from '../../redux/actions';
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
@@ -31,7 +31,7 @@ class HabitsContainer extends Component {
 
     componentDidMount() {
         this.props.fetchCategories();
-        this.props.fetchHabits();
+        this.props.requestHabits();
 
     }
 
@@ -65,9 +65,7 @@ class HabitsContainer extends Component {
 
 const mapStateToProps = ({
                              showInputReducer: {showInputId},
-                             showLoaderReducer: {loading},
-                             showErrorReducer: {error},
-                             habitsReducer: {habits},
+                             habitsReducer: {habits, loading, error},
                              categoryReducer: {categories}
                          }) => {
     return {habits, error, loading, showInputId, categories};
@@ -76,7 +74,7 @@ const mapStateToProps = ({
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchCategories: () => dispatch(fetchCategories()),
-        fetchHabits: () => dispatch(fetchHabits()),
+        requestHabits: () => dispatch(requestHabits()),
         showInput: id => dispatch(showInput(id)),
         removeHabit: idx => dispatch(removeHabit(idx))
     }

@@ -1,32 +1,27 @@
-import {FETCH_HABITS_FAILURE, FETCH_HABITS_REQUEST, HABITS_FETCHED} from "../actions/types";
+import {HABITS_ERROR, HABITS_FETCHED, HABITS_LOADING} from "../actions/types";
 
 const initialState = {
     habits: [],
-    showInput: ''
+    loading: false,
+    error: null
 };
 
-const reducer = (state = initialState, action) => {
-    console.log('action in reducer: ' + JSON.stringify(action));
-
+const habitsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_HABITS_REQUEST:
+        case HABITS_LOADING:
             return {
-                ...state,
                 habits: [],
                 loading: true,
                 error: null
             };
         case HABITS_FETCHED:
             return {
-                ...state,
-                showInput: '',
                 habits: action.payload,
                 loading: false,
                 error: null
             };
-        case FETCH_HABITS_FAILURE:
+        case HABITS_ERROR:
             return {
-                ...state,
                 habits: [],
                 loading: false,
                 error: action.payload
@@ -36,4 +31,4 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-export default reducer
+export default habitsReducer

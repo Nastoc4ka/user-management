@@ -2,47 +2,38 @@ import {
     FETCH_CATEGORIES,
     FETCH_CATEGORIES_HIDE,
     FETCH_CATEGORIES_SUCCESS,
-    FETCH_HABITS,
-    FETCH_HABITS_HIDE,
-    FETCH_HABITS_SUCCESS,
-    HIDE_ERROR,
+    HABITS_ERROR,
+    HABITS_FETCHED,
+    HABITS_LOADING,
+    HABITS_REQUESTED,
     HIDE_INPUT,
-    HIDE_LOADER,
     MAKE_EDIT_HABIT,
     REMOVE_HABIT,
-    SHOW_ERROR,
-    SHOW_INPUT,
-    SHOW_LOADER
+    SHOW_INPUT
 } from "./types"
 
-const showLoader = () => {
+const requestHabits = () => {
     return {
-        type: SHOW_LOADER,
+        type: HABITS_REQUESTED
     }
 };
 
-const hideLoader = () => {
+const habitsLoading = () => {
     return {
-        type: HIDE_LOADER,
+        type: HABITS_LOADING,
     }
 };
 
-const showError = (error) => {
+const habitsError = (error) => {
     return {
-        type: SHOW_ERROR,
+        type: HABITS_ERROR,
         payload: error
     }
 };
 
-const hideError = () => {
+const habitsFetched = (habits) => {
     return {
-        type: HIDE_ERROR,
-    }
-};
-
-const habitsLoaded = (habits) => {
-    return {
-        type: FETCH_HABITS_SUCCESS,
+        type: HABITS_FETCHED,
         payload: habits
     }
 };
@@ -55,11 +46,6 @@ const categoriesLoaded = (categories) => {
     }
 };
 
-const habitsHide = () => {
-    return {
-        type: FETCH_HABITS_HIDE,
-    }
-};
 
 const categoriesHide = () => {
     return {
@@ -94,12 +80,6 @@ const makeEditHabit = (newHabit) => {
     }
 };
 
-const fetchHabits = () => {
-    return {
-        type: FETCH_HABITS
-    }
-};
-
 const fetchCategories = () => {
     return {
         type: FETCH_CATEGORIES
@@ -107,18 +87,14 @@ const fetchCategories = () => {
 };
 
 export {
-    categoriesHide,
-    habitsHide,
-    habitsLoaded,
-    fetchHabits,
+    habitsFetched,
+    requestHabits,
     makeEditHabit,
     showInput,
     hideInput,
     removeHabit,
-    showLoader,
-    hideLoader,
-    showError,
-    hideError,
+    habitsLoading,
+    habitsError,
     fetchCategories,
     categoriesLoaded,
 
