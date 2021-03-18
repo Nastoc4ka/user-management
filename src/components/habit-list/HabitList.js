@@ -4,20 +4,20 @@ import {connect} from 'react-redux';
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {fetchCategories, removeHabit, requestHabits, showInput} from '../../redux/actions';
+import {fetchCategories, habitEditShow, habitRemove, requestHabits} from '../../redux/actions';
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
-const HabitList = ({habits, showInput, showInputId, removeHabit}) => {
+const HabitList = ({habits, showInput, selectedId, removeHabit}) => {
     return (
         <Row>
             <ListGroup className='w-100'>
                 {habits.map((habit, idx) => {
                     return (
                         <HabitListItem showInput={() => showInput(habit.id)}
-                                       removeHabit={() => removeHabit(idx)}
+                                       removeHabit={() => removeHabit(habit.id)}
                                        idx={idx}
-                                       showInputId={showInputId}
+                                       selectedId={selectedId}
                                        habit={habit}
                                        key={habit.id}/>
                     )
@@ -36,7 +36,7 @@ class HabitsContainer extends Component {
     }
 
     render() {
-        const {habits, categories, loading, error, showInput, showInputId, removeHabit} = this.props;
+        const {habits, categories, loading, error, showInput, selectedId, removeHabit} = this.props;
         if (loading) return <Spinner/>;
 
         if (error) return <ErrorIndicator message={error.message}/>;
@@ -51,7 +51,7 @@ class HabitsContainer extends Component {
                         <h3 className={category.name.toLowerCase()}>{category.name}</h3>
                         <HabitList
                             showInput={showInput}
-                            showInputId={showInputId}
+                            selectedId={selectedId}
                             habits={habitsByCategory}
                             removeHabit={removeHabit}/>
                     </Container>)
@@ -64,19 +64,19 @@ class HabitsContainer extends Component {
 }
 
 const mapStateToProps = ({
-                             showInputReducer: {showInputId},
+                             habitEditReducer: {selectedId},
                              habitsReducer: {habits, loading, error},
                              categoryReducer: {categories}
                          }) => {
-    return {habits, error, loading, showInputId, categories};
+    return {habits, error, loading, selectedId, categories};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         fetchCategories: () => dispatch(fetchCategories()),
         requestHabits: () => dispatch(requestHabits()),
-        showInput: id => dispatch(showInput(id)),
-        removeHabit: idx => dispatch(removeHabit(idx))
+        showInput: id => dispatch(habitEditShow(id)),
+        removeHabit: id => dispatch(habitRemove(id))
     }
 };
 

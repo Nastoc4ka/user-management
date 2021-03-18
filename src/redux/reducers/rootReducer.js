@@ -1,16 +1,12 @@
 import {combineReducers} from 'redux';
-import showInputReducer from "./showInput";
+import habitEditReducer from "./habitEditReducer";
 //import reducer from "./index";
-import showLoaderReducer from "./showLoader";
-import showErrorReducer from "./showError";
 import habitsReducer from "./habitsReducer";
 import categoryReducer from "./categoryReducer";
 
 
 export const rootReducer = combineReducers({
-    showInputReducer,
-    showLoaderReducer,
-    showErrorReducer,
+    habitEditReducer,
     habitsReducer,
     categoryReducer,
 });

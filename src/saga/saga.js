@@ -1,7 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
-import {categoriesLoaded, habitsError, habitsFetched, habitsLoading, hideInput} from '../redux/actions';
+import {categoriesLoaded, habitEditHide, habitsError, habitsFetched, habitsLoading} from '../redux/actions';
 import HabitsService from '../services/HabitsService';
-import {FETCH_CATEGORIES, HABITS_REQUESTED, MAKE_EDIT_HABIT, REMOVE_HABIT} from "../redux/actions/types";
+import {FETCH_CATEGORIES, HABIT_CREATE, HABIT_REMOVE, HABIT_UPDATE, HABITS_REQUESTED} from "../redux/actions/types";
 
 const habitsService = new HabitsService();
 
@@ -9,8 +9,9 @@ const habitsService = new HabitsService();
 export function* sagaWatcher() {
     yield takeEvery(HABITS_REQUESTED, fetchHabitsSaga);
     yield takeEvery(FETCH_CATEGORIES, fetchCategoriesSaga);
-    yield takeEvery(REMOVE_HABIT, removeHabitSaga);
-    yield takeEvery(MAKE_EDIT_HABIT, makeEditHabit);
+    yield takeEvery(HABIT_REMOVE, removeHabitSaga);
+    yield takeEvery(HABIT_CREATE, createHabitSaga);
+    yield takeEvery(HABIT_UPDATE, updateHabitSaga);
 }
 
 function* fetchHabitsSaga() {
@@ -42,43 +43,24 @@ function* removeHabitSaga(action) {
     }
 }
 
-function* makeEditHabit(action) {
+function* createHabitSaga(action) {
     try {
         yield put(habitsLoading());
-        const payload = yield call(() => habitsService.makeEditHabit(action.payload));
-        yield put(hideInput());
+        const payload = yield call(() => habitsService.createHabit(action.payload));
+        yield put(habitEditHide());
         yield put(habitsFetched(payload))
     } catch (error) {
         yield put(habitsError(error))
     }
 }
 
-// function* makeEditHabit(action) {
-//     try {
-//         yield put(requestHabits());
-//         const payload = yield call(() => habitsService.makeEditHabit(action.payload));
-//         yield put(habitsFetched(payload))
-//     } catch (error) {
-//         yield put(habitsError(error))
-//     }
-// }
-
-// function* removeHabitSaga(action) {
-//     try {
-//         yield put(requestHabits());
-//         const payload = yield call(() => habitsService.removeHabit(action.payload));
-//         yield put(habitsFetched(payload))
-//     } catch (error) {
-//         yield put(habitsError(error))
-//     }
-// }
-
-// function* fetchHabitsSaga() {
-//     try {
-//         yield put(requestHabits());
-//         const payload = yield call(habitsService.getHabits);
-//         yield put(habitsFetched(payload))
-//     } catch (error) {
-//         yield put(habitsError(error))
-//     }
-// }
+function* updateHabitSaga(action) {
+    try {
+        yield put(habitsLoading());
+        const payload = yield call(() => habitsService.updateHabit(action.payload));
+        yield put(habitEditHide());
+        yield put(habitsFetched(payload))
+    } catch (error) {
+        yield put(habitsError(error))
+    }
+}

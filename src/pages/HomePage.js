@@ -1,8 +1,7 @@
 import React from 'react';
 import HabitList from "../components/habit-list/index";
-import CurrentWeekMarkedHabit from "../components/current-week-marked-habit/index";
-import InputEditHabit from "../components/input-edit-habit";
-import {Container, Row, Col} from "react-bootstrap";
+import InputEditHabit from "../components/habit-create";
+import {Col, Container, Row} from "react-bootstrap";
 
 const HomePage = () => {
     return (

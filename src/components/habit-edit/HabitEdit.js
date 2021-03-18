@@ -1,29 +1,27 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchCategories, makeEditHabit} from "../../redux/actions";
-import './inputEditHabit.css'
+import {habitUpdate} from "../../redux/actions";
+import './habitEdit.css'
 import {FiEdit2} from 'react-icons/fi';
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
-import {GrFormAdd} from "react-icons/gr";
 
 const initialState = () => ({
     category: 5466,
     name: ''
 });
 
-class InputEditHabit extends Component {
+class HabitEdit extends Component {
 
-    handleChange = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    };
     onSubmit = (e) => {
         e.preventDefault();
         if (!this.state.name.trim()) return;
         const category = this.props.categories.find(category => category.id == this.state.category);
-        this.props.makeEditHabit({...this.state, category});
-
+        this.props.updateHabit({...this.state, category});
         this.setState(initialState());
+    };
 
+    handleChange = (e) => {
+        this.setState({[e.target.name]: e.target.value});
     };
 
     constructor(props) {
@@ -33,14 +31,11 @@ class InputEditHabit extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchCategories();
-        if (this.props.habit) {
-            this.setState({
-                id: this.props.habit.id,
-                category: this.props.habit.category.id,
-                name: this.props.habit.name
-            });
-        }
+        this.setState({
+            id: this.props.habit.id,
+            category: this.props.habit.category.id,
+            name: this.props.habit.name
+        });
         this.habitInputFocus.current.focus();
     }
 
@@ -53,7 +48,6 @@ class InputEditHabit extends Component {
                             <FormControl ref={this.habitInputFocus}
                                          name='name'
                                          id='newItem'
-                                         placeholder="make new habit"
                                          value={this.state.name}
                                          onChange={this.handleChange}
                                          aria-label="make new habit"
@@ -80,7 +74,7 @@ class InputEditHabit extends Component {
                         </Col>
                         <Col sm={1} className='pl-0 col-1 align-self-end'>
                             <Button variant="outline-success" type="submit">
-                                {this.props.habit ? <FiEdit2/> : <GrFormAdd/>}
+                                <FiEdit2/>
                             </Button>
                         </Col>
                     </InputGroup>
@@ -99,9 +93,8 @@ const mapStateToProps = ({categoryReducer: {categories}}) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchCategories: () => dispatch(fetchCategories()),
-        makeEditHabit: (newHabit) => dispatch(makeEditHabit(newHabit)),
+        updateHabit: (habit) => dispatch(habitUpdate(habit)),
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(InputEditHabit)
+export default connect(mapStateToProps, mapDispatchToProps)(HabitEdit)

@@ -1,4 +1,3 @@
-
 let habits = [
     {
         id: 32434,
@@ -45,29 +44,8 @@ let categories = [
 
 export default class HabitsService {
 
-    makeEditHabit({name, category, id}) {
-        console.log(category);
-        const newHabit = {
-            id: id ? id : Date.now(),
-            name,
-            category
-        };
-
-        if (id) {
-            return new Promise((resolve, reject) => {
-                    setTimeout(() => {
-                        // if(Math.random() > 0.75) {
-                        //     reject(new Error('didn`t put new title'))
-                        // } else {
-                        const idx = habits.findIndex((habit) => habit.id === id);
-                        habits[idx] = newHabit;
-                        resolve(habits)
-                        //}
-
-                    }, 500)
-                }
-            )
-        }
+    createHabit(newHabit) {
+        newHabit.id = Date.now();
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
@@ -76,13 +54,27 @@ export default class HabitsService {
                 habits.push(newHabit);
                 resolve(habits)
                 //}
-
             }, 500)
         })
     }
 
-    removeHabit(idx) {
+    updateHabit(habit) {
+        return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    // if(Math.random() > 0.75) {
+                    //     reject(new Error('didn`t put new title'))
+                    // } else {
+                    const idx = habits.findIndex((h) => h.id === habit.id);
+                    habits[idx] = habit;
+                    resolve(habits)
+                    //}
+                }, 500)
+            }
+        )
+    }
 
+    removeHabit(id) {
+        const idx = habits.findIndex((h) => h.id === id);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {

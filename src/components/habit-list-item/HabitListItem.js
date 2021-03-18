@@ -2,13 +2,13 @@ import React from 'react';
 import './habitListItem.css';
 import Button from "react-bootstrap/esm/Button";
 import {Col, ListGroup, Row} from "react-bootstrap";
-import EditHabit from "../edit-habit";
+import EditHabit from "../habit-edit";
 import {FiEdit2} from 'react-icons/fi';
 import {RiDeleteBinLine} from "react-icons/ri";
 import {MdCheck} from "react-icons/md";
 
 
-const HabitListItem = ({habit, showInputId, showInput, removeHabit}) => {
+const HabitListItem = ({habit, selectedId, showInput, removeHabit}) => {
     const {id, name, category} = habit;
 
     const habitItem = <><Col className={category.name.toLowerCase()}>
@@ -22,11 +22,10 @@ const HabitListItem = ({habit, showInputId, showInput, removeHabit}) => {
             <Button variant="outline-warning" onClick={showInput}><FiEdit2/></Button>
         </Col></>;
 
-    //const inputEdit = showInputId === id ? <InputNewHabit habit={habit}/> : null;
     return (
         <ListGroup.Item>
             <Row>
-                {showInputId == id ? <EditHabit habit={habit}/> : habitItem}
+                {selectedId === id ? <EditHabit habit={habit}/> : habitItem}
                     </Row>
                 </ListGroup.Item>
     )
