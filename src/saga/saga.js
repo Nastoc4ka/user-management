@@ -1,17 +1,32 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
-import {categoriesLoaded, habitEditHide, habitsError, habitsFetched, habitsLoading} from '../redux/actions';
+import {
+    categoriesError,
+    categoriesFetched,
+    categoriesLoading,
+    habitEditHide,
+    habitsError,
+    habitsFetched,
+    habitsLoading
+} from '../redux/actions';
 import HabitsService from '../services/HabitsService';
-import {FETCH_CATEGORIES, HABIT_CREATE, HABIT_REMOVE, HABIT_UPDATE, HABITS_REQUESTED} from "../redux/actions/types";
+import {
+    CATEGORIES_REQUESTED,
+    FETCH_CATEGORIES,
+    HABIT_CREATE,
+    HABIT_REMOVE,
+    HABIT_UPDATE,
+    HABITS_REQUESTED
+} from "../redux/actions/types";
 
 const habitsService = new HabitsService();
 
 
 export function* sagaWatcher() {
     yield takeEvery(HABITS_REQUESTED, fetchHabitsSaga);
-    yield takeEvery(FETCH_CATEGORIES, fetchCategoriesSaga);
     yield takeEvery(HABIT_REMOVE, removeHabitSaga);
     yield takeEvery(HABIT_CREATE, createHabitSaga);
     yield takeEvery(HABIT_UPDATE, updateHabitSaga);
+    yield takeEvery(CATEGORIES_REQUESTED, fetchCategoriesSaga);
 }
 
 function* fetchHabitsSaga() {
@@ -26,10 +41,12 @@ function* fetchHabitsSaga() {
 
 function* fetchCategoriesSaga() {
     try {
+
+        yield put(categoriesLoading());
         const payload = yield call(habitsService.getCategories);
-        yield put(categoriesLoaded(payload));
+        yield put(categoriesFetched(payload));
     } catch (error) {
-        yield put(habitsError(error))
+        yield put(categoriesError(error))
     }
 }
 

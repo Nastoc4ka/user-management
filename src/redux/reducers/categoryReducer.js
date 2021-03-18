@@ -1,19 +1,30 @@
-import {FETCH_CATEGORIES_HIDE, FETCH_CATEGORIES_SUCCESS} from "../actions/types";
+import {CATEGORIES_ERROR, CATEGORIES_FETCHED, CATEGORIES_LOADING} from "../actions/types";
 
 const initialState = {
+    loading: false,
     categories: [],
+    error: null
 };
 
 const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case FETCH_CATEGORIES_HIDE:
+        case CATEGORIES_LOADING:
             return {
+                loading: true,
                 categories: [],
+                error: null
             };
-        case FETCH_CATEGORIES_SUCCESS:
+        case CATEGORIES_FETCHED:
             return {
+                loading: false,
                 categories: action.payload,
-
+                error: null
+            };
+        case CATEGORIES_ERROR:
+            return {
+                loading: false,
+                categories: [],
+                error: action.payload
             };
         default:
             return state

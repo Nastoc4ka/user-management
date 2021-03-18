@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {fetchCategories, habitCreate} from "../../redux/actions";
+import {categoriesRequested, habitCreate} from "../../redux/actions";
 import './habitCreate.css'
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
@@ -90,7 +90,7 @@ const mapStateToProps = ({categoryReducer: {categories}}) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchCategories: () => dispatch(fetchCategories()),
+        fetchCategories: () => dispatch(categoriesRequested()),
         createHabit: (newHabit) => dispatch(habitCreate(newHabit)),
     }
 };

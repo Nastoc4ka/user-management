@@ -1,7 +1,9 @@
 import {
+    CATEGORIES_ERROR,
+    CATEGORIES_FETCHED,
+    CATEGORIES_LOADING,
+    CATEGORIES_REQUESTED,
     FETCH_CATEGORIES,
-    FETCH_CATEGORIES_HIDE,
-    FETCH_CATEGORIES_SUCCESS,
     HABIT_CREATE,
     HABIT_EDIT_HIDE,
     HABIT_EDIT_SHOW,
@@ -39,21 +41,13 @@ const habitsFetched = (habits) => {
     }
 };
 
-const categoriesLoaded = (categories) => {
-    console.log(categories);
-    return {
-        type: FETCH_CATEGORIES_SUCCESS,
-        payload: categories
-    }
-};
-
-
 const habitEditShow = (id) => {
     return {
         type: HABIT_EDIT_SHOW,
         payload: id
     }
 };
+
 
 const habitEditHide = () => {
     return {
@@ -74,22 +68,32 @@ const habitCreate = (newHabit) => {
         payload: newHabit
     }
 };
-
-const fetchCategories = () => {
-    return {
-        type: FETCH_CATEGORIES
-    }
-};
 const habitUpdate = (habit) => {
     return {
         type: HABIT_UPDATE,
         payload: habit
     }
 };
-
-const categoriesHide = () => {
+const categoriesRequested = () => {
     return {
-        type: FETCH_CATEGORIES_HIDE,
+        type: CATEGORIES_REQUESTED
+    }
+};
+const categoriesFetched = (categories) => {
+    return {
+        type: CATEGORIES_FETCHED,
+        payload: categories
+    }
+};
+const categoriesLoading = () => {
+    return {
+        type: CATEGORIES_LOADING,
+    }
+};
+const categoriesError = (error) => {
+    return {
+        type: CATEGORIES_ERROR,
+        payload: error
     }
 };
 
@@ -103,7 +107,9 @@ export {
     habitUpdate,
     habitsLoading,
     habitsError,
-    fetchCategories,
-    categoriesLoaded,
+    categoriesRequested,
+    categoriesFetched,
+    categoriesError,
+    categoriesLoading,
 
 };
