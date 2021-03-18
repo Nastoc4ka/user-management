@@ -4,12 +4,13 @@ import showInputReducer from "./showInput";
 import showLoaderReducer from "./showLoader";
 import showErrorReducer from "./showError";
 import habitsReducer from "./showHabits";
+import categoryReducer from "./categoryReducer";
 
 
 export const rootReducer = combineReducers({
-    //reducer,
     showInputReducer,
     showLoaderReducer,
     showErrorReducer,
-    habitsReducer
+    habitsReducer,
+    categoryReducer,
 });

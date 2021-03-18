@@ -1,3 +1,3 @@
-import editHabit from './EditHabit'
+import EditHabit from './EditHabit'
 
-export default editHabit
+export default EditHabit

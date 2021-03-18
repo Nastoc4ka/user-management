@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const showErrorReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case SHOW_ERROR:
             return {

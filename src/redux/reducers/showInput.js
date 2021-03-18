@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const showInputReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case SHOW_INPUT:
             return {

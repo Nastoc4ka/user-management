@@ -1,4 +1,7 @@
 import {
+    FETCH_CATEGORIES,
+    FETCH_CATEGORIES_HIDE,
+    FETCH_CATEGORIES_SUCCESS,
     FETCH_HABITS,
     FETCH_HABITS_HIDE,
     FETCH_HABITS_SUCCESS,
@@ -9,7 +12,7 @@ import {
     REMOVE_HABIT,
     SHOW_ERROR,
     SHOW_INPUT,
-    SHOW_LOADER,
+    SHOW_LOADER
 } from "./types"
 
 const showLoader = () => {
@@ -44,9 +47,23 @@ const habitsLoaded = (habits) => {
     }
 };
 
+const categoriesLoaded = (categories) => {
+    console.log(categories);
+    return {
+        type: FETCH_CATEGORIES_SUCCESS,
+        payload: categories
+    }
+};
+
 const habitsHide = () => {
     return {
         type: FETCH_HABITS_HIDE,
+    }
+};
+
+const categoriesHide = () => {
+    return {
+        type: FETCH_CATEGORIES_HIDE,
     }
 };
 
@@ -63,10 +80,10 @@ const hideInput = () => {
     }
 };
 
-const removeHabit = (idx) => {
+const removeHabit = (id) => {
     return {
         type: REMOVE_HABIT,
-        payload: idx
+        payload: id
     }
 };
 
@@ -83,7 +100,14 @@ const fetchHabits = () => {
     }
 };
 
+const fetchCategories = () => {
+    return {
+        type: FETCH_CATEGORIES
+    }
+};
+
 export {
+    categoriesHide,
     habitsHide,
     habitsLoaded,
     fetchHabits,
@@ -94,5 +118,8 @@ export {
     showLoader,
     hideLoader,
     showError,
-    hideError
+    hideError,
+    fetchCategories,
+    categoriesLoaded,
+
 };

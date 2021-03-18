@@ -2,10 +2,11 @@ import {FETCH_HABITS_HIDE, FETCH_HABITS_SUCCESS} from "../actions/types";
 
 const initialState = {
     habits: [],
+    loading: false,
+    error: null
 };
 
 const habitsReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case FETCH_HABITS_HIDE:
             return {

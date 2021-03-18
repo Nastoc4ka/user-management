@@ -1,40 +1,83 @@
 
 let habits = [
     {
-        id: 1,
-        title: 'morning run',
-        category: 'Sport'
+        id: 32434,
+        name: 'morning run',
+        category: {
+            id: 6776,
+            name: 'Sport',
+            color: ['color', 'background']
+        },
+        activity: []
     },
     {
-        id: 2,
-        title: 'read 30 minutes',
-        category: 'Spiritual'
-    }];
+        id: 4334,
+        name: 'read',
+        category: {
+            id: 5466,
+            name: 'Spiritual',
+            color: ['color', 'background']
+        },
+        activity: []
+    },
+    {
+        id: 4335,
+        name: 'swim',
+        category: {
+            id: 6776,
+            name: 'Sport',
+            color: ['color', 'background']
+        },
+        activity: []
+    },];
 
-let week = ['Mn', 'Tu', 'Wd', 'Th', 'St',];
+let categories = [
+    {
+        id: 5466,
+        name: 'Spiritual',
+        color: ['color', 'background']
+    },
+    {
+        id: 6776,
+        name: 'Sport',
+        color: ['color', 'background']
+    }];
 
 export default class HabitsService {
 
-    makeEditHabit({idx = habits.length, title, category, id}) {
-
-        const actualId = id ? id : Math.floor(Math.random() * 10000); //change id formation
-
+    makeEditHabit({name, category, id}) {
+        console.log(category);
         const newHabit = {
-            id: actualId,
-            title,
+            id: id ? id : Date.now(),
+            name,
             category
         };
 
+        if (id) {
+            return new Promise((resolve, reject) => {
+                    setTimeout(() => {
+                        // if(Math.random() > 0.75) {
+                        //     reject(new Error('didn`t put new title'))
+                        // } else {
+                        const idx = habits.findIndex((habit) => habit.id === id);
+                        habits[idx] = newHabit;
+                        resolve(habits)
+                        //}
+
+                    }, 500)
+                }
+            )
+        }
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
-                //      reject(new Error('mistake in making habit'));
+                //     reject(new Error('didn`t put new title'))
                 // } else {
-                    habits[idx] = newHabit;
-                    resolve(habits)
+                habits.push(newHabit);
+                resolve(habits)
                 //}
 
-            }, 700)
+            }, 500)
         })
     }
 
@@ -49,7 +92,7 @@ export default class HabitsService {
                 resolve(habits)
                 //}
 
-            }, 700)
+            }, 500)
         })
     }
 
@@ -59,10 +102,23 @@ export default class HabitsService {
                 // if(Math.random() > 0.75) {
                 //     reject(new Error('didn`t fetched'))
                 // } else {
-                    resolve(habits)
+                resolve(habits)
                 //}
 
-            }, 700)
+            }, 500)
+        })
+    }
+
+    getCategories() {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // if(Math.random() > 0.75) {
+                //     reject(new Error('didn`t fetched'))
+                // } else {
+                resolve(categories)
+                //}
+
+            }, 500)
         })
     }
 

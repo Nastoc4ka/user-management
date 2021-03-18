@@ -1,0 +1,124 @@
+const categories = 'https://blooming-springs-18239.herokuapp.com/categories';
+const habits = 'https://blooming-springs-18239.herokuapp.com/habits';
+
+
+let habits = [
+    {
+        id: 32434,
+        name: 'morning run',
+        category: {
+            id: 6776,
+            name: 'Sport',
+            color: ['color', 'background']
+        },
+        activity: []
+    },
+    {
+        id: 4334,
+        name: 'read',
+        category: {
+            id: 5466,
+            name: 'Spiritual',
+            color: ['color', 'background']
+        },
+        activity: []
+    },];
+let categories = [
+    {
+        id: 5466,
+        name: 'Spiritual',
+        color: ['color', 'background']
+    },
+    {
+        id: 6776,
+        name: 'Sport',
+        color: ['color', 'background']
+    }];
+
+// habits = [
+//     {
+//         "id": 1,
+//         "name": "hobby",
+//         "category_id": 1,
+//         "created_by": 1
+//     },
+//     {
+//         "id": 5,
+//         "name": "string234",
+//         "category_id": 1,
+//         "created_by": 1
+//     }
+// ];
+
+habits = [
+    {
+        "id": 1,
+        "name": "hobby",
+        "category": categories[n],
+        "created_by": 1
+    },
+    {
+        "id": 5,
+        "name": "string234",
+        "category_id": 1,
+        "created_by": 1
+    }
+];
+
+categories = [
+    {
+        "id": 1,
+        "name": "Spiritual"
+    },
+    {
+        "id": 2,
+        "name": "Sport"
+    },
+    {
+        "id": 3,
+        "name": "Food"
+    },
+    {
+        "id": 4,
+        "name": "Study"
+    },
+    {
+        "id": 5,
+        "name": "Emotional"
+    },
+    {
+        "id": 6,
+        "name": "Health"
+    },
+    {
+        "id": 7,
+        "name": "Other"
+    }
+]
+
+user = {
+    categories: [
+        {
+            "id": 1,
+            "name": "Spiritual"
+        },
+        {
+            "id": 2,
+            "name": "Sport"
+        }
+    ],
+    habits: [
+        {
+            "id": 1,
+            "name": "hobby",
+            "category_id": 1,
+            "created_by": 1
+        },
+        {
+            "id": 5,
+            "name": "string234",
+            "category_id": 1,
+            "created_by": 1
+        }
+    ]
+};

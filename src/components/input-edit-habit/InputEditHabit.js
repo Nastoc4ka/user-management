@@ -1,15 +1,14 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {makeEditHabit} from "../../redux/actions";
-
+import {fetchCategories, makeEditHabit} from "../../redux/actions";
 import './inputEditHabit.css'
 import {FiEdit2} from 'react-icons/fi';
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
 
 const initialState = () => ({
-    category: 'Spiritual',
-    title: ''
+    category: 5466,
+    name: ''
 });
 
 class InputEditHabit extends Component {
@@ -19,10 +18,9 @@ class InputEditHabit extends Component {
     };
     onSubmit = (e) => {
         e.preventDefault();
-
-        if (!this.state.title.trim()) return;
-
-        this.props.makeEditHabit(this.state);
+        if (!this.state.name.trim()) return;
+        const category = this.props.categories.find(category => category.id == this.state.category);
+        this.props.makeEditHabit({...this.state, category});
 
         this.setState(initialState());
 
@@ -35,12 +33,12 @@ class InputEditHabit extends Component {
     }
 
     componentDidMount() {
+        this.props.fetchCategories();
         if (this.props.habit) {
             this.setState({
-                idx: this.props.idx,
                 id: this.props.habit.id,
-                category: this.props.habit.category,
-                title: this.props.habit.title
+                category: this.props.habit.category.id,
+                name: this.props.habit.name
             });
         }
         this.habitInputFocus.current.focus();
@@ -53,10 +51,10 @@ class InputEditHabit extends Component {
                     <InputGroup className='w-100'>
                         <Col sm={12} md={6} className='pr-0 pr-0 align-self-end'>
                             <FormControl ref={this.habitInputFocus}
-                                         name='title'
+                                         name='name'
                                          id='newItem'
                                          placeholder="make new habit"
-                                         value={this.state.title}
+                                         value={this.state.name}
                                          onChange={this.handleChange}
                                          aria-label="make new habit"
                                          className='inputNewHabit w-100'/>
@@ -70,13 +68,11 @@ class InputEditHabit extends Component {
                                     </Col>
                                     <Col sm={12}>
                                         <Form.Control as="select" name='category' value={this.state.category}
-                                                              onChange={this.handleChange}>
-                                            <option name='spiritual' value="Spiritual">Spiritual</option>
-                                            <option name='sport' value="Sport">Sport</option>
-                                            <option name='food' value="Food">Food</option>
-                                            <option name='study' value="Study">Study</option>
-                                            <option name='emotional' value="Emotional">Emotional</option>
-                                            <option name='another' value="Another">Another</option>
+                                                      onChange={this.handleChange}>
+                                            {this.props.categories.map((category) => {
+                                                return <option key={`category${category.id}`}
+                                                               value={category.id}>{category.name}</option>
+                                            })}
                                         </Form.Control>
                                     </Col>
                                 </Form.Group>
@@ -94,11 +90,18 @@ class InputEditHabit extends Component {
     }
 }
 
+const mapStateToProps = ({categoryReducer: {categories}}) => {
+    return {
+        categories
+    };
+};
+
 const mapDispatchToProps = (dispatch) => {
 
     return {
+        fetchCategories: () => dispatch(fetchCategories()),
         makeEditHabit: (newHabit) => dispatch(makeEditHabit(newHabit)),
     }
 };
 
-export default connect(null, mapDispatchToProps)(InputEditHabit)
+export default connect(mapStateToProps, mapDispatchToProps)(InputEditHabit)

@@ -4,70 +4,62 @@ import {connect} from 'react-redux';
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {fetchHabits, removeHabit, showInput} from '../../redux/actions';
+import {fetchCategories, fetchHabits, removeHabit, showInput} from '../../redux/actions';
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
 const HabitList = ({habits, showInput, showInputId, removeHabit}) => {
-
     return (
-        <ListGroup className='w-100'>
-            {habits.map((habit, idx) => {
-                return (
-                    <HabitListItem showInput={() => showInput(habit.id)}
-                                   removeHabit={() => removeHabit(idx)}
-                                   idx={idx}
-                                   showInputId={showInputId}
-                                   habit={habit}
-                                   key={habit.id}/>
-                )
-            })}
-        </ListGroup>
+        <Row>
+            <ListGroup className='w-100'>
+                {habits.map((habit, idx) => {
+                    return (
+                        <HabitListItem showInput={() => showInput(habit.id)}
+                                       removeHabit={() => removeHabit(idx)}
+                                       idx={idx}
+                                       showInputId={showInputId}
+                                       habit={habit}
+                                       key={habit.id}/>
+                    )
+                })}
+            </ListGroup>
+        </Row>
     )
 };
 
 class HabitsContainer extends Component {
 
     componentDidMount() {
+        this.props.fetchCategories();
         this.props.fetchHabits();
+
     }
 
     render() {
-        const {habits, loading, error, showInput, showInputId, removeHabit} = this.props;
-
+        const {habits, categories, loading, error, showInput, showInputId, removeHabit} = this.props;
         if (loading) return <Spinner/>;
 
         if (error) return <ErrorIndicator message={error.message}/>;
 
-        const cat = ['Sport', "Spiritual"];
+        return (<>
+            {
+                categories.map(category => {
+                    const habitsByCategory = habits.filter(h => h.category.id === category.id);
+                    const hasHabits = habitsByCategory.length > 0;
 
-        return (
-            <Container className='container-habit-list'>
-                <Row>
-                    <ListGroup className='w-100'>
-                        {
-                            cat.map(category => {
-                                let filtered = habits.filter(h => h.category === category);
-                                console.log(category);
-                                console.log(filtered);
-                                console.log(habits);
-                                return (<>
-                                    <h3 className={category.toLowerCase()}>{category}</h3>
-                                    <HabitList
-                                        key={1}
-                                        showInput={showInput}
-                                        showInputId={showInputId}
-                                        habits={filtered}
-                                        categoryName={category}
-                                        removeHabit={removeHabit}/>
-                                </>)
+                    return hasHabits && (<Container className='mt-3' key={category.id}>
+                        <h3 className={category.name.toLowerCase()}>{category.name}</h3>
+                        <HabitList
+                            showInput={showInput}
+                            showInputId={showInputId}
+                            habits={habitsByCategory}
+                            removeHabit={removeHabit}/>
+                    </Container>)
 
-                            })
-                        }
-                    </ListGroup>
-                </Row>
-            </Container>
-        )
+                })
+            }
+
+        </>)
     }
 }
 
@@ -75,13 +67,15 @@ const mapStateToProps = ({
                              showInputReducer: {showInputId},
                              showLoaderReducer: {loading},
                              showErrorReducer: {error},
-                             habitsReducer: {habits}
+                             habitsReducer: {habits},
+                             categoryReducer: {categories}
                          }) => {
-    return {habits, error, loading, showInputId};
+    return {habits, error, loading, showInputId, categories};
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        fetchCategories: () => dispatch(fetchCategories()),
         fetchHabits: () => dispatch(fetchHabits()),
         showInput: id => dispatch(showInput(id)),
         removeHabit: idx => dispatch(removeHabit(idx))
