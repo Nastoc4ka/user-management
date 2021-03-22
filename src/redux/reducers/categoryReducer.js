@@ -1,7 +1,7 @@
 import {CATEGORIES_ERROR, CATEGORIES_FETCHED, CATEGORIES_LOADING} from "../actions/types";
 
 const initialState = {
-    loading: false,
+    loadingHabit: false,
     categories: [],
     error: null
 };
@@ -10,19 +10,19 @@ const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
         case CATEGORIES_LOADING:
             return {
-                loading: true,
+                loadingHabit: true,
                 categories: [],
                 error: null
             };
         case CATEGORIES_FETCHED:
             return {
-                loading: false,
+                loadingHabit: false,
                 categories: action.payload,
                 error: null
             };
         case CATEGORIES_ERROR:
             return {
-                loading: false,
+                loadingHabit: false,
                 categories: [],
                 error: action.payload
             };

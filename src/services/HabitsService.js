@@ -3,49 +3,85 @@ let habits = [
         id: 32434,
         name: 'morning run',
         category: {
-            id: 6776,
+            id: 1111,
             name: 'Sport',
-            color: ['color', 'background']
+            color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
+
         },
-        activity: []
+        activity: [1616320994586, 1616394114433, 1616402754433]
     },
     {
         id: 4334,
-        name: 'read',
+        name: 'read english literature',
         category: {
             id: 5466,
             name: 'Spiritual',
-            color: ['color', 'background']
+            color: {value: 'forest', label: 'Forest', color: '#00875A'},
         },
-        activity: []
+        activity: [1616320994586, 1616402754433]
     },
     {
         id: 4335,
-        name: 'swim',
+        name: 'swim twice a week',
         category: {
-            id: 6776,
+            id: 1111,
             name: 'Sport',
-            color: ['color', 'background']
+            color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
         },
-        activity: []
+        activity: [1616320994586]
     },];
 
 let categories = [
     {
         id: 5466,
         name: 'Spiritual',
-        color: ['color', 'background']
+        color: {value: 'forest', label: 'Forest', color: '#00875A'},
+    },
+    {
+        id: 2222,
+        name: 'Study',
+        color: {value: 'red', label: 'Red', color: '#FF5630'},
+
+    },
+    {
+        id: 1111,
+        name: 'Sport',
+        color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
     },
     {
         id: 6776,
-        name: 'Sport',
-        color: ['color', 'background']
-    }];
+        name: 'Health',
+        color: {value: 'silver', label: 'Silver', color: '#666666'},
+
+    },
+];
 
 export default class HabitsService {
 
+    doneHabit(id) {
+        console.log(id);
+        const doneHabit = habits.find(habit => habit.id === id);
+        console.log(doneHabit);
+
+        doneHabit.activity.push(Date.now());
+        //new Date(doneHabit.activity[doneHabit.activity.length - 1]);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // if(Math.random() > 0.75) {
+                //     reject(new Error('didn`t put new title'))
+                // } else {
+                resolve(doneHabit)
+                //}
+            }, 500)
+        })
+
+    }
+
     createHabit(newHabit) {
         newHabit.id = Date.now();
+        newHabit.activity = [];
+
+        console.log(newHabit);
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
@@ -59,14 +95,14 @@ export default class HabitsService {
     }
 
     updateHabit(habit) {
+        const idx = habits.findIndex((h) => h.id === habit.id);
+        habits[idx] = habit;
         return new Promise((resolve, reject) => {
                 setTimeout(() => {
                     // if(Math.random() > 0.75) {
                     //     reject(new Error('didn`t put new title'))
                     // } else {
-                    const idx = habits.findIndex((h) => h.id === habit.id);
-                    habits[idx] = habit;
-                    resolve(habits)
+                    resolve(habit)
                     //}
                 }, 500)
             }
@@ -75,13 +111,13 @@ export default class HabitsService {
 
     removeHabit(id) {
         const idx = habits.findIndex((h) => h.id === id);
+        habits = [...habits.slice(0, idx), ...habits.slice(idx + 1)];
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
-                //     reject(new Error('didn`t put new title'))
+                // reject(new Error('didn`t delete'));
                 // } else {
-                habits = [...habits.slice(0, idx), ...habits.slice(idx + 1)];
-                resolve(habits)
+                resolve(id)
                 //}
 
             }, 500)
@@ -92,7 +128,7 @@ export default class HabitsService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
-                //     reject(new Error('didn`t fetched'))
+                //reject(new Error('didn`t fetched habits'))
                 // } else {
                 resolve(habits)
                 //}
@@ -105,7 +141,7 @@ export default class HabitsService {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 // if(Math.random() > 0.75) {
-                //     reject(new Error('didn`t fetched'))
+                //     reject(new Error('didn`t fetched categories'))
                 // } else {
                 resolve(categories)
                 //}
@@ -114,4 +150,19 @@ export default class HabitsService {
         })
     }
 
+    createCategory(newCategory) {
+        newCategory.id = Date.now();
+        console.log(newCategory);
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                // if(Math.random() > 0.75) {
+                //     reject(new Error('didn`t put new title'))
+                // } else {
+                categories.push(newCategory);
+                console.log(categories);
+                resolve(categories)
+                //}
+            }, 500)
+        })
+    }
 }

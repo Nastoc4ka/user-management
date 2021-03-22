@@ -1,5 +1,5 @@
-const categories = 'https://blooming-springs-18239.herokuapp.com/categories';
-const habits = 'https://blooming-springs-18239.herokuapp.com/habits';
+//const categories = 'https://blooming-springs-18239.herokuapp.com/categories';
+//const habits = 'https://blooming-springs-18239.herokuapp.com/habits';
 
 
 let habits = [
@@ -34,6 +34,9 @@ let categories = [
         name: 'Sport',
         color: ['color', 'background']
     }];
+
+
+const habitMnArr = habits.map(habit => todayhabitact = habit.activity.filter(date => moment(date).isSame(week[0], "day")));
 
 // habits = [
 //     {

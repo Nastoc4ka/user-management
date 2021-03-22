@@ -1,27 +1,3 @@
-.spiritual {
-    color: greenyellow;
-}
-
-.sport {
-    color: coral;
-}
-
-.food {
-    color: cornflowerblue;
-}
-
-.health {
-    color: orange;
-}
-
-.study {
-    color: orchid;
-}
-
-.emotional {
-    color: yellow;
-}
-
-.another {
-    color: cadetblue;
+.list-group-flush {
+    border: none;
 }

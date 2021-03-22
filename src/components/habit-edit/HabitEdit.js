@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {categoriesRequested, habitUpdate} from "../../redux/actions";
+import {categoriesRequestedSaga, habitUpdateSaga} from "../../redux/actions";
 import './habitEdit.css'
 import {FiEdit2} from 'react-icons/fi';
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
@@ -35,7 +35,9 @@ class HabitEdit extends Component {
         this.setState({
             id: this.props.habit.id,
             category: this.props.habit.category.id,
-            name: this.props.habit.name
+            name: this.props.habit.name,
+            activity: this.props.habit.activity
+
         });
         this.habitInputFocus.current.focus();
     }
@@ -56,12 +58,7 @@ class HabitEdit extends Component {
                         </Col>
                         <Col sm={8} md={5} className='col-11'>
                             <InputGroup.Append>
-                                <Form.Group as={Row} className='mb-0'>
-                                    <Col sm={12} className='ml-3'>
-                                        {this.props.habit ? null :
-                                            <Form.Label className='mt-2'>Choose Category:</Form.Label>}
-                                    </Col>
-                                    <Col sm={12}>
+                                <Form.Group as={Row} className='mb-0 pl-3 w-100'>
                                         <Form.Control as="select" name='category' value={this.state.category}
                                                       onChange={this.handleChange}>
                                             {this.props.categories.map((category) => {
@@ -69,7 +66,6 @@ class HabitEdit extends Component {
                                                                value={category.id}>{category.name}</option>
                                             })}
                                         </Form.Control>
-                                    </Col>
                                 </Form.Group>
                             </InputGroup.Append>
                         </Col>
@@ -94,8 +90,8 @@ const mapStateToProps = ({categoryReducer: {categories}}) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchCategories: () => dispatch(categoriesRequested()),
-        updateHabit: (habit) => dispatch(habitUpdate(habit)),
+        fetchCategories: () => dispatch(categoriesRequestedSaga()),
+        updateHabit: (habit) => dispatch(habitUpdateSaga(habit)),
     }
 };
 

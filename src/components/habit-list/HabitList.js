@@ -4,22 +4,28 @@ import {connect} from 'react-redux';
 import HabitListItem from '../habit-list-item';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator';
-import {habitEditShow, habitRemove, requestHabits} from '../../redux/actions';
+import {habitEditShow, habitRemoveSaga, onDoneSaga, requestHabitsSaga} from '../../redux/actions';
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
-const HabitList = ({habits, showInput, selectedId, removeHabit}) => {
+const HabitList = ({habits, showInput, selectedId, onDone, errorRemoveHabit, loadingHabit, loadingRemoveHabit, removeHabit}) => {
     return (
         <Row>
             <ListGroup className='w-100'>
                 {habits.map((habit, idx) => {
                     return (
-                        <HabitListItem showInput={() => showInput(habit.id)}
-                                       removeHabit={() => removeHabit(habit.id)}
-                                       idx={idx}
-                                       selectedId={selectedId}
-                                       habit={habit}
-                                       key={habit.id}/>
+                        <HabitListItem
+                            errorRemoveHabit={errorRemoveHabit}
+                            showInput={() => showInput(habit.id)}
+                            removeHabit={() => removeHabit(habit.id)}
+                            loadingRemoveHabit={loadingRemoveHabit}
+                            onDone={() => onDone(habit.id)}
+                            idx={idx}
+                            loadingHabit={loadingHabit}
+                            selectedId={selectedId}
+                            habit={habit}
+                            key={habit.id}
+                        />
                     )
                 })}
             </ListGroup>
@@ -34,8 +40,9 @@ class HabitsContainer extends Component {
     }
 
     render() {
-        const {habits, loading, error, showInput, selectedId, removeHabit} = this.props;
-        if (loading) return <Spinner/>;
+        const {habits, loadingHabit, error, onDone, loadingRemoveHabit, errorRemoveHabit, showInput, selectedId, loadingAllHabits, removeHabit} = this.props;
+
+        if (loadingAllHabits) return <Spinner/>;
 
         if (error) return <ErrorIndicator message={error.message}/>;
 
@@ -47,9 +54,15 @@ class HabitsContainer extends Component {
             {
                 categories.map(category => {
                     const habitsByCategory = habits.filter(h => h.category.name === category);
-                    return (<Container className='mt-3' key={category}>
-                        <h3 className={category.toLowerCase()}>{category}</h3>
+                    const styleCategory = {color: `${habitsByCategory[0].category.color.color}`};
+                    return (
+                        <Container key={habitsByCategory[0].category.id}>
+                            <h4 style={styleCategory}>{category}</h4>
                         <HabitList
+                            onDone={onDone}
+                            errorRemoveHabit={errorRemoveHabit}
+                            loadingRemoveHabit={loadingRemoveHabit}
+                            loadingHabit={loadingHabit}
                             showInput={showInput}
                             selectedId={selectedId}
                             habits={habitsByCategory}
@@ -64,16 +77,25 @@ class HabitsContainer extends Component {
 
 const mapStateToProps = ({
                              habitEditReducer: {selectedId},
-                             habitsReducer: {habits, loading, error},
+                             habitsReducer: {
+                                 habits, loading, error,
+                                 loadingAllHabits, loadingHabit,
+                                 loadingRemoveHabit, errorRemoveHabit
+                             },
                          }) => {
-    return {habits, error, loading, selectedId};
+    return {
+        habits, error, loadingHabit, selectedId, loadingAllHabits,
+        loadingRemoveHabit, errorRemoveHabit
+    };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        requestHabits: () => dispatch(requestHabits()),
+        requestHabits: () => dispatch(requestHabitsSaga()),
         showInput: id => dispatch(habitEditShow(id)),
-        removeHabit: id => dispatch(habitRemove(id))
+        removeHabit: id => dispatch(habitRemoveSaga(id)),
+        onDone: id => dispatch(onDoneSaga(id))
+
     }
 };
 

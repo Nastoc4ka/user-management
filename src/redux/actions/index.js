@@ -2,22 +2,29 @@ import {
     CATEGORIES_ERROR,
     CATEGORIES_FETCHED,
     CATEGORIES_LOADING,
-    CATEGORIES_REQUESTED,
-    FETCH_CATEGORIES,
-    HABIT_CREATE,
+    CATEGORIES_REQUESTED_SAGA,
+    CATEGORY_CREATE_SAGA,
+    HABIT_CREATE_SAGA,
+    HABIT_DONE_SAGA,
     HABIT_EDIT_HIDE,
     HABIT_EDIT_SHOW,
-    HABIT_REMOVE,
-    HABIT_UPDATE,
+    HABIT_REMOVE_ERROR,
+    HABIT_REMOVE_LOADING,
+    HABIT_REMOVE_SAGA,
+    HABIT_REMOVED,
+    HABIT_UPDATE_ERROR,
+    HABIT_UPDATE_LOADING,
+    HABIT_UPDATE_SAGA,
+    HABIT_UPDATED,
     HABITS_ERROR,
     HABITS_FETCHED,
     HABITS_LOADING,
-    HABITS_REQUESTED
+    HABITS_REQUESTED_SAGA
 } from "./types"
 
-const requestHabits = () => {
+const requestHabitsSaga = () => {
     return {
-        type: HABITS_REQUESTED
+        type: HABITS_REQUESTED_SAGA
     }
 };
 
@@ -48,48 +55,92 @@ const habitEditShow = (id) => {
     }
 };
 
-
 const habitEditHide = () => {
     return {
         type: HABIT_EDIT_HIDE,
     }
 };
 
-const habitRemove = (id) => {
+const habitUpdateLoading = () => {
     return {
-        type: HABIT_REMOVE,
+        type: HABIT_UPDATE_LOADING,
+    }
+};
+
+const habitUpdateSaga = (habit) => {
+    return {
+        type: HABIT_UPDATE_SAGA,
+        payload: habit
+    }
+};
+
+const habitUpdated = (habit) => {
+    return {
+        type: HABIT_UPDATED,
+        payload: habit
+    }
+};
+
+const habitUpdateError = (error) => {
+    return {
+        type: HABIT_UPDATE_ERROR,
+        payload: error
+    }
+};
+
+const habitRemoveSaga = (id) => {
+    return {
+        type: HABIT_REMOVE_SAGA,
         payload: id
     }
 };
 
-const habitCreate = (newHabit) => {
+const habitRemoveLoading = () => {
     return {
-        type: HABIT_CREATE,
+        type: HABIT_REMOVE_LOADING,
+    }
+};
+
+const habitRemoved = (id) => {
+    return {
+        type: HABIT_REMOVED,
+        payload: id
+    }
+};
+
+const habitRemoveError = (error) => {
+    return {
+        type: HABIT_REMOVE_ERROR,
+        payload: error
+    }
+};
+
+const habitCreateSaga = (newHabit) => {
+    return {
+        type: HABIT_CREATE_SAGA,
         payload: newHabit
     }
 };
-const habitUpdate = (habit) => {
+
+const categoriesRequestedSaga = () => {
     return {
-        type: HABIT_UPDATE,
-        payload: habit
+        type: CATEGORIES_REQUESTED_SAGA
     }
 };
-const categoriesRequested = () => {
-    return {
-        type: CATEGORIES_REQUESTED
-    }
-};
+
 const categoriesFetched = (categories) => {
     return {
         type: CATEGORIES_FETCHED,
         payload: categories
     }
 };
+
 const categoriesLoading = () => {
     return {
         type: CATEGORIES_LOADING,
     }
 };
+
 const categoriesError = (error) => {
     return {
         type: CATEGORIES_ERROR,
@@ -97,19 +148,40 @@ const categoriesError = (error) => {
     }
 };
 
+const categoryCreateSaga = (newCategory) => {
+    return {
+        type: CATEGORY_CREATE_SAGA,
+        payload: newCategory
+    }
+};
+
+const onDoneSaga = (id) => {
+    return {
+        type: HABIT_DONE_SAGA,
+        payload: id
+    }
+};
+
 export {
     habitsFetched,
-    requestHabits,
-    habitCreate,
+    requestHabitsSaga,
+    habitCreateSaga,
     habitEditShow,
     habitEditHide,
-    habitRemove,
-    habitUpdate,
+    habitRemoveSaga,
+    habitRemoveLoading,
+    habitRemoved,
+    habitRemoveError,
+    habitUpdateLoading,
+    habitUpdateSaga,
+    habitUpdateError,
+    habitUpdated,
     habitsLoading,
     habitsError,
-    categoriesRequested,
+    categoriesRequestedSaga,
     categoriesFetched,
     categoriesError,
     categoriesLoading,
-
+    categoryCreateSaga,
+    onDoneSaga,
 };

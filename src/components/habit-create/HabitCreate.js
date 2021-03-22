@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {categoriesRequested, habitCreate} from "../../redux/actions";
+import {categoriesRequestedSaga, habitCreateSaga} from "../../redux/actions";
 import './habitCreate.css'
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
@@ -55,8 +55,7 @@ class HabitCreate extends Component {
                             <InputGroup.Append>
                                 <Form.Group as={Row} className='mb-0'>
                                     <Col sm={12} className='ml-3'>
-                                        {this.props.habit ? null :
-                                            <Form.Label className='mt-2'>Choose Category:</Form.Label>}
+                                        <Form.Label className='mt-2'>Choose Category:</Form.Label>
                                     </Col>
                                     <Col sm={12}>
                                         <Form.Control as="select" name='category' value={this.state.category}
@@ -91,8 +90,8 @@ const mapStateToProps = ({categoryReducer: {categories}}) => {
 const mapDispatchToProps = (dispatch) => {
 
     return {
-        fetchCategories: () => dispatch(categoriesRequested()),
-        createHabit: (newHabit) => dispatch(habitCreate(newHabit)),
+        fetchCategories: () => dispatch(categoriesRequestedSaga()),
+        createHabit: (newHabit) => dispatch(habitCreateSaga(newHabit)),
     }
 };
 
