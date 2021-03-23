@@ -2,8 +2,8 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {categoriesRequestedSaga, habitUpdateSaga} from "../../redux/actions";
 import './habitEdit.css'
-import {FiEdit2} from 'react-icons/fi';
-import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
+import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
+import {MdCheck} from "react-icons/md";
 
 const initialState = () => ({
     category: 5466,
@@ -43,11 +43,9 @@ class HabitEdit extends Component {
     }
 
     render() {
-        return (<Container>
-            <Row>
-                <form onSubmit={this.onSubmit} className='w-100'>
+        return (<form onSubmit={this.onSubmit} className='w-100'>
                     <InputGroup className='w-100'>
-                        <Col sm={12} md={6} className='pr-0 pr-0 align-self-end'>
+                        <Col sm={6} className='pr-0 pl-0 align-self-end'>
                             <FormControl ref={this.habitInputFocus}
                                          name='name'
                                          id='newItem'
@@ -56,7 +54,7 @@ class HabitEdit extends Component {
                                          aria-label="make new habit"
                                          className='inputNewHabit w-100'/>
                         </Col>
-                        <Col sm={8} md={5} className='col-11'>
+                        <Col sm={5} className='col-10 pr-0'>
                             <InputGroup.Append>
                                 <Form.Group as={Row} className='mb-0 pl-3 w-100'>
                                         <Form.Control as="select" name='category' value={this.state.category}
@@ -69,15 +67,14 @@ class HabitEdit extends Component {
                                 </Form.Group>
                             </InputGroup.Append>
                         </Col>
-                        <Col sm={1} className='pl-0 col-1 align-self-end'>
+                        <Col sm={1} className='pl-0 pr-0'>
                             <Button variant="outline-success" type="submit">
-                                <FiEdit2/>
+                                <MdCheck/>
                             </Button>
                         </Col>
                     </InputGroup>
                 </form>
-            </Row>
-        </Container>)
+        )
     }
 }
 

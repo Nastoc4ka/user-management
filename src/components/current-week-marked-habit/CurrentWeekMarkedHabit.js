@@ -9,7 +9,6 @@ const CurrentWeekMarkedHabit = (props) => {
 
     useEffect(() => {
         setHabits(props.habits);
-        console.log(habits);
     });
 
     const week = [
@@ -28,27 +27,25 @@ const CurrentWeekMarkedHabit = (props) => {
             const activity = h.activity.filter(date => moment(date).isSame(weekDay, "day"));
             if (activity.length !== 0) {
                 return <OverlayTrigger
+                    key={h.activity[0]}
                     placement="left"
                     delay={{show: 250, hide: 400}}
                     overlay={<Tooltip id="button-tooltip">
                         {`${h.name}, today - ${activity.length}`}
                     </Tooltip>}>
-                    <span className='pl-2 pr-2'
-                          style={{backgroundColor: h.category.color.color, borderRadius: '0.50rem'}}>
-                        {`${activity.length}`}<br/>
-                    </span>
+                        <span className='pl-2 pr-2' style={{backgroundColor: h.category.color.color}}>
+                            {`${activity.length}`}<br/>
+                        </span>
                 </OverlayTrigger>
             }
-            else {
-                return null
-            }
+            return null
         })
     });
 
     return (
         <Container>
             <h4 className='text-center'>Current Week</h4>
-            <Table borderless size='sm' responsive fixed className="text-center">
+            <Table borderless size='sm' responsive className="text-center">
                 <thead>
                 <tr>
                     <th className='mn'>Mon</th>
@@ -60,12 +57,13 @@ const CurrentWeekMarkedHabit = (props) => {
                     <th className='sn'>Sun</th>
                 </tr>
                 <tr className='date'>
-                    {week.map(day => <th>{day.format('MM/DD')}</th>)}
+                    {week.map((day, idx) => <th key={`week${idx}`}>{day.format('MM/DD')}</th>)}
                 </tr>
                 </thead>
                 <tbody>
                 <tr className='p-0'>
-                    {habitsDoneCurrentWeek.map(habitsDoneWeekDay => <th width="14.28%">{habitsDoneWeekDay}</th>)}
+                    {habitsDoneCurrentWeek.map((habitsDoneWeekDay, idx) => <th key={`h${idx}`}
+                                                                               width="14.28%">{habitsDoneWeekDay}</th>)}
                 </tr>
                 </tbody>
             </Table>

@@ -8,8 +8,8 @@ let habits = [
             color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
 
         },
-        activity: [1616320994586, 1616394114433, 1616402754433]
-    },
+        activity: [1615888994588, 1615888994587, 1615975394587, 1616061794587, 1616148194587, 1616234594587, 1616320994587, 1616394114435, 1616402754467, 1616496385455]
+    }, //8 in row, other twice a day
     {
         id: 4334,
         name: 'read english literature',
@@ -18,7 +18,7 @@ let habits = [
             name: 'Spiritual',
             color: {value: 'forest', label: 'Forest', color: '#00875A'},
         },
-        activity: [1616320994586, 1616402754433]
+        activity: [1616320994586, 1616402754433] //21mar,22mar
     },
     {
         id: 4335,
@@ -28,7 +28,7 @@ let habits = [
             name: 'Sport',
             color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
         },
-        activity: [1616320994586]
+        activity: [1615888994586, 1616496385459] //16mar, 23mar
     },];
 
 let categories = [

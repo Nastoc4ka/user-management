@@ -36,7 +36,7 @@ const HabitListItem = ({
     if (loadingHabit && selectedId === id) return <Spinner/>;
     if (errorRemoveHabit && removedId === id) return <ErrorIndicator message={errorRemoveHabit.message}/>;
     return (
-        <ListGroup.Item className='list-group-flush pt-0'>
+        <ListGroup.Item className='list-group-flush pt-0 pr-0'>
             <Row>
                 {selectedId === id ? <EditHabit habit={habit}/> : habitItem}
             </Row>
