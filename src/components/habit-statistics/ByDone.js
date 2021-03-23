@@ -25,6 +25,7 @@ const ByDone = (props) => {
                         name={habit.name}
                         value={habit.activity.length}
                         color={habit.category.color.color}
+                        activity={habit.activity.length}
                     />
                 )
             })}

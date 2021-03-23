@@ -3,9 +3,9 @@ import './statistics.css';
 import {ListGroup} from "react-bootstrap";
 
 
-const ListItem = ({name, value, color, label}) => {
+const ListItem = ({name, value, color, label, activity}) => {
 
-    if (value === 0) return null;
+    if (activity === 0) return null;
     return (<ListGroup variant="flush">
             <ListGroup.Item style={{color: color}}>
                 <span>{name} - </span><span>{value}</span><br/>

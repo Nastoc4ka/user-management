@@ -49,6 +49,7 @@ const ByDaysInRow = (props) => {
             {habitsDoneDays.length !== 0 && habitsDoneDays.map((habitStat) => {
                 return <ListItem
                     key={`habitStat${habitStat.habit.id}`}
+                    activity={habitStat.habit.activity.length}
                     name={habitStat.habit.name}
                     value={habitStat.max.maxDays}
                     label={`${habitStat.max.startDate} - ${habitStat.max.endDate}`}
