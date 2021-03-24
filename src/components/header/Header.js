@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import './header.css';
-import {Navbar, Nav} from "react-bootstrap";
+import {Nav, Navbar} from "react-bootstrap";
 
 const Header = () => {
     return (
@@ -10,7 +10,11 @@ const Header = () => {
                 <Link to='/'>
                     <div className='logo text-dark'>toHabit</div>
                 </Link>
+
             </Navbar.Brand>
+            <Link to='/statistics'>
+                <div className='logo text-dark'>Statistics</div>
+            </Link>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id='responsive-navbar-nav' className='justify-content-end'>
                 <Nav className='justify-content-end'>

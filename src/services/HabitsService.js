@@ -5,7 +5,7 @@ let habits = [
         category: {
             id: 1111,
             name: 'Sport',
-            color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
+            color: {value: 'ocean', label: 'Ocean', color: '#B4D5F9', bgColor: '#B2F6F0'},
 
         },
         activity: [1615888994588, 1615888994587, 1615975394587, 1616061794587, 1616148194587, 1616234594587, 1616320994587, 1616394114435, 1616402754467, 1616496385455]
@@ -16,7 +16,7 @@ let habits = [
         category: {
             id: 5466,
             name: 'Spiritual',
-            color: {value: 'forest', label: 'Forest', color: '#00875A'},
+            color: {value: 'forest', label: 'Forest', color: '#F6B09D', bgColor: '#EDC4BC'},
         },
         activity: [1616320994586, 1616402754433] //21mar,22mar
     },
@@ -26,7 +26,7 @@ let habits = [
         category: {
             id: 1111,
             name: 'Sport',
-            color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
+            color: {value: 'ocean', label: 'Ocean', color: '#B4D5F9', bgColor: '#B2F6F0'},
         },
         activity: [1615888994586, 1616496385459] //16mar, 23mar
     },];
@@ -35,23 +35,23 @@ let categories = [
     {
         id: 5466,
         name: 'Spiritual',
-        color: {value: 'forest', label: 'Forest', color: '#00875A'},
+        color: {value: 'pink', label: 'Pink', color: '#F6B09D', bgColor: '#EDC4BC'},
     },
     {
         id: 2222,
         name: 'Study',
-        color: {value: 'red', label: 'Red', color: '#FF5630'},
+        color: {value: 'purple', label: 'Purple', color: '#A2ACEB', bgColor: '#B2B7F6'},
 
     },
     {
         id: 1111,
         name: 'Sport',
-        color: {value: 'ocean', label: 'Ocean', color: '#00B8D9'},
+        color: {value: 'ocean', label: 'Ocean', color: '#B4D5F9', bgColor: '#B2F6F0'},
     },
     {
         id: 6776,
         name: 'Health',
-        color: {value: 'silver', label: 'Silver', color: '#666666'},
+        color: {value: 'menthol', label: 'Menthol', color: '#B4F6A4', bgColor: '#C0EBC4'},
 
     },
 ];

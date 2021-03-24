@@ -7,7 +7,7 @@ export const AddCategory = () => {
 
     return <>
         {categoryForm ? <CategoryCreate hide={() => setCategoryForm(false)}/> :
-            <Button variant="outline-info" className='w-100' onClick={() => setCategoryForm(true)}>ADD NEW
+            <Button variant="outline-info" className='w-100 mt-3' onClick={() => setCategoryForm(true)}>ADD NEW
                 CATEGORY</Button>}
     </>
 };

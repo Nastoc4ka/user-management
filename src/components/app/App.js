@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React from 'react';
-import {Switch, Route} from 'react-router-dom';
-import {LoginPage, HomePage} from '../../pages';
+import {Route, Switch} from 'react-router-dom';
+import {HomePage, LoginPage, Statistics} from '../../pages';
 import Header from "../header";
 import Footer from "../footer";
-import {Container, Row, Col} from 'react-bootstrap';
+import {Col, Container, Row} from 'react-bootstrap';
 import './app.css';
 
 
@@ -18,6 +18,7 @@ const App = () => {
                     <Switch>
                         <Route exact path='/' component ={HomePage}/>
                         <Route path='/login' component={LoginPage}/>
+                        <Route path='/statistics' component={Statistics}/>
                     </Switch>
                     <Footer />
                 </Col>

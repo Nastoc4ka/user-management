@@ -9,6 +9,8 @@ import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
 const HabitList = ({habits, showInput, selectedId, onDone, errorRemoveHabit, loadingHabit, loadingRemoveHabit, removeHabit}) => {
+
+
     return (
         <Row>
             <ListGroup className='w-100'>
@@ -54,7 +56,9 @@ class HabitsContainer extends Component {
             {
                 categories.map(category => {
                     const habitsByCategory = habits.filter(h => h.category.name === category);
-                    const styleCategory = {color: `${habitsByCategory[0].category.color.color}`};
+                    const styleCategory = {
+                        color: `${habitsByCategory[0].category.color.color}`
+                    };
                     return (
                         <Container key={habitsByCategory[0].category.id}>
                             <h4 style={styleCategory}>{category}</h4>

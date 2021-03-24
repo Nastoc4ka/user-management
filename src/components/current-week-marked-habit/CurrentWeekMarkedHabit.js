@@ -2,7 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import moment from "moment";
 import './currentWeekMarkedHabit.css';
-import {Container, OverlayTrigger, Table, Tooltip} from "react-bootstrap";
+import {Container, Table,} from "react-bootstrap";
+import MarkedHabitDay from "./MarkedHabitDay";
 
 const CurrentWeekMarkedHabit = (props) => {
     const [habits, setHabits] = useState([]);
@@ -26,22 +27,17 @@ const CurrentWeekMarkedHabit = (props) => {
         return habits.map(h => {
             const activity = h.activity.filter(date => moment(date).isSame(weekDay, "day"));
             if (activity.length !== 0) {
-                return <OverlayTrigger
-                    key={h.activity[0]}
-                    placement="left"
-                    delay={{show: 250, hide: 400}}
-                    overlay={<Tooltip id="button-tooltip">
-                        {`${h.name}, today - ${activity.length}`}
-                    </Tooltip>}>
-                        <span className='pl-2 pr-2' style={{backgroundColor: h.category.color.color}}>
-                            {`${activity.length}`}<br/>
-                        </span>
-                </OverlayTrigger>
+                return {
+                    id: h.id,
+                    name: h.name,
+                    value: activity.length,
+                    style: h.category.color.bgColor
+                }
             }
             return null
         })
     });
-
+    console.log(habitsDoneCurrentWeek);
     return (
         <Container>
             <h4 className='text-center'>Current Week</h4>
@@ -57,13 +53,16 @@ const CurrentWeekMarkedHabit = (props) => {
                     <th className='sn'>Sun</th>
                 </tr>
                 <tr className='date'>
-                    {week.map((day, idx) => <th key={`week${idx}`}>{day.format('MM/DD')}</th>)}
+                    {week.map((day, idx) => <th key={`weekday${idx}`}>{day.format('MM/DD')}</th>)}
                 </tr>
                 </thead>
                 <tbody>
                 <tr className='p-0'>
-                    {habitsDoneCurrentWeek.map((habitsDoneWeekDay, idx) => <th key={`h${idx}`}
-                                                                               width="14.28%">{habitsDoneWeekDay}</th>)}
+                    {habitsDoneCurrentWeek.map((day, idx) => {
+                        return <th key={`week${idx}`} width="14.28%">
+                            <MarkedHabitDay day={day}/>
+                        </th>
+                    })}
                 </tr>
                 </tbody>
             </Table>

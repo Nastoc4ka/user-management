@@ -17,6 +17,7 @@ const HabitListItem = ({
 
     const [removedId, setRemovedId] = useState(false);
     const {id, name} = habit;
+    const styleHabits = {backgroundColor: `${habit.category.color.bgColor}`};
 
     const removeItem = () => {
         setRemovedId(id);
@@ -25,7 +26,8 @@ const HabitListItem = ({
 
     const habitItem = <><Col>
         <Row>
-            <Button className='mr-3' variant="outline-info" onClick={onDone}><MdCheck/> {name}</Button>
+            <Button style={styleHabits} className='mr-3' variant="outline-info" onClick={onDone}><MdCheck/> {name}
+            </Button>
         </Row>
     </Col>
         <Col sm={2.5} className='pr-0 pl-0'>
