@@ -8,14 +8,16 @@ import {RiDeleteBinLine} from "react-icons/ri";
 import {MdCheck} from "react-icons/md";
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator/ErrorIndicator";
+import AlertDone from "../alertDone";
 
 const HabitListItem = ({
-                           habit, selectedId, onDone,
+                           habit, selectedId, onDone, alertMarkDoneId,
                            errorRemoveHabit, loadingRemoveHabit,
                            showInput, loadingHabit, removeHabit
                        }) => {
 
     const [removedId, setRemovedId] = useState(false);
+
     const {id, name} = habit;
     const styleHabits = {backgroundColor: `${habit.category.color.bgColor}`};
 
@@ -28,12 +30,14 @@ const HabitListItem = ({
         <Row>
             <Button style={styleHabits} className='mr-3' variant="outline-info" onClick={onDone}><MdCheck/> {name}
             </Button>
+            {alertMarkDoneId === id && <AlertDone/>}
         </Row>
     </Col>
         <Col sm={2.5} className='pr-0 pl-0'>
             <Button variant="outline-dark" className='mr-2' onClick={removeItem}><RiDeleteBinLine/></Button>
             <Button variant="outline-warning" onClick={showInput}><FiEdit2/></Button>
         </Col></>;
+
     if (loadingRemoveHabit && removedId === id) return <Spinner/>;
     if (loadingHabit && selectedId === id) return <Spinner/>;
     if (errorRemoveHabit && removedId === id) return <ErrorIndicator message={errorRemoveHabit.message}/>;

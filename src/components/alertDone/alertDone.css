@@ -1,0 +1,11 @@
+.alertDone {
+    position: absolute;
+    z-index: 5;
+    right: 55px;
+    top: 0;
+    border-radius: 75%;
+}
+
+.alertD {
+    border-radius: 45%;
+}

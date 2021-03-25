@@ -3,26 +3,6 @@
     margin-top: 15px;
 }
 
-.spiritual {
-    color: greenyellow;
-}
-
-.sport {
-    color: coral;
-}
-
-.food {
-    color: cornflowerblue;
-}
-
-.study {
-    color: orchid;
-}
-
-.emotional {
-    color: yellow;
-}
-
-.another {
-    color: cadetblue;
+.habitList {
+    z-index: 3;
 }

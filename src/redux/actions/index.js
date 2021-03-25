@@ -5,7 +5,9 @@ import {
     CATEGORIES_REQUESTED_SAGA,
     CATEGORY_CREATE_SAGA,
     HABIT_CREATE_SAGA,
+    HABIT_DONE_HIDE_ALERT,
     HABIT_DONE_SAGA,
+    HABIT_DONE_SHOW_ALERT,
     HABIT_EDIT_HIDE,
     HABIT_EDIT_SHOW,
     HABIT_REMOVE_ERROR,
@@ -19,7 +21,9 @@ import {
     HABITS_ERROR,
     HABITS_FETCHED,
     HABITS_LOADING,
-    HABITS_REQUESTED_SAGA
+    HABITS_REQUESTED_SAGA,
+    STATISTICS_LOADED,
+    STATISTICS_LOADING
 } from "./types"
 
 const requestHabitsSaga = () => {
@@ -162,6 +166,31 @@ const onDoneSaga = (id) => {
     }
 };
 
+const habitDoneShowAlert = (id) => {
+    return {
+        type: HABIT_DONE_SHOW_ALERT,
+        payload: id
+    }
+};
+
+const habitDoneHideAlert = () => {
+    return {
+        type: HABIT_DONE_HIDE_ALERT,
+    }
+};
+
+const statisticsLoading = () => {
+    return {
+        type: STATISTICS_LOADING,
+    }
+};
+
+const statisticsLoaded = () => {
+    return {
+        type: STATISTICS_LOADED,
+    }
+};
+
 export {
     habitsFetched,
     requestHabitsSaga,
@@ -184,4 +213,8 @@ export {
     categoriesLoading,
     categoryCreateSaga,
     onDoneSaga,
+    habitDoneShowAlert,
+    habitDoneHideAlert,
+    statisticsLoading,
+    statisticsLoaded
 };

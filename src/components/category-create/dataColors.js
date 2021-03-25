@@ -1,5 +1,5 @@
 export const colourOptions = [
-    {value: 'blue', label: 'Blue', color: '#0052CC', bgColor: '#009EE4'},
+    {value: 'blue', label: 'Blue', color: '#0052CC', bgColor: '#ABD9F6'},
     {value: 'orange', label: 'Orange', color: '#FF8B00', bgColor: '#FCC201'},
     {value: 'yellow', label: 'Yellow', color: '#FFC400', bgColor: '#FFFCC3'},
     {value: 'green', label: 'Green', color: '#36B37E', bgColor: '#ABCB9A'},

@@ -8,7 +8,7 @@ import {habitEditShow, habitRemoveSaga, onDoneSaga, requestHabitsSaga} from '../
 import './habitList.css';
 import {Container, ListGroup, Row} from "react-bootstrap";
 
-const HabitList = ({habits, showInput, selectedId, onDone, errorRemoveHabit, loadingHabit, loadingRemoveHabit, removeHabit}) => {
+const HabitList = ({habits, showInput, alertMarkDoneId, selectedId, onDone, errorRemoveHabit, loadingHabit, loadingRemoveHabit, removeHabit}) => {
 
 
     return (
@@ -17,6 +17,7 @@ const HabitList = ({habits, showInput, selectedId, onDone, errorRemoveHabit, loa
                 {habits.map((habit, idx) => {
                     return (
                         <HabitListItem
+                            alertMarkDoneId={alertMarkDoneId}
                             errorRemoveHabit={errorRemoveHabit}
                             showInput={() => showInput(habit.id)}
                             removeHabit={() => removeHabit(habit.id)}
@@ -42,7 +43,12 @@ class HabitsContainer extends Component {
     }
 
     render() {
-        const {habits, loadingHabit, error, onDone, loadingRemoveHabit, errorRemoveHabit, showInput, selectedId, loadingAllHabits, removeHabit} = this.props;
+        const {
+            habits, loadingHabit, error, alertMarkDoneId,
+            onDone, loadingRemoveHabit, errorRemoveHabit,
+            showInput, selectedId, loadingAllHabits,
+            removeHabit
+        } = this.props;
 
         if (loadingAllHabits) return <Spinner/>;
 
@@ -60,9 +66,10 @@ class HabitsContainer extends Component {
                         color: `${habitsByCategory[0].category.color.color}`
                     };
                     return (
-                        <Container key={habitsByCategory[0].category.id}>
+                        <Container key={habitsByCategory[0].category.id} className='habitList'>
                             <h4 style={styleCategory}>{category}</h4>
                         <HabitList
+                            alertMarkDoneId={alertMarkDoneId}
                             onDone={onDone}
                             errorRemoveHabit={errorRemoveHabit}
                             loadingRemoveHabit={loadingRemoveHabit}
@@ -86,10 +93,12 @@ const mapStateToProps = ({
                                  loadingAllHabits, loadingHabit,
                                  loadingRemoveHabit, errorRemoveHabit
                              },
+                             doneAlert: {alertMarkDoneId},
                          }) => {
+    console.log(alertMarkDoneId);
     return {
         habits, error, loadingHabit, selectedId, loadingAllHabits,
-        loadingRemoveHabit, errorRemoveHabit
+        loadingRemoveHabit, errorRemoveHabit, alertMarkDoneId
     };
 };
 

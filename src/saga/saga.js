@@ -3,6 +3,8 @@ import {
     categoriesError,
     categoriesFetched,
     categoriesLoading,
+    habitDoneHideAlert,
+    habitDoneShowAlert,
     habitEditHide,
     habitRemoved,
     habitRemoveError,
@@ -12,7 +14,8 @@ import {
     habitsLoading,
     habitUpdated,
     habitUpdateError,
-    habitUpdateLoading
+    habitUpdateLoading,
+    statisticsLoaded
 } from '../redux/actions';
 import HabitsService from '../services/HabitsService';
 import {
@@ -40,12 +43,19 @@ export function* sagaWatcher() {
 
 }
 
+function delay(ms) {
+    return new Promise(resolve => setTimeout(() => resolve(true), ms))
+}
+
 function* doneHabitSaga(action) {
     try {
         yield put(habitUpdateLoading());
         const payload = yield call(() => habitsService.doneHabit(action.payload));
-        console.log(payload);
-        yield put(habitUpdated(payload))
+        yield put(habitUpdated(payload));
+        yield put(habitDoneShowAlert(action.payload));
+        yield delay(1000);
+        yield put(habitDoneHideAlert());
+
     } catch (error) {
         yield put(habitsError(error))
     }
@@ -56,6 +66,8 @@ function* fetchHabitsSaga() {
         yield put(habitsLoading());
         const payload = yield call(habitsService.getHabits);
         yield put(habitsFetched(payload));
+        yield put(statisticsLoaded());
+
     } catch (error) {
         yield put(habitsError(error))
     }

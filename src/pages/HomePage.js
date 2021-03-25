@@ -8,14 +8,14 @@ import CurrentWeekMarkedHabit from "../components/current-week-marked-habit";
 const HomePage = () => {
     return (
         <Container className="mt-3">
-
             <Row>
                 <Col md={5} sm={12}>
                     <HabitList />
                     <AddHabit/>
                     <AddCategory/>
                 </Col>
-                <Col md={7} sm={12} className='mt-2 pl-0'>
+                <Col lg={2} className="d-none d-lg-block"></Col>
+                <Col lg={5} md={7} sm={12} className='mt-2 pl-0'>
                     <CurrentWeekMarkedHabit/>
                 </Col>
             </Row>

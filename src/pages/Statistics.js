@@ -1,10 +1,18 @@
 import React from 'react';
+import {connect} from 'react-redux'
 import {Col, Container, Row} from "react-bootstrap";
 import {ByDaysInRow, ByDone} from "../components/habit-statistics";
+import Spinner from "../components/spinner";
+import {BsFillStarFill} from "react-icons/bs";
 
-const Statistics = () => {
+const Statistics = ({loadingStatistics}) => {
+
+    if (loadingStatistics) return <Spinner/>;
+
     return (
         <Container className="mt-3">
+            <p style={{color: '#B2B7F6', fontSize: '20px'}}>Make your habit everyday routine! Do it at least for
+                21<BsFillStarFill style={{color: 'orange', marginBottom: '1rem'}}/> days in row.</p>
             <Row>
                 <Col md={4} sm={12}>
                     <ByDone character={'Total done TOP'}/>
@@ -17,4 +25,8 @@ const Statistics = () => {
     )
 };
 
-export default Statistics;
+const mapStateToProps = ({statisticsReducer: {loadingStatistics}}) => {
+    return {loadingStatistics}
+};
+
+export default connect(mapStateToProps)(Statistics);
