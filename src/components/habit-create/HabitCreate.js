@@ -54,7 +54,7 @@ class HabitCreate extends Component {
                         <Col sm={8} md={5} className='col-11'>
                             <InputGroup.Append>
                                 <Form.Group as={Row} className='mb-0'>
-                                    <Col sm={12} className='ml-3'>
+                                    <Col sm={12}>
                                         <Form.Label className='mt-2'>Choose Category:</Form.Label>
                                     </Col>
                                     <Col sm={12}>

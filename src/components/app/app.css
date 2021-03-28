@@ -1,0 +1,14 @@
+@font-face {
+    font-family: 'New Tegomin', serif;
+    src: local('New Tegomin'), url(../../fonts/New_Tegomin/NewTegomin-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Train One', cursive;
+    src: local('Train One'), url(../../fonts/Train_One/TrainOne-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Syne Mono', monospace;
+    src: local('Train One'), url(../../fonts/Syne_Mono/SyneMono-Regular.ttf) format('truetype');
+}

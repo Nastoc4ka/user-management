@@ -4,13 +4,14 @@ import {Col, Container, Row} from "react-bootstrap";
 import {ByDaysInRow, ByDone} from "../components/habit-statistics";
 import Spinner from "../components/spinner";
 import {BsFillStarFill} from "react-icons/bs";
+import './statistics.css';
 
 const Statistics = ({loadingStatistics}) => {
 
     if (loadingStatistics) return <Spinner/>;
 
     return (
-        <Container className="mt-3">
+        <Container className="statistics pt-3">
             <p style={{color: '#B2B7F6', fontSize: '20px'}}>Make your habit everyday routine! Do it at least for
                 21<BsFillStarFill style={{color: 'orange', marginBottom: '1rem'}}/> days in row.</p>
             <Row>

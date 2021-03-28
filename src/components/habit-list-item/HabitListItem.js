@@ -28,7 +28,7 @@ const HabitListItem = ({
 
     const habitItem = <><Col>
         <Row>
-            <Button style={styleHabits} className='mr-3' variant="outline-info" onClick={onDone}><MdCheck/> {name}
+            <Button style={styleHabits} className='mr-3 w-100' variant="outline-info" onClick={onDone}><MdCheck/> {name}
             </Button>
             {alertMarkDoneId === id && <AlertDone/>}
         </Row>

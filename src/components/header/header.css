@@ -1,25 +1,15 @@
-/*.header {*/
-    /*border-bottom: 1px solid lightgray;*/
-    /*margin-bottom: 1rem;*/
-    /*display: flex;*/
-    /*justify-content: space-between;*/
-/*}*/
+.toHabit {
+    font-family: 'Syne Mono', monospace;
+    font-size: 25px;
+    color: cadetblue;
+}
 
-/*.header .logo {*/
-    /*font-family: "Playfair Display", Gergia, serif;*/
-    /*font-size: 2.5rem;*/
-    /*padding-left: 1rem;*/
-/*}*/
+.toHabit:hover, .statisticsLink:hover {
+    text-decoration: none !important;
+    color: #28a745;
+}
 
-/*.header .login {*/
-    /*color: black;*/
-    /*align-self: center;*/
-    /*font-size: 1.3rem;*/
-    /*padding-right: 1rem;*/
-/*}*/
-
-/*.header .login .cart-icon {*/
-    /*font-size: 2.2rem;*/
-    /*color: cadetblue;*/
-    /*margin-right: 10px;*/
-/*}*/
+.statisticsLink {
+    color: #A7906F;
+    font-size: 20px;
+}

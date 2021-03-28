@@ -1,13 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, {useEffect} from 'react';
+import {requestHabitsSaga, statisticsLoaded} from "../../redux/actions";
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 import {HomePage, LoginPage, Statistics} from '../../pages';
 import Header from "../header";
 import Footer from "../footer";
 import {Col, Container, Row} from 'react-bootstrap';
+import '../../fonts/New_Tegomin/NewTegomin-Regular.ttf';
 import './app.css';
-import {requestHabitsSaga, statisticsLoaded} from "../../redux/actions";
 
 
 const App = (props) => {

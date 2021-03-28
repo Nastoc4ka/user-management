@@ -8,7 +8,7 @@ const AlertDone = () => {
         'Awesome!', 'You did again!', 'You rock!'];
     const randomPhrase = phrases[Math.floor(Math.random() * 6)];
     return (
-        <div className='success alertDone'>
+        <div className='success alertDone align-content-center'>
             <Alert className='alertD' variant='success'>{randomPhrase}</Alert>
         </div>
     )

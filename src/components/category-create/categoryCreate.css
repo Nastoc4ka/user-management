@@ -2,3 +2,6 @@
     padding-right: 0;
 }
 
+.modal-header {
+    border-radius: calc(.3rem - 1px);
+}

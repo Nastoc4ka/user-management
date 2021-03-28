@@ -8,7 +8,7 @@ const ListItem = ({name, value, color, label, activity}) => {
 
     if (activity === 0) return null;
     return (<ListGroup variant="flush">
-            <ListGroup.Item style={{color: color}}>
+            <ListGroup.Item style={{color: color}} className="statistics">
                 <span>{name} - </span>
                 <span>{value} </span>
                 {value >= 21 && <BsFillStarFill style={{color: 'orange', marginBottom: '1rem'}}/>}
