@@ -6,7 +6,7 @@ export const AddCategory = () => {
     const [show, setShow] = useState(false);
 
     return (<>
-        <Button variant="outline-info" className='w-100 mt-3' onClick={() => setShow(true)}>
+        <Button variant="outline-info" className='w-100 mt-3 mb-3' onClick={() => setShow(true)}>
             ADD NEW CATEGORY
         </Button>
         <Modal show={show} onHide={() => setShow(false)} animation={false}>

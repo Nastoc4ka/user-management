@@ -1,25 +1,14 @@
-.header {
-    border-bottom: 1px solid lightgray;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-}
-
-.header .logo {
-    font-family: "Playfair Display", Gergia, serif;
-    font-size: 2.5rem;
-    padding-left: 1rem;
-}
-
-.header .login {
-    color: black;
-    align-self: center;
-    font-size: 1.3rem;
-    padding-right: 1rem;
-}
-
-.header .login .cart-icon {
-    font-size: 2.2rem;
+.toHabitFooter {
+    font-family: monospace;
+    font-size: 20px;
     color: cadetblue;
-    margin-right: 10px;
+}
+
+.toHabitFooter:hover, .statisticsLink:hover {
+    text-decoration: none !important;
+    color: #28a745;
+}
+
+.footer {
+    font-size: 15px !important;
 }
