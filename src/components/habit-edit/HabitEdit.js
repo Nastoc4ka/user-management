@@ -4,6 +4,7 @@ import {categoriesRequestedSaga, habitUpdateSaga} from "../../redux/actions";
 import './habitEdit.css'
 import {Button, Col, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {MdCheck} from "react-icons/md";
+import ErrorIndicator from "../error-indicator";
 
 const initialState = () => ({
     category: 5466,
@@ -43,6 +44,11 @@ class HabitEdit extends Component {
     }
 
     render() {
+
+        if (this.props.error) {
+            return <ErrorIndicator error={this.props.error}/>
+        }
+
         return (<form onSubmit={this.onSubmit} className='w-100'>
                     <InputGroup className='w-100'>
                         <Col sm={6} className='pr-0 pl-0 align-self-end'>
@@ -78,9 +84,9 @@ class HabitEdit extends Component {
     }
 }
 
-const mapStateToProps = ({categoryReducer: {categories}}) => {
+const mapStateToProps = ({categoryReducer: {categories, error}}) => {
     return {
-        categories
+        categories, error
     };
 };
 

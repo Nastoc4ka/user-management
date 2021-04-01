@@ -4,6 +4,7 @@ import {categoriesRequestedSaga, habitCreateSaga} from "../../redux/actions";
 import './habitCreate.css'
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
+import ErrorIndicator from "../error-indicator";
 
 class HabitCreate extends Component {
 
@@ -38,6 +39,10 @@ class HabitCreate extends Component {
     }
 
     render() {
+
+        if (this.props.error) {
+            return <ErrorIndicator error={this.props.error}/>
+        }
         return (<Container>
             <Row>
                 <form onSubmit={this.onSubmit} className='w-100'>
@@ -82,9 +87,9 @@ class HabitCreate extends Component {
     }
 }
 
-const mapStateToProps = ({categoryReducer: {categories}}) => {
+const mapStateToProps = ({categoryReducer: {categories, error}}) => {
     return {
-        categories
+        categories, error
     };
 };
 

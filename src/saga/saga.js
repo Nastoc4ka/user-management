@@ -35,6 +35,7 @@ import {
     HABITS_REQUESTED_SAGA,
     LOGIN_SAGA
 } from "../redux/actions/types";
+import UnauthorizedError from "../errors/UnauthorizedError";
 
 const habitsService = new HabitsService();
 
@@ -64,6 +65,7 @@ function* loginSaga(action) {
     } catch (error) {
         yield put(loginFail());
         yield put(setMessage(error.msg));
+        yield handleAuthError(error)
     }
 }
 
@@ -76,7 +78,8 @@ function* doneHabitSaga(action) {
         yield delay(1000);
         yield put(habitDoneHideAlert());
     } catch (error) {
-        yield put(habitsError(error))
+        yield put(habitsError(error));
+        yield handleAuthError(error)
     }
 }
 
@@ -87,7 +90,8 @@ function* fetchHabitsSaga() {
         yield put(habitsFetched(payload));
         yield put(statisticsLoaded());
     } catch (error) {
-        yield put(habitsError(error))
+        yield put(habitsError(error));
+        yield handleAuthError(error)
     }
 }
 
@@ -97,7 +101,9 @@ function* removeHabitSaga(action) {
         yield call(() => habitsService.removeHabit(action.payload));
         yield put(habitRemoved(action.payload))
     } catch (error) {
+
         yield put(habitRemoveError(error))
+        yield handleAuthError(error)
     }
 }
 
@@ -106,6 +112,7 @@ function* createHabitSaga(action) {
         const payload = yield call(() => habitsService.createHabit(action.payload));
         yield put(habitCreated(payload))
     } catch (error) {
+        // yield handleAuthError(error);
         yield put(habitsError(error))
     }
 }
@@ -118,6 +125,7 @@ function* updateHabitSaga(action) {
         yield put(habitUpdated(payload))
     } catch (error) {
         yield put(habitUpdateError(error))
+        yield handleAuthError(error)
     }
 }
 
@@ -127,7 +135,8 @@ function* fetchCategoriesSaga() {
         const payload = yield call(habitsService.getCategories);
         yield put(categoriesFetched(payload));
     } catch (error) {
-        yield put(categoriesError(error))
+        yield put(categoriesError(error));
+        yield handleAuthError(error)
     }
 }
 
@@ -136,6 +145,14 @@ function* createCategorySaga(action) {
         const payload = yield call(() => habitsService.createCategory(action.payload));
         yield put(categoryCreated(payload))
     } catch (error) {
-        yield put(categoriesError(error))
+        yield put(categoriesError(error));
+        yield handleAuthError(error)
     }
 }
+
+const handleAuthError = (error) => {
+    if (error instanceof UnauthorizedError) {
+        return window.location.reload();
+    }
+    return null
+};
