@@ -4,8 +4,17 @@ import {Col, Container, Row} from "react-bootstrap";
 import {AddHabit} from "../components/habit-create/AddHabit";
 import {AddCategory} from "../components/category-create";
 import CurrentWeekMarkedHabit from "../components/current-week-marked-habit";
+import {connect} from "react-redux";
+import HabitWelcome from "../components/habit-welcome/HabitWelcome";
 
-const HomePage = () => {
+
+const HomePage = ({isLoggedIn}) => {
+
+    if (!isLoggedIn) {
+        return <HabitWelcome/>
+    }
+
+    console.log(isLoggedIn);
     return (
         <Container className="mt-3">
             <Row>
@@ -22,4 +31,19 @@ const HomePage = () => {
         </Container>)
 };
 
-export default HomePage
+function mapStateToProps({authReducer}) {
+    const {user, isLoggedIn} = authReducer;
+    return {
+        user,
+        isLoggedIn
+    };
+}
+
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         requestHabits: () => dispatch(requestHabitsSaga()),
+//         fetchCategories: () => dispatch(categoriesRequestedSaga()),
+//     }
+// };
+
+export default connect(mapStateToProps)(HomePage)

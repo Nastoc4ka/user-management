@@ -21,7 +21,7 @@ const Header = () => {
             <Navbar.Collapse id='responsive-navbar-nav' className='justify-content-end'>
                 <Nav className='justify-content-end'>
                     <Link to="/login" className='mr-2'>Log In</Link>
-                    <Link to="/login">Log Out</Link>
+                    <Link to="/register">Sign up</Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>

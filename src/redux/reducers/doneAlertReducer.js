@@ -4,7 +4,7 @@ const initialState = {
     alertMarkDoneId: ''
 };
 
-const doneAlert = (state = initialState, action) => {
+const doneAlertReducer = (state = initialState, action) => {
     switch (action.type) {
         case HABIT_DONE_SHOW_ALERT:
             return {
@@ -19,4 +19,4 @@ const doneAlert = (state = initialState, action) => {
     }
 };
 
-export default doneAlert
+export default doneAlertReducer

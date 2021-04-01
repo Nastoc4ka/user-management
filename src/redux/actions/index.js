@@ -4,7 +4,10 @@ import {
     CATEGORIES_LOADING,
     CATEGORIES_REQUESTED_SAGA,
     CATEGORY_CREATE_SAGA,
+    CATEGORY_CREATED,
+    CLEAR_MESSAGE,
     HABIT_CREATE_SAGA,
+    HABIT_CREATED,
     HABIT_DONE_HIDE_ALERT,
     HABIT_DONE_SAGA,
     HABIT_DONE_SHOW_ALERT,
@@ -22,9 +25,91 @@ import {
     HABITS_FETCHED,
     HABITS_LOADING,
     HABITS_REQUESTED_SAGA,
+    LOGIN_FAIL,
+    LOGIN_SAGA,
+    LOGIN_SUCCESS,
+    LOGOUT,
+    REGISTER_FAIL,
+    REGISTER_SUCCESS,
+    SET_MESSAGE,
     STATISTICS_LOADED,
     STATISTICS_LOADING
 } from "./types"
+
+import AuthService from "../../services/authService";
+
+const setMessage = (message) => ({
+    type: SET_MESSAGE,
+    payload: message,
+});
+
+const clearMessage = () => ({
+    type: CLEAR_MESSAGE,
+});
+
+const register = (username, email, password) => (dispatch) => {
+    return AuthService.register(username, email, password).then(
+        (response) => {
+            dispatch({
+                type: REGISTER_SUCCESS,
+            });
+
+            dispatch({
+                type: SET_MESSAGE,
+                payload: response.data.message,
+            });
+
+            return Promise.resolve();
+        },
+        (error) => {
+            const message =
+                (error.response &&
+                    error.response.data &&
+                    error.response.data.message) ||
+                error.message ||
+                error.toString();
+
+            dispatch({
+                type: REGISTER_FAIL,
+            });
+            dispatch({
+                type: SET_MESSAGE,
+                payload: message,
+            });
+
+            return Promise.reject();
+        }
+    );
+};
+
+const loginSaga = (username, password) => {
+    return {
+        type: LOGIN_SAGA,
+        payload: {username, password}
+    }
+};
+
+const loginSuccess = (user) => {
+    console.log(user);
+    return {
+        type: LOGIN_SUCCESS,
+        payload: user
+    }
+};
+
+const loginFail = () => {
+    return {
+        type: LOGIN_FAIL,
+    }
+};
+
+const logout = () => (dispatch) => {
+    AuthService.logout();
+
+    dispatch({
+        type: LOGOUT,
+    });
+};
 
 const requestHabitsSaga = () => {
     return {
@@ -126,6 +211,13 @@ const habitCreateSaga = (newHabit) => {
     }
 };
 
+const habitCreated = (newHabit) => {
+    return {
+        type: HABIT_CREATED,
+        payload: newHabit
+    }
+};
+
 const categoriesRequestedSaga = () => {
     return {
         type: CATEGORIES_REQUESTED_SAGA
@@ -155,6 +247,14 @@ const categoriesError = (error) => {
 const categoryCreateSaga = (newCategory) => {
     return {
         type: CATEGORY_CREATE_SAGA,
+        payload: newCategory
+    }
+};
+
+
+const categoryCreated = (newCategory) => {
+    return {
+        type: CATEGORY_CREATED,
         payload: newCategory
     }
 };
@@ -192,6 +292,15 @@ const statisticsLoaded = () => {
 };
 
 export {
+    loginSaga,
+    loginSuccess,
+    register,
+    logout,
+    loginFail,
+    setMessage,
+    clearMessage,
+
+
     habitsFetched,
     requestHabitsSaga,
     habitCreateSaga,
@@ -205,6 +314,7 @@ export {
     habitUpdateSaga,
     habitUpdateError,
     habitUpdated,
+    habitCreated,
     habitsLoading,
     habitsError,
     categoriesRequestedSaga,
@@ -212,6 +322,7 @@ export {
     categoriesError,
     categoriesLoading,
     categoryCreateSaga,
+    categoryCreated,
     onDoneSaga,
     habitDoneShowAlert,
     habitDoneHideAlert,

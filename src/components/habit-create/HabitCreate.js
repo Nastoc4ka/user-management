@@ -5,11 +5,6 @@ import './habitCreate.css'
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
 
-const initialState = () => ({
-    category: 5466,
-    name: ''
-});
-
 class HabitCreate extends Component {
 
     onSubmit = (e) => {
@@ -17,7 +12,6 @@ class HabitCreate extends Component {
         if (!this.state.name.trim()) return;
         const category = this.props.categories.find(category => category.id == this.state.category);
         this.props.createHabit({...this.state, category});
-        this.setState(initialState());
         this.props.hide();
     };
 
@@ -27,12 +21,19 @@ class HabitCreate extends Component {
 
     constructor(props) {
         super(props);
-        this.state = initialState();
+        this.state = {
+            category: '',
+            name: ''
+        };
         this.habitInputFocus = React.createRef();
     }
 
     componentDidMount() {
         this.props.fetchCategories();
+        const category = this.props.categories[0].id;
+        this.setState({
+            category
+        });
         this.habitInputFocus.current.focus();
     }
 

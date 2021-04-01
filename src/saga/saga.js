@@ -3,6 +3,8 @@ import {
     categoriesError,
     categoriesFetched,
     categoriesLoading,
+    categoryCreated,
+    habitCreated,
     habitDoneHideAlert,
     habitDoneShowAlert,
     habitEditHide,
@@ -15,9 +17,14 @@ import {
     habitUpdated,
     habitUpdateError,
     habitUpdateLoading,
+    loginFail,
+    loginSuccess,
+    setMessage,
     statisticsLoaded
 } from '../redux/actions';
 import HabitsService from '../services/HabitsService';
+import AuthService from '../services/authService';
+
 import {
     CATEGORIES_REQUESTED_SAGA,
     CATEGORY_CREATE_SAGA,
@@ -25,7 +32,8 @@ import {
     HABIT_DONE_SAGA,
     HABIT_REMOVE_SAGA,
     HABIT_UPDATE_SAGA,
-    HABITS_REQUESTED_SAGA
+    HABITS_REQUESTED_SAGA,
+    LOGIN_SAGA
 } from "../redux/actions/types";
 
 const habitsService = new HabitsService();
@@ -39,12 +47,24 @@ export function* sagaWatcher() {
     yield takeEvery(CATEGORIES_REQUESTED_SAGA, fetchCategoriesSaga);
     yield takeEvery(CATEGORY_CREATE_SAGA, createCategorySaga);
     yield takeEvery(HABIT_DONE_SAGA, doneHabitSaga);
+    yield takeEvery(LOGIN_SAGA, loginSaga);
 
 
 }
 
 function delay(ms) {
     return new Promise(resolve => setTimeout(() => resolve(true), ms))
+}
+
+function* loginSaga(action) {
+    try {
+//make loading
+        const payload = yield call(() => AuthService.login(action.payload));
+        yield put(loginSuccess(payload))
+    } catch (error) {
+        yield put(loginFail());
+        yield put(setMessage(error.msg));
+    }
 }
 
 function* doneHabitSaga(action) {
@@ -55,7 +75,6 @@ function* doneHabitSaga(action) {
         yield put(habitDoneShowAlert(action.payload));
         yield delay(1000);
         yield put(habitDoneHideAlert());
-
     } catch (error) {
         yield put(habitsError(error))
     }
@@ -67,7 +86,6 @@ function* fetchHabitsSaga() {
         const payload = yield call(habitsService.getHabits);
         yield put(habitsFetched(payload));
         yield put(statisticsLoaded());
-
     } catch (error) {
         yield put(habitsError(error))
     }
@@ -76,8 +94,8 @@ function* fetchHabitsSaga() {
 function* removeHabitSaga(action) {
     try {
         yield put(habitRemoveLoading());
-        const payload = yield call(() => habitsService.removeHabit(action.payload));
-        yield put(habitRemoved(payload))
+        yield call(() => habitsService.removeHabit(action.payload));
+        yield put(habitRemoved(action.payload))
     } catch (error) {
         yield put(habitRemoveError(error))
     }
@@ -85,9 +103,8 @@ function* removeHabitSaga(action) {
 
 function* createHabitSaga(action) {
     try {
-        yield put(habitsLoading());
         const payload = yield call(() => habitsService.createHabit(action.payload));
-        yield put(habitsFetched(payload))
+        yield put(habitCreated(payload))
     } catch (error) {
         yield put(habitsError(error))
     }
@@ -116,9 +133,8 @@ function* fetchCategoriesSaga() {
 
 function* createCategorySaga(action) {
     try {
-        yield put(categoriesLoading());
         const payload = yield call(() => habitsService.createCategory(action.payload));
-        yield put(categoriesFetched(payload))
+        yield put(categoryCreated(payload))
     } catch (error) {
         yield put(categoriesError(error))
     }

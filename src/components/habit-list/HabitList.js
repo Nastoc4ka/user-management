@@ -93,9 +93,8 @@ const mapStateToProps = ({
                                  loadingAllHabits, loadingHabit,
                                  loadingRemoveHabit, errorRemoveHabit
                              },
-                             doneAlert: {alertMarkDoneId},
+                             doneAlertReducer: {alertMarkDoneId},
                          }) => {
-    console.log(alertMarkDoneId);
     return {
         habits, error, loadingHabit, selectedId, loadingAllHabits,
         loadingRemoveHabit, errorRemoveHabit, alertMarkDoneId

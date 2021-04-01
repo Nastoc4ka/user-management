@@ -1,4 +1,5 @@
 import {
+    HABIT_CREATED,
     HABIT_REMOVE_ERROR,
     HABIT_REMOVE_LOADING,
     HABIT_REMOVED,
@@ -16,7 +17,7 @@ const initialState = {
     habits: [],
     error: null,
 
-    loadingHabit: false,
+    loading: false,
     errorEditHabit: null,
 
     loadingRemoveHabit: false,
@@ -52,23 +53,29 @@ const habitsReducer = (state = initialState, action) => {
         case HABIT_UPDATE_LOADING:
             return {
                 ...state,
-                loadingHabit: true,
+                loading: true,
                 errorEditHabit: null
             };
         case HABIT_UPDATED:
             const habit = action.payload;
             const idx = state.habits.findIndex((h) => h.id === action.payload.id);
-            console.log(idx);
             return {
                 ...state,
                 habits: [...state.habits.slice(0, idx), habit, ...state.habits.slice(idx + 1)],
-                loadingHabit: false,
+                loading: false,
+                errorEditHabit: null,
+            };
+        case HABIT_CREATED:
+            return {
+                ...state,
+                habits: [...state.habits, action.payload],
+                loading: false,
                 errorEditHabit: null,
             };
         case HABIT_UPDATE_ERROR:
             return {
                 ...state,
-                loadingHabit: false,
+                loading: false,
                 errorEditHabit: action.payload,
             };
         case HABIT_REMOVE_LOADING:

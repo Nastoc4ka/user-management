@@ -3,7 +3,9 @@ import habitEditReducer from "./habitEditReducer";
 import habitsReducer from "./habitsReducer";
 import categoryReducer from "./categoryReducer";
 import statisticsReducer from "./statisticsReducer";
-import doneAlert from "./doneAlert";
+import doneAlertReducer from "./doneAlertReducer";
+import messageReducer from "./messageReducer";
+import authReducer from "./authReducer";
 
 
 export const rootReducer = combineReducers({
@@ -11,5 +13,7 @@ export const rootReducer = combineReducers({
     habitsReducer,
     categoryReducer,
     statisticsReducer,
-    doneAlert
+    doneAlertReducer,
+    messageReducer,
+    authReducer
 });

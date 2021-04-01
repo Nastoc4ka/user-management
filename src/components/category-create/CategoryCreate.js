@@ -11,19 +11,12 @@ import Select from 'react-select';
 import Spinner from "../spinner";
 import ErrorIndicator from "../error-indicator";
 
-
-const initialState = () => ({
-    color: colourOptions[2],
-    name: ''
-});
-
 class CategoryCreate extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
         if (!this.state.name.trim()) return;
         this.props.createCategory(this.state);
-        this.setState(initialState());
         this.props.hide();
     };
     handleChangeName = (e) => {
@@ -37,7 +30,10 @@ class CategoryCreate extends Component {
 
     constructor(props) {
         super(props);
-        this.state = initialState();
+        this.state = {
+            color: colourOptions[2],
+            name: ''
+        };
         this.habitInputFocus = React.createRef();
     }
 
