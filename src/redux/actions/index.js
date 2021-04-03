@@ -29,14 +29,15 @@ import {
     LOGIN_SAGA,
     LOGIN_SUCCESS,
     LOGOUT,
+    LOGOUT_SAGA,
     REGISTER_FAIL,
+    REGISTER_INIT,
+    REGISTER_SAGA,
     REGISTER_SUCCESS,
     SET_MESSAGE,
     STATISTICS_LOADED,
     STATISTICS_LOADING
 } from "./types"
-
-import AuthService from "../../services/authService";
 
 const setMessage = (message) => ({
     type: SET_MESSAGE,
@@ -47,39 +48,29 @@ const clearMessage = () => ({
     type: CLEAR_MESSAGE,
 });
 
-const register = (username, email, password) => (dispatch) => {
-    return AuthService.register(username, email, password).then(
-        (response) => {
-            dispatch({
-                type: REGISTER_SUCCESS,
-            });
+const registerSaga = (username, email, password) => {
+    return {
+        type: REGISTER_SAGA,
+        payload: {username, email, password}
+    }
+};
 
-            dispatch({
-                type: SET_MESSAGE,
-                payload: response.data.message,
-            });
+const registerSuccess = () => {
+    return {
+        type: REGISTER_SUCCESS
+    }
+};
 
-            return Promise.resolve();
-        },
-        (error) => {
-            const message =
-                (error.response &&
-                    error.response.data &&
-                    error.response.data.message) ||
-                error.message ||
-                error.toString();
+const registerFail = () => {
+    return {
+        type: REGISTER_FAIL,
+    }
+};
 
-            dispatch({
-                type: REGISTER_FAIL,
-            });
-            dispatch({
-                type: SET_MESSAGE,
-                payload: message,
-            });
-
-            return Promise.reject();
-        }
-    );
+const registerInit = () => {
+    return {
+        type: REGISTER_INIT,
+    }
 };
 
 const loginSaga = (username, password) => {
@@ -103,12 +94,18 @@ const loginFail = () => {
     }
 };
 
-const logout = () => (dispatch) => {
-    AuthService.logout();
+const logoutSaga = () => {
 
-    dispatch({
+    return {
+        type: LOGOUT_SAGA,
+    };
+};
+
+const logout = () => {
+
+    return {
         type: LOGOUT,
-    });
+    };
 };
 
 const requestHabitsSaga = () => {
@@ -294,9 +291,14 @@ const statisticsLoaded = () => {
 export {
     loginSaga,
     loginSuccess,
-    register,
+    logoutSaga,
     logout,
     loginFail,
+    registerInit,
+
+    registerSaga,
+    registerSuccess,
+    registerFail,
     setMessage,
     clearMessage,
 

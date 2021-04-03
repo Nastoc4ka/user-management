@@ -5,7 +5,8 @@ import categoryReducer from "./categoryReducer";
 import statisticsReducer from "./statisticsReducer";
 import doneAlertReducer from "./doneAlertReducer";
 import messageReducer from "./messageReducer";
-import authReducer from "./authReducer";
+import authRegisterReducer from "./authRegisterReducer";
+import authLoginReducer from "./authLoginReducer";
 
 
 export const rootReducer = combineReducers({
@@ -15,5 +16,6 @@ export const rootReducer = combineReducers({
     statisticsReducer,
     doneAlertReducer,
     messageReducer,
-    authReducer
+    authLoginReducer,
+    authRegisterReducer
 });

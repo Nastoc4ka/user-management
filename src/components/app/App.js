@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {useEffect, useState} from 'react';
-import {categoriesRequestedSaga, requestHabitsSaga, statisticsLoaded} from "../../redux/actions";
+import React, {useEffect} from 'react';
+import {categoriesRequestedSaga, logoutSaga, requestHabitsSaga, statisticsLoaded} from "../../redux/actions";
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
 import {HomePage, Statistics} from '../../pages';
@@ -18,8 +18,6 @@ import HabitWelcome from "../habit-welcome";
 
 const App = (props) => {
 
-    const [currentUser, setCurrentUser] = useState(undefined);
-
     useEffect(() => {
         if (props.user) {
             const {requestHabits, statisticsLoaded, fetchCategories} = props;
@@ -29,20 +27,16 @@ const App = (props) => {
         }
     }, []);
 
-    // if (!props.user) {
-    //     return <Redirect to="/loginSaga" />;
-    // }
-    // props.history.listen((location) => {
-    //     props.dispatch(clearMessage()); // clear message when changing location
-    // });
-
     return (
         <Container role='main'>
             <Row>
                 <Col>
-                    <Header />
+                    <Header isLoggedIn={props.isLoggedIn}
+                            user={props.user}
+                            logout={props.logout}
+                    />
                     <Switch>
-                        <Route exact path='/' component ={HomePage}/>
+                        <Route exact path='/' component={HomePage}/>
                         <Route path='/login' component={Login}/>
                         <Route path='/register' component={Register}/>
                         <Route path='/profile' component={Profile}/>
@@ -50,7 +44,7 @@ const App = (props) => {
                         <Route path='/welcome' component={HabitWelcome}/>
 
                     </Switch>
-                    <Footer />
+                    <Footer/>
                 </Col>
             </Row>
         </Container>
@@ -62,15 +56,12 @@ const mapDispatchToProps = (dispatch) => {
         requestHabits: () => dispatch(requestHabitsSaga()),
         fetchCategories: () => dispatch(categoriesRequestedSaga()),
         statisticsLoaded: () => dispatch(statisticsLoaded()),
-
+        logout: () => dispatch(logoutSaga())
     }
 };
 
-function mapStateToProps(state) {
-    const {user} = state.authReducer;
-    return {
-        user,
-    };
+function mapStateToProps({authLoginReducer: {user, isLoggedIn}}) {
+    return {user, isLoggedIn};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

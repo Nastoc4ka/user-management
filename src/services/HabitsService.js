@@ -117,12 +117,7 @@ export default class HabitsService {
 
     getCategories() {
         return axios.get(`${API_URL}categories`, {headers: authHeader()})
-            .then(({data, status}) => {
-                if (status >= 200 && status < 300) {
-                    return data
-                }
-                throw new Error(`failed to get categories ${status}`);
-            });
+            .then((res => res.data));
     }
 
     createCategory(newCategory) {

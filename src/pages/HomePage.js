@@ -14,7 +14,6 @@ const HomePage = ({isLoggedIn}) => {
         return <HabitWelcome/>
     }
 
-    console.log(isLoggedIn);
     return (
         <Container className="mt-3">
             <Row>
@@ -31,19 +30,12 @@ const HomePage = ({isLoggedIn}) => {
         </Container>)
 };
 
-function mapStateToProps({authReducer}) {
-    const {user, isLoggedIn} = authReducer;
+function mapStateToProps({authLoginReducer}) {
+    const {user, isLoggedIn} = authLoginReducer;
     return {
         user,
         isLoggedIn
     };
 }
-
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         requestHabits: () => dispatch(requestHabitsSaga()),
-//         fetchCategories: () => dispatch(categoriesRequestedSaga()),
-//     }
-// };
 
 export default connect(mapStateToProps)(HomePage)

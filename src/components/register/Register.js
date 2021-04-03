@@ -1,18 +1,20 @@
 import React, {Component} from "react";
+import {Redirect} from "react-router-dom";
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 import {isEmail} from "validator";
 
 import {connect} from "react-redux";
-import {register} from "../../redux/actions";
+import {registerInit, registerSaga} from "../../redux/actions";
+import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
 
 const required = (value) => {
     if (!value) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <Alert variant="danger" role="alert" className="mt-2">
                 This field is required!
-            </div>
+            </Alert>
         );
     }
 };
@@ -20,9 +22,9 @@ const required = (value) => {
 const email = (value) => {
     if (!isEmail(value)) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <Alert variant="danger" role="alert" className="mt-2">
                 This is not a valid email.
-            </div>
+            </Alert>
         );
     }
 };
@@ -30,9 +32,9 @@ const email = (value) => {
 const vusername = (value) => {
     if (value.length < 3 || value.length > 20) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <Alert variant="danger" role="alert" className="mt-2">
                 The username must be between 3 and 20 characters.
-            </div>
+            </Alert>
         );
     }
 };
@@ -40,9 +42,9 @@ const vusername = (value) => {
 const vpassword = (value) => {
     if (value.length < 6 || value.length > 40) {
         return (
-            <div className="alert alert-danger" role="alert">
+            <Alert variant="danger" role="alert" className="mt-2">
                 The password must be between 6 and 40 characters.
-            </div>
+            </Alert>
         );
     }
 };
@@ -51,151 +53,129 @@ class Register extends Component {
     constructor(props) {
         super(props);
         this.handleRegister = this.handleRegister.bind(this);
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangeEmail = this.onChangeEmail.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeFormField = this.onChangeFormField.bind(this);
 
         this.state = {
             username: "",
             email: "",
             password: "",
-            successful: false,
         };
     }
 
-    onChangeUsername(e) {
-        this.setState({
-            username: e.target.value,
-        });
+    componentWillUnmount() {
+        this.props.registerInit();
     }
 
-    onChangeEmail(e) {
+    onChangeFormField(e) {
         this.setState({
-            email: e.target.value,
-        });
-    }
-
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value,
+            [e.target.name]: e.target.value,
         });
     }
 
     handleRegister(e) {
         e.preventDefault();
 
-        this.setState({
-            successful: false,
-        });
-
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            this.props
-                .dispatch(
-                    register(this.state.username, this.state.email, this.state.password)
-                )
-                .then(() => {
-                    this.setState({
-                        successful: true,
-                    });
-                })
-                .catch(() => {
-                    this.setState({
-                        successful: false,
-                    });
-                });
+            this.props.register(this.state.username, this.state.email, this.state.password)
         }
     }
 
     render() {
-        const {message} = this.props;
+        const {message, registeredSuccessful} = this.props;
+
+        if (registeredSuccessful) {
+            return <Redirect to="/login"/>;
+        }
 
         return (
-            <div className="col-md-12">
-                <div className="card card-container">
-                    <img
-                        src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-                        alt="profile-img"
-                        className="profile-img-card"
-                    />
-
-                    <Form
-                        onSubmit={this.handleRegister}
-                        ref={(c) => {
-                            this.form = c;
-                        }}
-                    >
-                        {!this.state.successful && (
-                            <div>
-                                <div className="form-group">
-                                    <label htmlFor="username">Username</label>
+            <Container>
+                <Row className="justify-content-md-center mt-3 mb-3">
+                    <Card>
+                        <Card.Body>
+                            <Form
+                                onSubmit={this.handleRegister}
+                                ref={(c) => {
+                                    this.form = c;
+                                }}
+                            >
+                                <FormBT.Group>
+                                    <FormBT.Label htmlFor="username">Username</FormBT.Label>
                                     <Input
                                         type="text"
                                         className="form-control"
                                         name="username"
                                         value={this.state.username}
-                                        onChange={this.onChangeUsername}
+                                        onChange={this.onChangeFormField}
                                         validations={[required, vusername]}
                                     />
-                                </div>
+                                </FormBT.Group>
 
-                                <div className="form-group">
-                                    <label htmlFor="email">Email</label>
+                                <FormBT.Group>
+                                    <FormBT.Label htmlFor="email">Email</FormBT.Label>
                                     <Input
                                         type="text"
                                         className="form-control"
                                         name="email"
                                         value={this.state.email}
-                                        onChange={this.onChangeEmail}
+                                        onChange={this.onChangeFormField}
                                         validations={[required, email]}
                                     />
-                                </div>
+                                </FormBT.Group>
 
-                                <div className="form-group">
-                                    <label htmlFor="password">Password</label>
+                                <FormBT.Group>
+                                    <FormBT.Label htmlFor="password">Password</FormBT.Label>
                                     <Input
                                         type="password"
                                         className="form-control"
                                         name="password"
                                         value={this.state.password}
-                                        onChange={this.onChangePassword}
+                                        onChange={this.onChangeFormField}
                                         validations={[required, vpassword]}
                                     />
-                                </div>
+                                </FormBT.Group>
 
-                                <div className="form-group">
-                                    <button className="btn btn-primary btn-block">Sign Up</button>
-                                </div>
-                            </div>
-                        )}
-
-                        {message && (
-                            <div className="form-group">
-                                <div className={this.state.successful ? "alert alert-success" : "alert alert-danger"}
-                                     role="alert">
-                                    {message}
-                                </div>
-                            </div>
-                        )}
-                        <CheckButton
-                            style={{display: "none"}}
-                            ref={(c) => {
-                                this.checkBtn = c;
-                            }}
-                        />
-                    </Form>
-                </div>
-            </div>
+                                <FormBT.Group>
+                                    <Button variant="primary" type='submit'>Sign Up</Button>
+                                </FormBT.Group>
+                                {message && (
+                                    <FormBT.Group>
+                                        <Alert
+                                            className={this.state.successful ? "alert alert-success" : "alert alert-danger"}
+                                            role="alert">
+                                            {message}
+                                        </Alert>
+                                    </FormBT.Group>
+                                )}
+                                <CheckButton
+                                    style={{display: "none"}}
+                                    ref={(c) => {
+                                        this.checkBtn = c;
+                                    }}
+                                />
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                </Row>
+            </Container>
         );
     }
 }
 
-function mapStateToProps(state) {
-    const {message} = state.messageReducer;
-    return {
-        message,
-    };
+function mapStateToProps({
+                             messageReducer: {message},
+                             authRegisterReducer: {registeredSuccessful}
+                         }) {
+    return {message, registeredSuccessful};
 }
 
-export default connect(mapStateToProps)(Register);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        register: (username, email, password) => dispatch(registerSaga(username, email, password)),
+        registerInit: () => dispatch(registerInit()),
+
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);
