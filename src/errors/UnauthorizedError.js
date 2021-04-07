@@ -1,6 +1,8 @@
-class UnauthorizedError extends Error {
-    constructor() {
-        super();
+import BaseError from "./BaseError";
+
+class UnauthorizedError extends BaseError {
+    constructor(msg) {
+        super(msg);
     }
 }
 

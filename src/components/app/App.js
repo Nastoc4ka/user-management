@@ -26,7 +26,7 @@ const App = (props) => {
             statisticsLoaded();
         }
     }, []);
-
+    console.log(props.user);
     return (
         <Container role='main'>
             <Row>

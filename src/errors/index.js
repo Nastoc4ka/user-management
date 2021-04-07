@@ -1,5 +1,9 @@
 import UnauthorizedError from './UnauthorizedError';
+import RegistrationError from "./RegistrationError";
+import LoginError from "./LoginError";
 
 export {
-    UnauthorizedError
+    UnauthorizedError,
+    RegistrationError,
+    LoginError
 }

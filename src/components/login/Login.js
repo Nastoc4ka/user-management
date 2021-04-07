@@ -6,13 +6,13 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import {connect} from "react-redux";
-import {loginSaga} from "../../redux/actions";
+import {clearMessage, loginSaga} from "../../redux/actions";
 import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
 
 const required = (value) => {
     if (!value) {
         return (
-            <Alert variant="danger" role="alert">
+            <Alert variant="danger" className='mt-2' role="alert">
                 This field is required!
             </Alert>
         );
@@ -31,6 +31,10 @@ class Login extends Component {
             password: "",
             loading: false,
         };
+    }
+
+    componentWillUnmount() {
+        this.props.clearMessage();
     }
 
     onChangeUsername(e) {
@@ -73,7 +77,7 @@ class Login extends Component {
 
         return (
             <Container>
-                <Row className="justify-content-md-center mt-3 mb-3">
+                <Row className="justify-content-center mt-3 mb-3">
                     <Card>
                         <Card.Body>
                             <Form
@@ -85,6 +89,7 @@ class Login extends Component {
                                 <FormBT.Group>
                                     <FormBT.Label htmlFor="username">Username</FormBT.Label>
                                     <Input
+                                        className='w-100'
                                         type="text"
                                         name="username"
                                         value={this.state.username}
@@ -96,6 +101,7 @@ class Login extends Component {
                                 <FormBT.Group>
                                     <FormBT.Label htmlFor="password">Password</FormBT.Label>
                                     <Input
+                                        className='w-100'
                                         type="password"
                                         name="password"
                                         value={this.state.password}
@@ -115,7 +121,7 @@ class Login extends Component {
                                 </FormBT.Group>
 
                                 {message && (
-                                    <FormBT.Group className="form-group">
+                                    <FormBT.Group className="mw-100">
                                         <Alert variant="danger" role="alert">
                                             {message}
                                         </Alert>
@@ -147,7 +153,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (username, password) => dispatch(loginSaga(username, password))
+        login: (username, password) => dispatch(loginSaga(username, password)),
+        clearMessage: () => dispatch(clearMessage()),
     }
 };
 

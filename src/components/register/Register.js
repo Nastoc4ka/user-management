@@ -6,8 +6,9 @@ import CheckButton from "react-validation/build/button";
 import {isEmail} from "validator";
 
 import {connect} from "react-redux";
-import {registerInit, registerSaga} from "../../redux/actions";
+import {clearMessage, registerInit, registerSaga} from "../../redux/actions";
 import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
+import './register.css';
 
 const required = (value) => {
     if (!value) {
@@ -22,7 +23,7 @@ const required = (value) => {
 const email = (value) => {
     if (!isEmail(value)) {
         return (
-            <Alert variant="danger" role="alert" className="mt-2">
+            <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
                 This is not a valid email.
             </Alert>
         );
@@ -32,7 +33,7 @@ const email = (value) => {
 const vusername = (value) => {
     if (value.length < 3 || value.length > 20) {
         return (
-            <Alert variant="danger" role="alert" className="mt-2">
+            <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
                 The username must be between 3 and 20 characters.
             </Alert>
         );
@@ -42,7 +43,7 @@ const vusername = (value) => {
 const vpassword = (value) => {
     if (value.length < 6 || value.length > 40) {
         return (
-            <Alert variant="danger" role="alert" className="mt-2">
+            <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
                 The password must be between 6 and 40 characters.
             </Alert>
         );
@@ -64,6 +65,7 @@ class Register extends Component {
 
     componentWillUnmount() {
         this.props.registerInit();
+        this.props.clearMessage();
     }
 
     onChangeFormField(e) {
@@ -91,7 +93,7 @@ class Register extends Component {
 
         return (
             <Container>
-                <Row className="justify-content-md-center mt-3 mb-3">
+                <Row className="justify-content-center mt-3 mb-3">
                     <Card>
                         <Card.Body>
                             <Form
@@ -124,7 +126,7 @@ class Register extends Component {
                                     />
                                 </FormBT.Group>
 
-                                <FormBT.Group>
+                                <FormBT.Group className='alertMessageRegister'>
                                     <FormBT.Label htmlFor="password">Password</FormBT.Label>
                                     <Input
                                         type="password"
@@ -140,7 +142,7 @@ class Register extends Component {
                                     <Button variant="primary" type='submit'>Sign Up</Button>
                                 </FormBT.Group>
                                 {message && (
-                                    <FormBT.Group>
+                                    <FormBT.Group className='alertMessageRegister'>
                                         <Alert
                                             className={this.state.successful ? "alert alert-success" : "alert alert-danger"}
                                             role="alert">
@@ -174,7 +176,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         register: (username, email, password) => dispatch(registerSaga(username, email, password)),
         registerInit: () => dispatch(registerInit()),
-
+        clearMessage: () => dispatch(clearMessage()),
     }
 };
 

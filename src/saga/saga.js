@@ -65,11 +65,10 @@ function delay(ms) {
 
 function* loginSaga(action) {
     try {
-//make loading
+        //todo make loading
         const payload = yield call(() => AuthService.login(action.payload));
         yield put(loginSuccess(payload))
     } catch (error) {
-        console.log(error);
         yield put(loginFail());
         yield put(setMessage(error.msg));
     }
@@ -78,7 +77,7 @@ function* loginSaga(action) {
 function* logoutSaga() {
     console.log('logout');
     try {
-//make loading
+        //todo make loading
         yield call(() => AuthService.logout());
         yield put(logout())
     } catch (error) {
@@ -89,11 +88,10 @@ function* logoutSaga() {
 
 function* registerSaga(action) {
     try {
-//make loading
+        //todo make loading
         const payload = yield call(() => AuthService.register(action.payload));
         yield put(registerSuccess(payload))
     } catch (error) {
-        console.log(error.msg);
         yield put(registerFail());
         yield put(setMessage(error.msg));
     }

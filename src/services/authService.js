@@ -1,5 +1,5 @@
 import axios from "axios";
-import RegistrationError from "../errors/RegistrationError";
+import {LoginError, RegistrationError} from "../errors";
 
 const API_URL = "http://localhost:8080/api/auth/";
 
@@ -8,11 +8,14 @@ class AuthService {
         return axios
             .post(API_URL + "signin", {username, password})
             .then((response, reject) => {
-                if (response.data.accessToken) {
-                    localStorage.setItem("user", JSON.stringify(response.data));
-                }
-                throw new Error(`failed to create habit ${response.status}`);
+                localStorage.setItem("user", JSON.stringify(response.data));
             })
+            .catch(err => {
+                if (err.response.data.msg) {
+                    throw new LoginError(err.response.data.msg);
+                }
+                throw new LoginError('Something went wrong... please contact vendor');
+            });
     }
 
     logout() {
@@ -26,8 +29,9 @@ class AuthService {
             password,
         })
             .catch(err => {
-                if (err.response.data.message) {
-                    throw new RegistrationError(err.response.data.message);
+                console.log(err.response.data);
+                if (err.response.data.msg) {
+                    throw new RegistrationError(err.response.data.msg);
                 }
                 throw new RegistrationError(`Something went wrong... please contact vendor`);
             });

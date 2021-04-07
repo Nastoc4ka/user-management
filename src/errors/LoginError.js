@@ -1,9 +1,9 @@
 import BaseError from "./BaseError";
 
-class RegistrationError extends BaseError {
+class LoginError extends BaseError {
     constructor(msg) {
         super(msg);
     }
 }
 
-export default RegistrationError;
+export default LoginError;
