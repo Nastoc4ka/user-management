@@ -18,4 +18,3 @@ for (let i = 0; i < arr.length - 1; i++) {
         current = 1;
     }
 }
-console.log(max);

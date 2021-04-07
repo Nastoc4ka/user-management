@@ -26,7 +26,6 @@ const App = (props) => {
             statisticsLoaded();
         }
     }, []);
-    console.log(props.user);
     return (
         <Container role='main'>
             <Row>
@@ -51,6 +50,10 @@ const App = (props) => {
     )
 };
 
+function mapStateToProps({authLoginReducer: {user, isLoggedIn}}) {
+    return {user, isLoggedIn};
+}
+
 const mapDispatchToProps = (dispatch) => {
     return {
         requestHabits: () => dispatch(requestHabitsSaga()),
@@ -59,9 +62,5 @@ const mapDispatchToProps = (dispatch) => {
         logout: () => dispatch(logoutSaga())
     }
 };
-
-function mapStateToProps({authLoginReducer: {user, isLoggedIn}}) {
-    return {user, isLoggedIn};
-}
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

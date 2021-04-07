@@ -9,6 +9,7 @@ class AuthService {
             .post(API_URL + "signin", {username, password})
             .then((response, reject) => {
                 localStorage.setItem("user", JSON.stringify(response.data));
+                return response.data;
             })
             .catch(err => {
                 if (err.response.data.msg) {
@@ -29,7 +30,6 @@ class AuthService {
             password,
         })
             .catch(err => {
-                console.log(err.response.data);
                 if (err.response.data.msg) {
                     throw new RegistrationError(err.response.data.msg);
                 }

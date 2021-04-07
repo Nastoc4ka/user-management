@@ -75,7 +75,6 @@ function* loginSaga(action) {
 }
 
 function* logoutSaga() {
-    console.log('logout');
     try {
         //todo make loading
         yield call(() => AuthService.logout());
@@ -169,6 +168,7 @@ function* fetchCategoriesSaga() {
 
 function* createCategorySaga(action) {
     try {
+        yield put(categoriesLoading());
         const payload = yield call(() => habitsService.createCategory(action.payload));
         yield put(categoryCreated(payload))
     } catch (error) {

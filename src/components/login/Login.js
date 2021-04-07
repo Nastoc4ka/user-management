@@ -8,11 +8,13 @@ import CheckButton from "react-validation/build/button";
 import {connect} from "react-redux";
 import {clearMessage, loginSaga} from "../../redux/actions";
 import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
+import './login.css'
 
 const required = (value) => {
+    value.trim();
     if (!value) {
         return (
-            <Alert variant="danger" className='mt-2' role="alert">
+            <Alert variant="danger" className='mt-2 alertMessageLogin' role="alert">
                 This field is required!
             </Alert>
         );
@@ -23,8 +25,7 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
-        this.onChangeUsername = this.onChangeUsername.bind(this);
-        this.onChangePassword = this.onChangePassword.bind(this);
+        this.onChangeInput = this.onChangeInput.bind(this);
 
         this.state = {
             username: "",
@@ -37,15 +38,9 @@ class Login extends Component {
         this.props.clearMessage();
     }
 
-    onChangeUsername(e) {
+    onChangeInput(e) {
         this.setState({
-            username: e.target.value,
-        });
-    }
-
-    onChangePassword(e) {
-        this.setState({
-            password: e.target.value,
+            [e.target.name]: e.target.value,
         });
     }
 
@@ -93,7 +88,7 @@ class Login extends Component {
                                         type="text"
                                         name="username"
                                         value={this.state.username}
-                                        onChange={this.onChangeUsername}
+                                        onChange={this.onChangeInput}
                                         validations={[required]}
                                     />
                                 </FormBT.Group>
@@ -105,7 +100,7 @@ class Login extends Component {
                                         type="password"
                                         name="password"
                                         value={this.state.password}
-                                        onChange={this.onChangePassword}
+                                        onChange={this.onChangeInput}
                                         validations={[required]}
                                     />
                                 </FormBT.Group>
@@ -122,7 +117,7 @@ class Login extends Component {
 
                                 {message && (
                                     <FormBT.Group className="mw-100">
-                                        <Alert variant="danger" role="alert">
+                                        <Alert variant="danger" role="alert" className="alertMessageLogin">
                                             {message}
                                         </Alert>
                                     </FormBT.Group>

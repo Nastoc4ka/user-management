@@ -13,7 +13,7 @@ import './register.css';
 const required = (value) => {
     if (!value) {
         return (
-            <Alert variant="danger" role="alert" className="mt-2">
+            <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
                 This field is required!
             </Alert>
         );
@@ -69,6 +69,7 @@ class Register extends Component {
     }
 
     onChangeFormField(e) {
+        this.props.clearMessage();
         this.setState({
             [e.target.name]: e.target.value,
         });

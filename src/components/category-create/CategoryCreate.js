@@ -17,7 +17,7 @@ class CategoryCreate extends Component {
         e.preventDefault();
         if (!this.state.name.trim()) return;
         this.props.createCategory(this.state);
-        this.props.hide();
+        // this.props.hide();
     };
     handleChangeName = (e) => {
         this.setState({[e.target.name]: e.target.value});
@@ -47,7 +47,7 @@ class CategoryCreate extends Component {
 
         if (loading) return <Spinner/>;
 
-        if (error) return <ErrorIndicator message={error.message}/>;
+        if (error) return <ErrorIndicator message={error.msg}/>;
 
         return (<Container>
             <Row>

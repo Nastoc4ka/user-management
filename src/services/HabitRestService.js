@@ -42,7 +42,6 @@ export default class HabitsService {
 
             return response.json().then(err => {
                 const e = new Error('didn`t insert habits');
-                console.log(e.message);
                 e.data = err;
                 throw e
             })
@@ -51,7 +50,6 @@ export default class HabitsService {
 
     removeHabit(id) {
         const urlDelete = `${urlHabit}/${id}`;
-        console.log(urlDelete);
         const options = {
             method: 'DELETE',
             headers: {

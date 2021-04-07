@@ -10,7 +10,6 @@ class Profile extends Component {
         if (!currentUser) {
             return <Redirect to="/login"/>;
         }
-        console.log(this.props);
         return (
             <div className="container">
                 <header className="jumbotron">

@@ -3,7 +3,6 @@ import './currentWeekMarkedHabit.css';
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const MarkedHabitDay = ({day}) => {
-    //console.log(name, value, style);
     return (<>
         {day.map((habit) => {
             return habit && (
