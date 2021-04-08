@@ -12,7 +12,14 @@ class HabitCreate extends Component {
     onSubmit = (e) => {
         e.preventDefault();
         if (!this.state.name.trim()) return;
-        const category = this.props.categories.find(category => category.id == this.state.category);
+
+        let category = '';
+
+        if (this.state.category) {
+            category = this.props.categories.find(category => category.id == this.state.category);
+        } else {
+            category = this.props.categories[0];
+        }
         this.props.createHabit({...this.state, category});
     };
 
@@ -31,10 +38,6 @@ class HabitCreate extends Component {
 
     componentDidMount() {
         this.props.fetchCategories();
-        const category = this.props.categories[0].id;
-        this.setState({
-            category
-        });
         this.habitInputFocus.current.focus();
     }
 
