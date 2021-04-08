@@ -1,7 +1,7 @@
 import React from 'react';
 import HabitList from "../components/habit-list/index";
 import {Col, Container, Row} from "react-bootstrap";
-import {AddHabit} from "../components/habit-create/AddHabit";
+import {AddHabit} from "../components/habit-create";
 import {AddCategory} from "../components/category-create";
 import CurrentWeekMarkedHabit from "../components/current-week-marked-habit";
 import {connect} from "react-redux";

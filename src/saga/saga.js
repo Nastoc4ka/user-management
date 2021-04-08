@@ -5,6 +5,8 @@ import {
     categoriesLoading,
     categoryCreated,
     habitCreated,
+    habitCreateError,
+    habitCreateLoading,
     habitDoneHideAlert,
     habitDoneShowAlert,
     habitEditHide,
@@ -18,6 +20,7 @@ import {
     habitUpdateError,
     habitUpdateLoading,
     hideCategoryCreate,
+    hideHabitCreate,
     loginFail,
     loginSuccess,
     logout,
@@ -136,11 +139,13 @@ function* removeHabitSaga(action) {
 
 function* createHabitSaga(action) {
     try {
+        yield put(habitCreateLoading());
         const payload = yield call(() => habitsService.createHabit(action.payload));
-        yield put(habitCreated(payload))
+        yield put(habitCreated(payload));
+        yield put(hideHabitCreate(payload));
     } catch (error) {
         yield handleAuthError(error);
-        yield put(habitsError(error))
+        yield put(habitCreateError(error))
     }
 }
 

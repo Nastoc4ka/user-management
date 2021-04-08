@@ -1,4 +1,6 @@
 import {
+    HABIT_CREATE_ERROR,
+    HABIT_CREATE_LOADING,
     HABIT_CREATED,
     HABIT_REMOVE_ERROR,
     HABIT_REMOVE_LOADING,
@@ -28,6 +30,7 @@ const initialState = {
 };
 
 const habitsReducer = (state = initialState, action) => {
+    console.log(action.payload);
     switch (action.type) {
         case HABITS_LOADING:
             return {
@@ -65,18 +68,31 @@ const habitsReducer = (state = initialState, action) => {
                 loading: false,
                 errorEditHabit: null,
             };
-        case HABIT_CREATED:
-            return {
-                ...state,
-                habits: [...state.habits, action.payload],
-                loading: false,
-                errorEditHabit: null,
-            };
         case HABIT_UPDATE_ERROR:
             return {
                 ...state,
                 loading: false,
                 errorEditHabit: action.payload,
+            };
+        case HABIT_CREATE_LOADING:
+            return {
+                ...state,
+                loadingCreateHabit: true,
+                errorCreateHabit: null,
+            };
+        case HABIT_CREATED:
+            return {
+                ...state,
+                habits: [...state.habits, action.payload],
+                loading: false,
+                loadingCreateHabit: false,
+                errorEditHabit: null,
+            };
+        case HABIT_CREATE_ERROR:
+            return {
+                ...state,
+                loadingCreateHabit: false,
+                errorCreateHabit: action.payload,
             };
         case HABIT_REMOVE_LOADING:
             return {

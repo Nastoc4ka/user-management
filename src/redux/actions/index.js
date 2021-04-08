@@ -6,6 +6,8 @@ import {
     CATEGORY_CREATE_SAGA,
     CATEGORY_CREATED,
     CLEAR_MESSAGE,
+    HABIT_CREATE_ERROR,
+    HABIT_CREATE_LOADING,
     HABIT_CREATE_SAGA,
     HABIT_CREATED,
     HABIT_DONE_HIDE_ALERT,
@@ -26,6 +28,7 @@ import {
     HABITS_LOADING,
     HABITS_REQUESTED_SAGA,
     HIDE_CATEGORY_CREATE,
+    HIDE_HABIT_CREATE,
     LOGIN_FAIL,
     LOGIN_SAGA,
     LOGIN_SUCCESS,
@@ -37,6 +40,7 @@ import {
     REGISTER_SUCCESS,
     SET_MESSAGE,
     SHOW_CATEGORY_CREATE,
+    SHOW_HABIT_CREATE,
     STATISTICS_LOADED,
     STATISTICS_LOADING
 } from "./types"
@@ -209,12 +213,26 @@ const habitCreateSaga = (newHabit) => {
     }
 };
 
+const habitCreateLoading = () => {
+    return {
+        type: HABIT_CREATE_LOADING,
+    }
+};
+
 const habitCreated = (newHabit) => {
     return {
         type: HABIT_CREATED,
         payload: newHabit
     }
 };
+
+const habitCreateError = (error) => {
+    return {
+        type: HABIT_CREATE_ERROR,
+        payload: error
+    }
+};
+
 
 const categoriesRequestedSaga = () => {
     return {
@@ -266,6 +284,18 @@ const showCategoryCreate = () => {
 const hideCategoryCreate = () => {
     return {
         type: HIDE_CATEGORY_CREATE,
+    }
+};
+
+const showHabitCreate = () => {
+    return {
+        type: SHOW_HABIT_CREATE,
+    }
+};
+
+const hideHabitCreate = () => {
+    return {
+        type: HIDE_HABIT_CREATE,
     }
 };
 
@@ -329,7 +359,11 @@ export {
     habitUpdateSaga,
     habitUpdateError,
     habitUpdated,
+    showHabitCreate,
+    hideHabitCreate,
+    habitCreateLoading,
     habitCreated,
+    habitCreateError,
     habitsLoading,
     habitsError,
     categoriesRequestedSaga,

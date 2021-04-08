@@ -39,6 +39,7 @@ class Login extends Component {
     }
 
     onChangeInput(e) {
+        this.props.clearMessage();
         this.setState({
             [e.target.name]: e.target.value,
         });

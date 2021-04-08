@@ -1,20 +1,35 @@
-import React, {useState} from 'react';
+import React from 'react';
 import HabitCreate from "./HabitCreate";
+import {hideHabitCreate, showHabitCreate} from '../../redux/actions'
 import {Button, Modal} from "react-bootstrap";
+import {connect} from "react-redux";
 
-export const AddHabit = () => {
-    const [show, setShow] = useState(false);
+const AddHabit = (props) => {
+    const {display, showHabitCreate, hideHabitCreate} = props;
 
     return (<>
-        <Button className='w-100 mt-3' variant="outline-success" onClick={() => setShow(true)}>
+        <Button className='w-100 mt-3' variant="outline-success" onClick={() => showHabitCreate()}>
             ADD NEW HABIT
         </Button>
-        <Modal show={show} onHide={() => setShow(false)}>
+        <Modal show={display} onHide={() => hideHabitCreate()}>
             <Modal.Header closeButton>
                 <Modal.Body>
-                    <HabitCreate hide={() => setShow(false)}/>
+                    <HabitCreate/>
                 </Modal.Body>
             </Modal.Header>
         </Modal>
     </>)
 };
+
+const mapStateToProps = ({displayHabitCreateReducer: {display}}) => {
+    return {display}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showHabitCreate: () => dispatch(showHabitCreate()),
+        hideHabitCreate: () => dispatch(hideHabitCreate()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddHabit);

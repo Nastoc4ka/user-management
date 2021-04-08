@@ -5,6 +5,7 @@ import './habitCreate.css'
 import {Button, Col, Container, Form, FormControl, InputGroup, Row} from "react-bootstrap";
 import {GrFormAdd} from "react-icons/gr";
 import ErrorIndicator from "../error-indicator";
+import Spinner from "../spinner";
 
 class HabitCreate extends Component {
 
@@ -13,7 +14,6 @@ class HabitCreate extends Component {
         if (!this.state.name.trim()) return;
         const category = this.props.categories.find(category => category.id == this.state.category);
         this.props.createHabit({...this.state, category});
-        this.props.hide();
     };
 
     handleChange = (e) => {
@@ -40,9 +40,16 @@ class HabitCreate extends Component {
 
     render() {
 
-        if (this.props.error) {
-            return <ErrorIndicator error={this.props.error}/>
+        const {categories, loadingCreateHabit, errorCreateHabit, fetchCategories, createHabit} = this.props;
+
+        if (loadingCreateHabit) {
+            return <Spinner/>
         }
+
+        if (errorCreateHabit) {
+            return <ErrorIndicator error={errorCreateHabit}/>
+        }
+
         return (<Container>
             <Row>
                 <form onSubmit={this.onSubmit} className='w-100'>
@@ -66,7 +73,7 @@ class HabitCreate extends Component {
                                     <Col sm={12}>
                                         <Form.Control as="select" name='category' value={this.state.category}
                                                       onChange={this.handleChange}>
-                                            {this.props.categories.map((category) => {
+                                            {categories.map((category) => {
                                                 return <option key={`category${category.id}`}
                                                                value={category.id}>{category.name}</option>
                                             })}
@@ -87,10 +94,11 @@ class HabitCreate extends Component {
     }
 }
 
-const mapStateToProps = ({categoryReducer: {categories, error}}) => {
-    return {
-        categories, error
-    };
+const mapStateToProps = ({
+                             habitsReducer: {loadingCreateHabit, errorCreateHabit},
+                             categoryReducer: {categories}
+                         }) => {
+    return {loadingCreateHabit, errorCreateHabit, categories};
 };
 
 const mapDispatchToProps = (dispatch) => {

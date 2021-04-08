@@ -17,7 +17,6 @@ class CategoryCreate extends Component {
         e.preventDefault();
         if (!this.state.name.trim()) return;
         this.props.createCategory(this.state);
-        // this.props.hide();
     };
     handleChangeName = (e) => {
         this.setState({[e.target.name]: e.target.value});

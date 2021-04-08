@@ -29,7 +29,7 @@ export default class HabitsService {
         return axios.post(`${API_URL}habits`, {...newHabit}, {headers: authHeader()})
             .then((response) => response.data)
             .catch(err => {
-                if (err.response.data.msg) {
+                if (err.response && err.response.data && err.response.data.msg) {
                     throw new HabitError(err.response.data.msg);
                 }
                 throw new HabitError('Something went wrong... please contact vendor');

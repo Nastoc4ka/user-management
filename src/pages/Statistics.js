@@ -5,8 +5,11 @@ import {ByDaysInRow, ByDone} from "../components/habit-statistics";
 import Spinner from "../components/spinner";
 import {BsFillStarFill} from "react-icons/bs";
 import './statistics.css';
+import HabitWelcome from "../components/habit-welcome";
 
-const Statistics = ({loadingStatistics}) => {
+const Statistics = ({loadingStatistics, isLoggedIn}) => {
+
+    if (!isLoggedIn) return <HabitWelcome/>;
 
     if (loadingStatistics) return <Spinner/>;
 
@@ -26,8 +29,11 @@ const Statistics = ({loadingStatistics}) => {
     )
 };
 
-const mapStateToProps = ({statisticsReducer: {loadingStatistics}}) => {
-    return {loadingStatistics}
+const mapStateToProps = ({
+                             statisticsReducer: {loadingStatistics},
+                             authLoginReducer: {isLoggedIn}
+                         }) => {
+    return {loadingStatistics, isLoggedIn}
 };
 
 export default connect(mapStateToProps)(Statistics);
