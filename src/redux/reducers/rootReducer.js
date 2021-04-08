@@ -7,6 +7,7 @@ import doneAlertReducer from "./doneAlertReducer";
 import messageReducer from "./messageReducer";
 import authRegisterReducer from "./authRegisterReducer";
 import authLoginReducer from "./authLoginReducer";
+import displayCategoryCreateReducer from "./displayCategoryCreate";
 
 
 export const rootReducer = combineReducers({
@@ -17,5 +18,6 @@ export const rootReducer = combineReducers({
     doneAlertReducer,
     messageReducer,
     authLoginReducer,
-    authRegisterReducer
+    authRegisterReducer,
+    displayCategoryCreateReducer,
 });

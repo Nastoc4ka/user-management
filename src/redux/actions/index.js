@@ -25,6 +25,7 @@ import {
     HABITS_FETCHED,
     HABITS_LOADING,
     HABITS_REQUESTED_SAGA,
+    HIDE_CATEGORY_CREATE,
     LOGIN_FAIL,
     LOGIN_SAGA,
     LOGIN_SUCCESS,
@@ -35,6 +36,7 @@ import {
     REGISTER_SAGA,
     REGISTER_SUCCESS,
     SET_MESSAGE,
+    SHOW_CATEGORY_CREATE,
     STATISTICS_LOADED,
     STATISTICS_LOADING
 } from "./types"
@@ -255,6 +257,18 @@ const categoryCreated = (newCategory) => {
     }
 };
 
+const showCategoryCreate = () => {
+    return {
+        type: SHOW_CATEGORY_CREATE,
+    }
+};
+
+const hideCategoryCreate = () => {
+    return {
+        type: HIDE_CATEGORY_CREATE,
+    }
+};
+
 const onDoneSaga = (id) => {
     return {
         type: HABIT_DONE_SAGA,
@@ -324,6 +338,8 @@ export {
     categoriesLoading,
     categoryCreateSaga,
     categoryCreated,
+    showCategoryCreate,
+    hideCategoryCreate,
     onDoneSaga,
     habitDoneShowAlert,
     habitDoneHideAlert,

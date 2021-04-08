@@ -3,7 +3,7 @@ import {CATEGORIES_ERROR, CATEGORIES_FETCHED, CATEGORIES_LOADING, CATEGORY_CREAT
 const initialState = {
     loading: false,
     categories: [],
-    error: null
+    error: null,
 };
 
 const categoryReducer = (state = initialState, action) => {

@@ -1,4 +1,4 @@
 import CategoryCreate from './CategoryCreate'
-import {AddCategory} from './AddCategory'
+import AddCategory from './AddCategory'
 
 export {CategoryCreate, AddCategory}

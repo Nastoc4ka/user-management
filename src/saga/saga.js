@@ -17,6 +17,7 @@ import {
     habitUpdated,
     habitUpdateError,
     habitUpdateLoading,
+    hideCategoryCreate,
     loginFail,
     loginSuccess,
     logout,
@@ -170,7 +171,8 @@ function* createCategorySaga(action) {
     try {
         yield put(categoriesLoading());
         const payload = yield call(() => habitsService.createCategory(action.payload));
-        yield put(categoryCreated(payload))
+        yield put(categoryCreated(payload));
+        yield put(hideCategoryCreate(payload));
     } catch (error) {
         yield handleAuthError(error);
         yield put(categoriesError(error));

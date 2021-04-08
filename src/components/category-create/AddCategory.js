@@ -1,20 +1,35 @@
-import React, {useState} from 'react';
+import React from 'react';
+import {connect} from 'react-redux';
+import {hideCategoryCreate, showCategoryCreate} from '../../redux/actions'
 import CategoryCreate from "./CategoryCreate";
 import {Button, Modal} from "react-bootstrap";
 
-export const AddCategory = () => {
-    const [show, setShow] = useState(false);
+const AddCategory = (props) => {
+    const {display, showCategoryCreate, hideCategoryCreate} = props;
 
     return (<>
-        <Button variant="outline-info" className='w-100 mt-3 mb-3' onClick={() => setShow(true)}>
+        <Button variant="outline-info" className='w-100 mt-3 mb-3' onClick={() => showCategoryCreate()}>
             ADD NEW CATEGORY
         </Button>
-        <Modal show={show} onHide={() => setShow(false)} animation={false}>
+        <Modal show={display} onHide={() => hideCategoryCreate()} animation={false}>
             <Modal.Header closeButton>
                 <Modal.Body>
-                    <CategoryCreate hide={() => setShow(false)}/>
+                    <CategoryCreate/>
                 </Modal.Body>
             </Modal.Header>
         </Modal>
     </>)
 };
+
+const mapStateToProps = ({displayCategoryCreateReducer: {display}}) => {
+    return {display}
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        showCategoryCreate: () => dispatch(showCategoryCreate()),
+        hideCategoryCreate: () => dispatch(hideCategoryCreate()),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddCategory);
