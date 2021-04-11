@@ -1,23 +1,33 @@
-# Getting Started with Create React App
+# toHabit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This app is for creating and marking habits to make it your daily routine.
 
-## Available Scripts
+## Getting started
 
-In the project directory, you can run:
+Use the package manager [npm](https://www.npmjs.com/get-npm) to install toHabit.
 
-### `npm start`
+After downloading project, run the app(front-end) in the development mode.
 
-Runs the app in the development mode.\
+First open folder toHabit in your terminal:
+
+```bash
+npm install
+```
+```bash
+npm start
+```
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+In the directory habit/server, run back-end:
 
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+npm install
+```
+```bash
+npm start
+```
+It runs on port: 8080.
 
 ### `npm run build`
 
@@ -27,44 +37,28 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Technologies
+***
+A list of technologies used within the project:
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    * [axios](https://www.axios.com/): "^0.21.1",
+    * [bootstrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/): "^4.6.0",
+    "chroma-js": "^2.1.1",
+    "moment": "^2.29.1",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-bootstrap": "^1.5.2",
+    "react-calendar": "^3.3.1",
+    "react-dom": "^17.0.1",
+    "react-icons": "^4.2.0",
+    "react-mailto": "^0.4.0",
+    "react-redux": "^7.2.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^4.0.2",
+    "react-select": "^4.3.0",
+    "react-validation": "^3.0.7",
+    "redux": "^4.0.5",
+    "redux-saga": "^1.1.3",
+    "validator": "^13.5.2",
+    "web-vitals": "^1.1.0"
