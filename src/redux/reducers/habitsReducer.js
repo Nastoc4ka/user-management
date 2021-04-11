@@ -30,7 +30,6 @@ const initialState = {
 };
 
 const habitsReducer = (state = initialState, action) => {
-    console.log(action.payload);
     switch (action.type) {
         case HABITS_LOADING:
             return {

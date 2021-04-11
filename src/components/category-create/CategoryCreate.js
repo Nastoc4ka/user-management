@@ -38,7 +38,7 @@ class CategoryCreate extends Component {
 
     componentDidMount() {
         this.props.fetchCategories();
-        this.habitInputFocus.current.focus();
+        if (!this.props.error) this.habitInputFocus.current.focus();
     }
 
     render() {
@@ -46,7 +46,7 @@ class CategoryCreate extends Component {
 
         if (loading) return <Spinner/>;
 
-        if (error) return <ErrorIndicator message={error.msg}/>;
+        if (error) return <ErrorIndicator error={error}/>;
 
         return (<Container>
             <Row>

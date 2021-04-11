@@ -1,6 +1,6 @@
 .toHabitFooter {
     font-family: monospace;
-    font-size: 20px;
+    /*font-size: 20px;*/
     color: cadetblue;
 }
 
@@ -10,5 +10,5 @@
 }
 
 .footer {
-    font-size: 15px !important;
+    font-size: 0.8rem !important;
 }

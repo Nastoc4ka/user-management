@@ -52,7 +52,7 @@ class HabitsContainer extends Component {
 
         if (loadingAllHabits) return <Spinner/>;
 
-        if (error) return <ErrorIndicator message={error.message}/>;
+        if (error) return <ErrorIndicator error={error}/>;
 
         const catList = habits.map(h => h.category.name);
 

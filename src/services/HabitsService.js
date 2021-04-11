@@ -7,7 +7,6 @@ const API_URL = "http://localhost:8080/api/";
 export default class HabitsService {
 
     catchError = (errorType) => (err) => {
-        console.log(err);
         if (err.response && err.response.data && err.response.data.msg) {
             throw new errorType(err.response.data.msg);
         }
@@ -40,7 +39,7 @@ export default class HabitsService {
         return axios.put(`${API_URL}habits`, {...habit}, {headers: authHeader()})
             .then((response) => response.data)
             .catch(err => {
-                if (err.response.data.msg) {
+                if (err.response && err.response.data && err.response.data.msg) {
                     throw new HabitError(err.response.data.msg);
                 }
                 throw new HabitError('Something went wrong... please contact vendor');
@@ -62,7 +61,7 @@ export default class HabitsService {
         return axios.get(`${API_URL}habits`, {headers: authHeader()})
             .then((response) => response.data)
             .catch(err => {
-                if (err.response.data.msg) {
+                if (err.response && err.response.data && err.response.data.msg) {
                     throw new HabitError(err.response.data.msg);
                 }
                 throw new HabitError('Something went wrong... please contact vendor');

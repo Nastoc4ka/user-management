@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const displayCategoryCreateReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
         case SHOW_CATEGORY_CREATE:
             return {

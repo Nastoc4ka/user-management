@@ -5,7 +5,6 @@ const initialState = {
 };
 
 const displayHabitCreateReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
         case SHOW_HABIT_CREATE:
             return {

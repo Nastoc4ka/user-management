@@ -121,6 +121,7 @@ function* fetchHabitsSaga() {
         yield put(habitsFetched(payload));
         yield put(statisticsLoaded());
     } catch (error) {
+        console.log(JSON.stringify(error));
         yield handleAuthError(error);
         yield put(habitsError(error));
     }

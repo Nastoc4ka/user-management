@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import {BrowserRouter as Router} from 'react-router-dom';
-import {history} from './helpers/history';
 
 import ErrorBoundry from './components/error-boundry';
 import App from './components/app';
@@ -15,7 +14,7 @@ ReactDOM.render(
     <React.StrictMode>
         <Provider store={store}>
             <ErrorBoundry>
-                <Router history={history}>
+                <Router>
                     <App />
                 </Router>
             </ErrorBoundry>
