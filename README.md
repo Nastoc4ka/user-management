@@ -1,6 +1,12 @@
 # toHabit
 
 This app is for creating and marking habits to make it your daily routine.
+ - create habits by categories
+ - create new category
+ - mark habits done
+ - change habit or delete it
+ - watch your progress on current week
+ - watch TOP done and TOP by days in row
 
 ## Getting started
 
@@ -19,7 +25,7 @@ npm start
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-In the directory habit/server, run back-end:
+In the directory [server](/server), run back-end:
 
 ```bash
 npm install
@@ -39,26 +45,19 @@ Your app is ready to be deployed!
 
 ## Technologies
 ***
-A list of technologies used within the project:
+Main list of technologies used within the project:
 
-    * [axios](https://www.axios.com/): "^0.21.1",
-    * [bootstrap](https://getbootstrap.com/docs/4.6/getting-started/introduction/): "^4.6.0",
-    "chroma-js": "^2.1.1",
-    "moment": "^2.29.1",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-bootstrap": "^1.5.2",
-    "react-calendar": "^3.3.1",
-    "react-dom": "^17.0.1",
-    "react-icons": "^4.2.0",
-    "react-mailto": "^0.4.0",
-    "react-redux": "^7.2.2",
-    "react-router": "^5.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.2",
-    "react-select": "^4.3.0",
-    "react-validation": "^3.0.7",
-    "redux": "^4.0.5",
-    "redux-saga": "^1.1.3",
-    "validator": "^13.5.2",
-    "web-vitals": "^1.1.0"
+   * react,
+   * redux,
+   * redux-saga,
+   * instance,
+   * bootstrap,
+   * chroma-js,
+   * moment,
+   * validator
+   * node.js
+   * express
+   
+Whole list can be found in package.json dependencies.
+
+Authentication & Authorization is implemented with JWT Authentication.
