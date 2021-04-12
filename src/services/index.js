@@ -1,5 +1,7 @@
-import HabitsService from './HabitsService';
+import habitsService from './habitsService';
+import authService from './authService';
 
 export {
-    HabitsService
+    habitsService,
+    authService,
 }

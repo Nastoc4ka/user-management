@@ -1,1 +1,256 @@
-[]
+[
+  {
+    "id": 100000,
+    "username": "Nastya",
+    "email": "nastoc4ka@gmail.com",
+    "password": "$2a$08$DlflKoZUB1Jpn3KnNR1TQO0GWEspIquVsroGAxdOq61aIWPuql1k.",
+    "habits": [
+      {
+        "category": {
+          "id": 1001,
+          "name": "Study",
+          "color": {
+            "value": "purple",
+            "label": "Purple",
+            "color": "#A2ACEB",
+            "bgColor": "#B2B7F6"
+          }
+        },
+        "name": "redux 1",
+        "id": 10000,
+        "activity": [
+          1617799359685,
+          1617885759685,
+          1617885762722,
+          1617904560109,
+          1617984977136,
+          1618121912685,
+          1618127711464,
+          1618254922259,
+          1618254929213,
+          1618309487787
+        ]
+      },
+      {
+        "activity": [
+          1617799359685,
+          1617897270088,
+          1617897290923,
+          1617904562492,
+          1618121912023,
+          1618254987565
+        ],
+        "category": {
+          "id": 1002,
+          "name": "Sport",
+          "color": {
+            "value": "ocean",
+            "label": "Ocean",
+            "color": "#B4D5F9",
+            "bgColor": "#B2F6F0"
+          }
+        },
+        "name": "swim",
+        "id": 10001
+      },
+      {
+        "category": {
+          "id": 1003,
+          "name": "Health",
+          "color": {
+            "value": "menthol",
+            "label": "Menthol",
+            "color": "#B4F6A4",
+            "bgColor": "#C0EBC4"
+          }
+        },
+        "name": "drink water",
+        "id": 10002,
+        "activity": [
+          1617897286124,
+          1617897288259,
+          1617897288748,
+          1617902715249,
+          1617902722188,
+          1617902734711,
+          1617902735549,
+          1617902736565,
+          1617904566836,
+          1617984968457,
+          1617984971275,
+          1617984971734,
+          1617984972315,
+          1617984973268,
+          1618127714030,
+          1618127716264,
+          1618127717944,
+          1618127719615,
+          1618127720839,
+          1618127721738,
+          1618127722809,
+          1618127723657,
+          1618254986617,
+          1618256101632,
+          1618256104077,
+          1618256104301,
+          1618256104523,
+          1618256104769,
+          1618256105869,
+          1618256106608,
+          1618309484273
+        ]
+      },
+      {
+        "activity": [
+          1617904564618,
+          1617984975846,
+          1618256099107,
+          1618309486755
+        ],
+        "category": {
+          "id": 1002,
+          "name": "Sport",
+          "color": {
+            "value": "ocean",
+            "label": "Ocean",
+            "color": "#B4D5F9",
+            "bgColor": "#B2F6F0"
+          }
+        },
+        "name": "morning run",
+        "id": 10003
+      },
+      {
+        "activity": [
+          1618121950320,
+          1618254989813,
+          1618254990002,
+          1618254990158,
+          1618254990315
+        ],
+        "category": {
+          "id": 1000,
+          "name": "Spiritual",
+          "color": {
+            "value": "pink",
+            "label": "Pink",
+            "color": "#F6B09D",
+            "bgColor": "#EDC4BC"
+          }
+        },
+        "name": "read english literature",
+        "id": 10004
+      }
+    ],
+    "categories": [
+      {
+        "id": 1000,
+        "name": "Spiritual",
+        "color": {
+          "value": "pink",
+          "label": "Pink",
+          "color": "#F6B09D",
+          "bgColor": "#EDC4BC"
+        }
+      },
+      {
+        "id": 1001,
+        "name": "Study",
+        "color": {
+          "value": "purple",
+          "label": "Purple",
+          "color": "#A2ACEB",
+          "bgColor": "#B2B7F6"
+        }
+      },
+      {
+        "id": 1002,
+        "name": "Sport",
+        "color": {
+          "value": "ocean",
+          "label": "Ocean",
+          "color": "#B4D5F9",
+          "bgColor": "#B2F6F0"
+        }
+      },
+      {
+        "id": 1003,
+        "name": "Health",
+        "color": {
+          "value": "menthol",
+          "label": "Menthol",
+          "color": "#B4F6A4",
+          "bgColor": "#C0EBC4"
+        }
+      }
+    ]
+  },
+  {
+    "id": 100001,
+    "username": "RobbStark",
+    "email": "rrr@gmail.com",
+    "password": "$2a$08$Jvu0l187/ulHUh9vj/XdnOvx65rCPYpU1VsoBJDkoiHdJDxqu8uce",
+    "habits": [
+      {
+        "activity": [
+          1617904290828,
+          1617904291550
+        ],
+        "category": {
+          "id": 1001,
+          "name": "Study",
+          "color": {
+            "value": "purple",
+            "label": "Purple",
+            "color": "#A2ACEB",
+            "bgColor": "#B2B7F6"
+          }
+        },
+        "name": "redux",
+        "id": 10000
+      }
+    ],
+    "categories": [
+      {
+        "id": 1000,
+        "name": "Spiritual",
+        "color": {
+          "value": "pink",
+          "label": "Pink",
+          "color": "#F6B09D",
+          "bgColor": "#EDC4BC"
+        }
+      },
+      {
+        "id": 1001,
+        "name": "Study",
+        "color": {
+          "value": "purple",
+          "label": "Purple",
+          "color": "#A2ACEB",
+          "bgColor": "#B2B7F6"
+        }
+      },
+      {
+        "id": 1002,
+        "name": "Sport",
+        "color": {
+          "value": "ocean",
+          "label": "Ocean",
+          "color": "#B4D5F9",
+          "bgColor": "#B2F6F0"
+        }
+      },
+      {
+        "id": 1003,
+        "name": "Health",
+        "color": {
+          "value": "menthol",
+          "label": "Menthol",
+          "color": "#B4F6A4",
+          "bgColor": "#C0EBC4"
+        }
+      }
+    ]
+  }
+]

@@ -29,8 +29,7 @@ import {
     setMessage,
     statisticsLoaded,
 } from '../redux/actions';
-import HabitsService from '../services/HabitsService';
-import AuthService from '../services/authService';
+import {authService, habitsService} from '../services';
 
 import {
     CATEGORIES_REQUESTED_SAGA,
@@ -45,8 +44,6 @@ import {
     REGISTER_SAGA
 } from "../redux/actions/types";
 import UnauthorizedError from "../errors/UnauthorizedError";
-
-const habitsService = new HabitsService();
 
 
 export function* sagaWatcher() {
@@ -70,7 +67,7 @@ function delay(ms) {
 function* loginSaga(action) {
     try {
         //todo make loading
-        const payload = yield call(() => AuthService.login(action.payload));
+        const payload = yield call(() => authService.login(action.payload));
         yield put(loginSuccess(payload))
     } catch (error) {
         yield put(loginFail());
@@ -81,7 +78,7 @@ function* loginSaga(action) {
 function* logoutSaga() {
     try {
         //todo make loading
-        yield call(() => AuthService.logout());
+        yield call(() => authService.logout());
         yield put(logout())
     } catch (error) {
         //yield put(logoutFail());
@@ -92,7 +89,7 @@ function* logoutSaga() {
 function* registerSaga(action) {
     try {
         //todo make loading
-        const payload = yield call(() => AuthService.register(action.payload));
+        const payload = yield call(() => authService.register(action.payload));
         yield put(registerSuccess(payload))
     } catch (error) {
         yield put(registerFail());
@@ -121,7 +118,6 @@ function* fetchHabitsSaga() {
         yield put(habitsFetched(payload));
         yield put(statisticsLoaded());
     } catch (error) {
-        console.log(JSON.stringify(error));
         yield handleAuthError(error);
         yield put(habitsError(error));
     }
