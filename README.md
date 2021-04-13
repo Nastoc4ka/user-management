@@ -35,13 +35,18 @@ npm start
 ```
 It runs on port: 8080.
 
-### `npm run build`
+## Build
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+npm install
+```
+```bash
+serve -s build
+```
+
+Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
 
 ## Technologies
 ***
