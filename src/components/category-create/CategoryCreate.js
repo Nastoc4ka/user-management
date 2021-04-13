@@ -13,20 +13,6 @@ import ErrorIndicator from "../error-indicator";
 
 class CategoryCreate extends Component {
 
-    onSubmit = (e) => {
-        e.preventDefault();
-        if (!this.state.name.trim()) return;
-        this.props.createCategory(this.state);
-    };
-    handleChangeName = (e) => {
-        this.setState({[e.target.name]: e.target.value});
-    };
-    handleChangeColor = selectedOption => {
-        this.setState({
-            color: selectedOption
-        });
-    };
-
     constructor(props) {
         super(props);
         this.state = {
@@ -36,9 +22,25 @@ class CategoryCreate extends Component {
         this.habitInputFocus = React.createRef();
     }
 
+    onSubmit = (e) => {
+        e.preventDefault();
+        if (!this.state.name.trim()) return;
+        this.props.createCategory(this.state);
+    };
+
+    handleChangeName = (e) => {
+        this.setState({[e.target.name]: e.target.value});
+    };
+    handleChangeColor = selectedOption => {
+        this.setState({
+            color: selectedOption
+        });
+    };
+
     componentDidMount() {
-        this.props.fetchCategories();
-        if (!this.props.error) this.habitInputFocus.current.focus();
+        const {error, fetchCategories} = this.props;
+        fetchCategories();
+        if (!error) this.habitInputFocus.current.focus();
     }
 
     render() {

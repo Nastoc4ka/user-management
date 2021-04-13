@@ -7,7 +7,7 @@ import {BsFillStarFill} from "react-icons/bs";
 import './statistics.css';
 import HabitWelcome from "../components/habit-welcome";
 
-const Statistics = ({loadingStatistics, isLoggedIn}) => {
+const StatisticsPage = ({loadingStatistics, isLoggedIn}) => {
 
     if (!isLoggedIn) return <HabitWelcome/>;
 
@@ -38,4 +38,4 @@ const mapStateToProps = ({
     return {loadingStatistics, isLoggedIn}
 };
 
-export default connect(mapStateToProps)(Statistics);
+export default connect(mapStateToProps)(StatisticsPage);

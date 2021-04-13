@@ -1,10 +1,8 @@
 import HomePage from './HomePage';
-import LoginPage from './LoginPage';
-import Statistics from './Statistics';
+import StatisticsPage from './StatisticsPage';
 
 
 export {
-    LoginPage,
     HomePage,
-    Statistics
+    StatisticsPage
 }

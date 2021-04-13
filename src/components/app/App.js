@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {categoriesRequestedSaga, logoutSaga, requestHabitsSaga, statisticsLoaded} from "../../redux/actions";
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
-import {HomePage, Statistics} from '../../pages';
+import {HomePage, StatisticsPage} from '../../pages';
 import Header from "../header";
 import Footer from "../footer";
 import Login from "../login";
@@ -38,7 +38,7 @@ const App = (props) => {
                         <Route path='/login' component={Login}/>
                         <Route path='/register' component={Register}/>
                         <Route path='/profile' component={Profile}/>
-                        <Route path='/statistics' component={Statistics}/>
+                        <Route path='/statistics' component={StatisticsPage}/>
                         <Route path='/welcome' component={HabitWelcome}/>
 
                     </Switch>

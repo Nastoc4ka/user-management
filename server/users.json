@@ -226,16 +226,6 @@
           "color": "#B4F6A4",
           "bgColor": "#C0EBC4"
         }
-      },
-      {
-        "color": {
-          "value": "orange",
-          "label": "Orange",
-          "color": "#FF8B00",
-          "bgColor": "#FCC201"
-        },
-        "name": "Emotional",
-        "id": 1004
       }
     ]
   }
