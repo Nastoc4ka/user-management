@@ -3,7 +3,7 @@ import HabitList from "../components/habit-list/index";
 import {Col, Container, Row} from "react-bootstrap";
 import {AddHabit} from "../components/habit-create";
 import {AddCategory} from "../components/category-create";
-import CurrentWeekMarkedHabit from "../components/current-week-marked-habit";
+import HabitWeek from "../components/habit-week";
 import {connect} from "react-redux";
 import HabitWelcome from "../components/habit-welcome/HabitWelcome";
 
@@ -24,7 +24,7 @@ const HomePage = ({isLoggedIn}) => {
                 </Col>
                 <Col lg={2} className="d-none d-lg-block"></Col>
                 <Col lg={5} md={7} sm={12} className='mt-2 pl-0'>
-                    <CurrentWeekMarkedHabit/>
+                    <HabitWeek/>
                 </Col>
             </Row>
         </Container>)

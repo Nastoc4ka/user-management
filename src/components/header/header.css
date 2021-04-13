@@ -13,3 +13,26 @@
     color: #A7906F;
     font-size: 20px;
 }
+
+.header .justify-content-end {
+    color: #5F7EA0;
+}
+
+@media (max-width: 500px) {
+    .header, .toHabit, .statisticsLink, nav.justify-content-end {
+        font-size: 0.9rem;
+    }
+
+    .statisticsWord {
+        display: none;
+    }
+
+    .statisticsLink div {
+        font-size: 1.4rem;
+    }
+
+    .header .navbar-brand {
+        padding-bottom: 0;
+    }
+}
+

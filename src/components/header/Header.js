@@ -7,7 +7,7 @@ import {AiOutlineSchedule} from "react-icons/ai";
 
 const Header = ({isLoggedIn, user, logout}) => {
     return (
-        <Navbar bg="light" variant="light">
+        <Navbar bg="light" variant="light" className='header'>
             <Navbar.Brand>
                 <Link to='/' className='toHabit'>
                     <div>ToHabit</div>
@@ -15,13 +15,13 @@ const Header = ({isLoggedIn, user, logout}) => {
             </Navbar.Brand>
 
             {isLoggedIn && <Link to='/statistics' className='statisticsLink'>
-                <div><AiOutlineSchedule/> Statistics</div>
+                <div><AiOutlineSchedule/><span className='statisticsWord'> Statistics</span></div>
             </Link>}
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id='responsive-navbar-nav' className='justify-content-end'>
                 {isLoggedIn ?
                     <Nav className='justify-content-end'>
-                        {`Hello, ${user.username}.`}
+                        {`Hi, ${user.username}.`}
                         <Link to="/" className='mr-2 ml-2' onClick={logout}>Log out</Link>
                     </Nav> :
                     <Nav className='justify-content-end'>

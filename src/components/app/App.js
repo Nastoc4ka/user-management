@@ -17,22 +17,21 @@ import HabitWelcome from "../habit-welcome";
 
 
 const App = (props) => {
-
+    const {user, isLoggedIn, requestHabits, fetchCategories, statisticsLoaded, logout} = props;
     useEffect(() => {
-        if (props.user) {
-            const {requestHabits, statisticsLoaded, fetchCategories} = props;
+        if (user) {
             requestHabits();
             fetchCategories();
             statisticsLoaded();
         }
     }, []);
     return (
-        <Container role='main'>
+        <Container role='main' className='main'>
             <Row>
                 <Col>
-                    <Header isLoggedIn={props.isLoggedIn}
-                            user={props.user}
-                            logout={props.logout}
+                    <Header isLoggedIn={isLoggedIn}
+                            user={user}
+                            logout={logout}
                     />
                     <Switch>
                         <Route exact path='/' component={HomePage}/>
@@ -43,7 +42,10 @@ const App = (props) => {
                         <Route path='/welcome' component={HabitWelcome}/>
 
                     </Switch>
-                    <Footer/>
+                    <Footer
+                        isLoggedIn={isLoggedIn}
+                        logout={logout}
+                    />
                 </Col>
             </Row>
         </Container>

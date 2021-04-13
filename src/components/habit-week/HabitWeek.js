@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import moment from "moment";
-import './currentWeekMarkedHabit.css';
 import {Container, Table,} from "react-bootstrap";
 import MarkedHabitDay from "./MarkedHabitDay";
-import Spinner from "../spinner/spinner";
+import Spinner from "../spinner";
+import './habitWeek.css';
 
-const CurrentWeekMarkedHabit = ({habits, loadingStatistics}) => {
+const HabitWeek = ({habits, loadingStatistics}) => {
 
     const week = [
         moment().isoWeekday(1),
@@ -37,7 +37,7 @@ const CurrentWeekMarkedHabit = ({habits, loadingStatistics}) => {
 
     return (
         <Container>
-            <h4 className='text-center'>Current Week</h4>
+            <h4 className='text-center table'>Current Week</h4>
             <Table borderless size='sm' responsive className="text-center">
                 <thead>
                 <tr>
@@ -74,4 +74,4 @@ const mapStateToProps = ({
     return {habits, loadingStatistics}
 };
 
-export default connect(mapStateToProps)(CurrentWeekMarkedHabit);
+export default connect(mapStateToProps)(HabitWeek);

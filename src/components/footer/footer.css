@@ -1,14 +1,23 @@
 .toHabitFooter {
     font-family: monospace;
-    /*font-size: 20px;*/
     color: cadetblue;
 }
 
-.toHabitFooter:hover, .statisticsLink:hover {
+.toHabitFooter:hover {
     text-decoration: none !important;
     color: #28a745;
 }
 
 .footer {
+    font-size: 0.8rem;
+}
+
+.email {
     font-size: 0.8rem !important;
+}
+
+@media (max-width: 500px) {
+    .footer justify-content-end {
+        font-size: 0.9rem;
+    }
 }

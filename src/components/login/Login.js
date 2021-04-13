@@ -11,8 +11,8 @@ import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstr
 import './login.css'
 
 const required = (value) => {
-    value.trim();
-    if (!value) {
+
+    if (!value.trim()) {
         return (
             <Alert variant="danger" className='mt-2 alertMessageLogin' role="alert">
                 This field is required!

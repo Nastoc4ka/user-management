@@ -11,9 +11,9 @@ const ListItem = ({name, value, color, label, activity}) => {
             <ListGroup.Item style={{color: color}} className="statistics">
                 <span>{name} - </span>
                 <span>{value} </span>
-                {value >= 21 && <BsFillStarFill style={{color: 'orange', marginBottom: '1rem'}}/>}
+                {value >= 21 && label && <BsFillStarFill style={{color: 'orange', marginBottom: '1rem'}}/>}
                 <br/>
-                <span>{label}</span>
+                {label && <span>{`[${label}]`}</span>}
             </ListGroup.Item>
         </ListGroup>
     )

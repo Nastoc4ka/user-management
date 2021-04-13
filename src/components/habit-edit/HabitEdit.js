@@ -58,11 +58,11 @@ class HabitEdit extends Component {
                                          value={this.state.name}
                                          onChange={this.handleChange}
                                          aria-label="make new habit"
-                                         className='inputNewHabit w-100'/>
+                                         className='pt-0 w-100'/>
                         </Col>
-                        <Col sm={5} className='col-10 pr-0'>
+                        <Col sm={5} className='col-11 pr-0'>
                             <InputGroup.Append>
-                                <Form.Group as={Row} className='mb-0 pl-3 w-100'>
+                                <Form.Group as={Row} className='categorySelect mb-0 pl-3 w-100'>
                                         <Form.Control as="select" name='category' value={this.state.category}
                                                       onChange={this.handleChange}>
                                             {this.props.categories.map((category) => {
@@ -73,7 +73,7 @@ class HabitEdit extends Component {
                                 </Form.Group>
                             </InputGroup.Append>
                         </Col>
-                        <Col sm={1} className='pl-0 pr-0'>
+                        <Col sm={1} className='check pl-0 pr-0 col-1'>
                             <Button variant="outline-success" type="submit">
                                 <MdCheck/>
                             </Button>

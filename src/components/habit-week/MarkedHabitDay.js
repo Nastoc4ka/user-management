@@ -1,5 +1,5 @@
 import React from 'react';
-import './currentWeekMarkedHabit.css';
+import './habitWeek.css';
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
 const MarkedHabitDay = ({day}) => {
@@ -8,7 +8,6 @@ const MarkedHabitDay = ({day}) => {
             return habit && (
                 <OverlayTrigger
                     key={`cell${habit.id}`}
-                    placement="left"
                     delay={{show: 250, hide: 400}}
                     overlay={<Tooltip id="button-tooltip">
                         {`${habit.name}, today - ${habit.value}`}

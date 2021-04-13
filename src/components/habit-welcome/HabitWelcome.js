@@ -5,10 +5,10 @@ import {Link} from "react-router-dom";
 
 const HabitWelcome = () => {
     return (
-        <Container>
-            <Row className="justify-content-md-center mt-3">
+        <Container className="h-100">
+            <Row className="justify-content-md-center h-100">
                 <Col xs lg="6">
-                    <Jumbotron>
+                    <Jumbotron className='mt-3 habitWelcome'>
                         <h1>ToHabit</h1>
                         <p>Welcome to habit app. Please sign in or register to make your first habits.</p>
                         <p>

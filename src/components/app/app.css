@@ -12,3 +12,8 @@
     font-family: 'Syne Mono', monospace;
     src: local('Train One'), url(../../fonts/Syne_Mono/SyneMono-Regular.ttf) format('truetype');
 }
+
+a {
+    color: #A05F7E;
+    font-family: 'Syne Mono', monospace;
+}
