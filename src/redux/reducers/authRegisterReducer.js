@@ -3,25 +3,30 @@ import {REGISTER_FAIL, REGISTER_INIT, REGISTER_LOADING, REGISTER_SUCCESS} from "
 const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
-    registeredSuccessful: false
+    registeredSuccessful: false,
+    loading: false
 };
 
 const authRegisterReducer = (state = initialState, action) => {
     switch (action.type) {
         case REGISTER_INIT:
             return {
+                loading: false,
                 registeredSuccessful: false,
             };
         case REGISTER_LOADING:
             return {
+                loading: true,
                 registeredSuccessful: false,
             };
         case REGISTER_FAIL:
             return {
+                loading: false,
                 registeredSuccessful: false,
             };
         case REGISTER_SUCCESS:
             return {
+                loading: false,
                 registeredSuccessful: true,
             };
         default:

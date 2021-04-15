@@ -22,9 +22,11 @@ import {
     hideCategoryCreate,
     hideHabitCreate,
     loginFail,
+    loginLoading,
     loginSuccess,
     logout,
     registerFail,
+    registerLoading,
     registerSuccess,
     setMessage,
     statisticsLoaded,
@@ -60,14 +62,11 @@ export function* sagaWatcher() {
 
 }
 
-function delay(ms) {
-    return new Promise(resolve => setTimeout(() => resolve(true), ms))
-}
-
 function* loginSaga(action) {
     try {
-        //todo make loading
+        yield put(loginLoading());
         const payload = yield call(() => authService.login(action.payload));
+        yield delay(500);
         yield put(loginSuccess(payload))
     } catch (error) {
         yield put(loginFail());
@@ -77,8 +76,9 @@ function* loginSaga(action) {
 
 function* logoutSaga() {
     try {
-        //todo make loading
+        yield put(loginLoading());
         yield call(() => authService.logout());
+        yield delay(500);
         yield put(logout())
     } catch (error) {
         //yield put(logoutFail());
@@ -88,7 +88,7 @@ function* logoutSaga() {
 
 function* registerSaga(action) {
     try {
-        //todo make loading
+        yield put(registerLoading());
         const payload = yield call(() => authService.register(action.payload));
         yield put(registerSuccess(payload))
     } catch (error) {
@@ -188,3 +188,7 @@ const handleAuthError = (error) => {
     }
     return null
 };
+
+function delay(ms) {
+    return new Promise(resolve => setTimeout(() => resolve(true), ms))
+}

@@ -1,9 +1,9 @@
 import React from 'react';
-import './habitWelcome.css'
+import './welcome.css'
 import {Button, Col, Container, Jumbotron, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
 
-const HabitWelcome = () => {
+const WelcomePage = () => {
     return (
         <Container className="h-100">
             <Row className="justify-content-md-center h-100">
@@ -26,4 +26,4 @@ const HabitWelcome = () => {
     )
 };
 
-export default HabitWelcome
+export default WelcomePage

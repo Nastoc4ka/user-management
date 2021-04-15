@@ -1,17 +1,22 @@
 import React from 'react';
+import {connect} from "react-redux";
 import HabitList from "../components/habit-list/index";
 import {Col, Container, Row} from "react-bootstrap";
 import {AddHabit} from "../components/habit-create";
 import {AddCategory} from "../components/category-create";
 import HabitWeek from "../components/habit-week";
-import {connect} from "react-redux";
-import HabitWelcome from "../components/habit-welcome/HabitWelcome";
+import WelcomePage from "./WelcomePage";
+import Spinner from "../components/spinner/spinner";
 
 
-const HomePage = ({isLoggedIn}) => {
+const HomePage = ({isLoggedIn, loading}) => {
 
     if (!isLoggedIn) {
-        return <HabitWelcome/>
+        return <WelcomePage/>
+    }
+
+    if (loading) {
+        return <Spinner/>
     }
 
     return (
@@ -31,10 +36,11 @@ const HomePage = ({isLoggedIn}) => {
 };
 
 function mapStateToProps({authLoginReducer}) {
-    const {user, isLoggedIn} = authLoginReducer;
+    const {user, isLoggedIn, loading} = authLoginReducer;
     return {
         user,
-        isLoggedIn
+        isLoggedIn,
+        loading
     };
 }
 

@@ -5,11 +5,11 @@ import {ByDaysInRow, ByDone} from "../components/habit-statistics";
 import Spinner from "../components/spinner";
 import {BsFillStarFill} from "react-icons/bs";
 import './statistics.css';
-import HabitWelcome from "../components/habit-welcome";
+import WelcomePage from "./WelcomePage";
 
 const StatisticsPage = ({loadingStatistics, isLoggedIn}) => {
 
-    if (!isLoggedIn) return <HabitWelcome/>;
+    if (!isLoggedIn) return <WelcomePage/>;
 
     if (loadingStatistics) return <Spinner/>;
 

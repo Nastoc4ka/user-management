@@ -1,14 +1,15 @@
 import React, {Component} from "react";
 import {Link, Redirect} from 'react-router-dom';
+import {connect} from "react-redux";
 
 import Form from "react-validation/build/form";
 import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
-import {connect} from "react-redux";
-import {clearMessage, loginSaga} from "../../redux/actions";
+import {clearMessage, loginSaga} from "../redux/actions/index";
 import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
 import './login.css'
+import Spinner from "../components/spinner/spinner";
 
 const required = (value) => {
 
@@ -21,7 +22,7 @@ const required = (value) => {
     }
 };
 
-class Login extends Component {
+class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.handleLogin = this.handleLogin.bind(this);
@@ -66,7 +67,8 @@ class Login extends Component {
     }
 
     render() {
-        const {isLoggedIn, message} = this.props;
+        const {isLoggedIn, message, loading} = this.props;
+
         if (isLoggedIn) {
             return <Redirect to="/"/>;
         }
@@ -123,6 +125,9 @@ class Login extends Component {
                                         </Alert>
                                     </FormBT.Group>
                                 )}
+
+                                {loading && <Spinner/>}
+
                                 <CheckButton
                                     style={{display: "none"}}
                                     ref={(c) => {
@@ -139,10 +144,11 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
-    const {isLoggedIn} = state.authLoginReducer;
+    const {isLoggedIn, loading} = state.authLoginReducer;
     const {message} = state.messageReducer;
     return {
         isLoggedIn,
+        loading,
         message
     };
 };
@@ -154,4 +160,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

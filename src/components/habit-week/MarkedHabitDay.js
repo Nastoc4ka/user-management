@@ -10,7 +10,7 @@ const MarkedHabitDay = ({day}) => {
                     key={`cell${habit.id}`}
                     delay={{show: 250, hide: 400}}
                     overlay={<Tooltip id="button-tooltip">
-                        {`${habit.name}, today - ${habit.value}`}
+                        <span>{`${habit.name}, today - ${habit.value}`}</span>
                     </Tooltip>}>
                         <span className='pl-2 pr-2' style={{backgroundColor: habit.style}}>
                             {`${habit.value}`}<br/>

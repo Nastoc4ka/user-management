@@ -7,8 +7,8 @@ thead {
     color: darkcyan;
 }
 
-h4 {
-    color: orange;
+.tableHeader {
+    color: #d39e00;
 }
 
 th span {

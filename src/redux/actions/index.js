@@ -30,12 +30,14 @@ import {
     HIDE_CATEGORY_CREATE,
     HIDE_HABIT_CREATE,
     LOGIN_FAIL,
+    LOGIN_LOADING,
     LOGIN_SAGA,
     LOGIN_SUCCESS,
     LOGOUT,
     LOGOUT_SAGA,
     REGISTER_FAIL,
     REGISTER_INIT,
+    REGISTER_LOADING,
     REGISTER_SAGA,
     REGISTER_SUCCESS,
     SET_MESSAGE,
@@ -61,6 +63,12 @@ const registerSaga = (username, email, password) => {
     }
 };
 
+const registerLoading = () => {
+    return {
+        type: REGISTER_LOADING
+    }
+};
+
 const registerSuccess = () => {
     return {
         type: REGISTER_SUCCESS
@@ -83,6 +91,12 @@ const loginSaga = (username, password) => {
     return {
         type: LOGIN_SAGA,
         payload: {username, password}
+    }
+};
+
+const loginLoading = () => {
+    return {
+        type: LOGIN_LOADING,
     }
 };
 
@@ -333,6 +347,7 @@ const statisticsLoaded = () => {
 
 export {
     loginSaga,
+    loginLoading,
     loginSuccess,
     logoutSaga,
     logout,
@@ -340,6 +355,7 @@ export {
     registerInit,
 
     registerSaga,
+    registerLoading,
     registerSuccess,
     registerFail,
     setMessage,

@@ -37,7 +37,7 @@ const HabitWeek = ({habits, loadingStatistics}) => {
 
     return (
         <Container>
-            <h4 className='text-center table'>Current Week</h4>
+            <h4 className='text-center tableHeader'>Current Week</h4>
             <Table borderless size='sm' responsive className="text-center">
                 <thead>
                 <tr>

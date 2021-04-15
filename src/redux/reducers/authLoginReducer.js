@@ -1,4 +1,4 @@
-import {LOGIN_FAIL, LOGIN_SUCCESS, LOGOUT,} from "../actions/types";
+import {LOGIN_FAIL, LOGIN_LOADING, LOGIN_SUCCESS, LOGOUT,} from "../actions/types";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -10,20 +10,28 @@ const authLoginReducer = (state = initialState, action) => {
     const {type, payload} = action;
 
     switch (type) {
+        case LOGIN_LOADING:
+            return {
+                ...state,
+                loading: true,
+            };
         case LOGIN_SUCCESS:
             return {
                 isLoggedIn: true,
                 user: payload,
+                loading: false
             };
         case LOGIN_FAIL:
             return {
                 isLoggedIn: false,
                 user: null,
+                loading: false
             };
         case LOGOUT:
             return {
                 isLoggedIn: false,
                 user: null,
+                loading: false
             };
         default:
             return state;

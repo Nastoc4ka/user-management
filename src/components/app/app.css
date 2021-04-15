@@ -17,3 +17,8 @@ a {
     color: #A05F7E;
     font-family: 'Syne Mono', monospace;
 }
+
+a:hover {
+    text-decoration: none !important;
+    color: darkslategrey;
+}

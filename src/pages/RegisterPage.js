@@ -6,9 +6,10 @@ import CheckButton from "react-validation/build/button";
 import {isEmail} from "validator";
 
 import {connect} from "react-redux";
-import {clearMessage, registerInit, registerSaga} from "../../redux/actions";
+import {clearMessage, registerInit, registerSaga} from "../redux/actions/index";
 import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
 import './register.css';
+import Spinner from "../components/spinner/spinner";
 
 const required = (value) => {
     if (!value) {
@@ -50,7 +51,7 @@ const vpassword = (value) => {
     }
 };
 
-class Register extends Component {
+class RegisterPage extends Component {
     constructor(props) {
         super(props);
         this.handleRegister = this.handleRegister.bind(this);
@@ -86,7 +87,7 @@ class Register extends Component {
     }
 
     render() {
-        const {message, registeredSuccessful} = this.props;
+        const {message, registeredSuccessful, loading} = this.props;
 
         if (registeredSuccessful) {
             return <Redirect to="/login"/>;
@@ -151,6 +152,9 @@ class Register extends Component {
                                         </Alert>
                                     </FormBT.Group>
                                 )}
+
+                                {loading && <Spinner/>}
+
                                 <CheckButton
                                     style={{display: "none"}}
                                     ref={(c) => {
@@ -168,9 +172,9 @@ class Register extends Component {
 
 function mapStateToProps({
                              messageReducer: {message},
-                             authRegisterReducer: {registeredSuccessful}
+                             authRegisterReducer: {registeredSuccessful, loading}
                          }) {
-    return {message, registeredSuccessful};
+    return {message, registeredSuccessful, loading};
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -181,4 +185,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Register);
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterPage);
