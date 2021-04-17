@@ -1,61 +1,47 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
-    categoriesError,
-    categoriesFetched,
-    categoriesLoading,
-    categoryCreated,
-    habitCreated,
-    habitCreateError,
-    habitCreateLoading,
-    habitDoneHideAlert,
-    habitDoneShowAlert,
-    habitEditHide,
-    habitRemoved,
-    habitRemoveError,
-    habitRemoveLoading,
-    habitsError,
-    habitsFetched,
-    habitsLoading,
-    habitUpdated,
-    habitUpdateError,
-    habitUpdateLoading,
-    hideCategoryCreate,
-    hideHabitCreate,
+    hideProfileCreation,
     loginFail,
     loginLoading,
     loginSuccess,
     logout,
+    profileCreated,
+    profileCreateError,
+    profileCreateLoading,
+    profileEditHide,
+    profileRemoved,
+    profileRemoveError,
+    profileRemoveLoading,
+    profilesError,
+    ProfilesFetched,
+    profilesLoading,
+    profileUpdated,
+    profileUpdateError,
+    profileUpdateLoading,
     registerFail,
     registerLoading,
     registerSuccess,
     setMessage,
-    statisticsLoaded,
 } from '../redux/actions';
-import {authService, habitsService} from '../services';
+import {authService, profileService} from '../services';
 
 import {
-    CATEGORIES_REQUESTED_SAGA,
-    CATEGORY_CREATE_SAGA,
-    HABIT_CREATE_SAGA,
-    HABIT_DONE_SAGA,
-    HABIT_REMOVE_SAGA,
-    HABIT_UPDATE_SAGA,
-    HABITS_REQUESTED_SAGA,
     LOGIN_SAGA,
     LOGOUT_SAGA,
+    PROFILE_CREATE_SAGA,
+    PROFILE_REMOVE_SAGA,
+    PROFILE_UPDATE_SAGA,
+    PROFILES_REQUESTED_SAGA,
     REGISTER_SAGA
 } from "../redux/actions/types";
 import UnauthorizedError from "../errors/UnauthorizedError";
 
 
 export function* sagaWatcher() {
-    yield takeEvery(HABITS_REQUESTED_SAGA, fetchHabitsSaga);
-    yield takeEvery(HABIT_REMOVE_SAGA, removeHabitSaga);
-    yield takeEvery(HABIT_CREATE_SAGA, createHabitSaga);
-    yield takeEvery(HABIT_UPDATE_SAGA, updateHabitSaga);
-    yield takeEvery(CATEGORIES_REQUESTED_SAGA, fetchCategoriesSaga);
-    yield takeEvery(CATEGORY_CREATE_SAGA, createCategorySaga);
-    yield takeEvery(HABIT_DONE_SAGA, doneHabitSaga);
+    yield takeEvery(PROFILES_REQUESTED_SAGA, fetchProfilesSaga);
+    yield takeEvery(PROFILE_REMOVE_SAGA, removeProfileSaga);
+    yield takeEvery(PROFILE_CREATE_SAGA, createProfileSaga);
+    yield takeEvery(PROFILE_UPDATE_SAGA, updateProfileSaga);
     yield takeEvery(LOGIN_SAGA, loginSaga);
     yield takeEvery(REGISTER_SAGA, registerSaga);
     yield takeEvery(LOGOUT_SAGA, logoutSaga);
@@ -90,94 +76,56 @@ function* registerSaga(action) {
     try {
         yield put(registerLoading());
         const payload = yield call(() => authService.register(action.payload));
-        yield put(registerSuccess(payload))
+        yield put(registerSuccess(payload));
     } catch (error) {
         yield put(registerFail());
         yield put(setMessage(error.msg));
     }
 }
 
-function* doneHabitSaga(action) {
+function* fetchProfilesSaga() {
     try {
-        yield put(habitUpdateLoading());
-        const payload = yield call(() => habitsService.doneHabit(action.payload));
-        yield put(habitUpdated(payload));
-        yield put(habitDoneShowAlert(action.payload));
-        yield delay(1200);
-        yield put(habitDoneHideAlert());
+        yield put(profilesLoading());
+        const payload = yield call(profileService.getProfiles);
+        yield put(ProfilesFetched(payload));
     } catch (error) {
         yield handleAuthError(error);
-        yield put(habitsError(error));
+        yield put(profilesError(error));
     }
 }
 
-function* fetchHabitsSaga() {
+function* removeProfileSaga(action) {
     try {
-        yield put(habitsLoading());
-        const payload = yield call(habitsService.getHabits);
-        yield put(habitsFetched(payload));
-        yield put(statisticsLoaded());
+        yield put(profileRemoveLoading());
+        yield call(() => profileService.removeProfile(action.payload));
+        yield put(profileRemoved(action.payload))
     } catch (error) {
         yield handleAuthError(error);
-        yield put(habitsError(error));
+        yield put(profileRemoveError(error));
     }
 }
 
-function* removeHabitSaga(action) {
+function* createProfileSaga(action) {
     try {
-        yield put(habitRemoveLoading());
-        yield call(() => habitsService.removeHabit(action.payload));
-        yield put(habitRemoved(action.payload))
+        yield put(profileCreateLoading());
+        yield call(() => profileService.createProfile(action.payload));
+        yield put(profileCreated(action.payload));
+        yield put(hideProfileCreation());
     } catch (error) {
         yield handleAuthError(error);
-        yield put(habitRemoveError(error));
+        yield put(profileCreateError(error))
     }
 }
 
-function* createHabitSaga(action) {
+function* updateProfileSaga(action) {
     try {
-        yield put(habitCreateLoading());
-        const payload = yield call(() => habitsService.createHabit(action.payload));
-        yield put(habitCreated(payload));
-        yield put(hideHabitCreate(payload));
+        yield put(profileUpdateLoading());
+        yield call(() => profileService.updateProfile(action.payload));
+        yield put(profileEditHide());
+        yield put(profileUpdated(action.payload))
     } catch (error) {
         yield handleAuthError(error);
-        yield put(habitCreateError(error))
-    }
-}
-
-function* updateHabitSaga(action) {
-    try {
-        yield put(habitUpdateLoading());
-        const payload = yield call(() => habitsService.updateHabit(action.payload));
-        yield put(habitEditHide());
-        yield put(habitUpdated(payload))
-    } catch (error) {
-        yield handleAuthError(error);
-        yield put(habitUpdateError(error));
-    }
-}
-
-function* fetchCategoriesSaga() {
-    try {
-        yield put(categoriesLoading());
-        const payload = yield call(habitsService.getCategories);
-        yield put(categoriesFetched(payload));
-    } catch (error) {
-        yield handleAuthError(error);
-        yield put(categoriesError(error));
-    }
-}
-
-function* createCategorySaga(action) {
-    try {
-        yield put(categoriesLoading());
-        const payload = yield call(() => habitsService.createCategory(action.payload));
-        yield put(categoryCreated(payload));
-        yield put(hideCategoryCreate(payload));
-    } catch (error) {
-        yield handleAuthError(error);
-        yield put(categoriesError(error));
+        yield put(profileUpdateError(error));
     }
 }
 

@@ -7,12 +7,12 @@ import {isEmail} from "validator";
 
 import {connect} from "react-redux";
 import {clearMessage, registerInit, registerSaga} from "../redux/actions/index";
-import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
+import {Alert, Button, Card, Form as FormBT} from "react-bootstrap";
 import './register.css';
 import Spinner from "../components/spinner/spinner";
 
 const required = (value) => {
-    if (!value) {
+    if (!value.trim()) {
         return (
             <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
                 This field is required!
@@ -44,7 +44,7 @@ const vusername = (value) => {
 const vpassword = (value) => {
     if (value.length < 6 || value.length > 40) {
         return (
-            <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
+            <Alert variant="danger" role="alert" className="mt-2 alertMessage">
                 The password must be between 6 and 40 characters.
             </Alert>
         );
@@ -61,6 +61,7 @@ class RegisterPage extends Component {
             username: "",
             email: "",
             password: "",
+            isAdmin: false
         };
     }
 
@@ -71,9 +72,12 @@ class RegisterPage extends Component {
 
     onChangeFormField(e) {
         this.props.clearMessage();
+
+        const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+
         this.setState({
-            [e.target.name]: e.target.value,
-        });
+            [e.target.name]: value,
+        })
     }
 
     handleRegister(e) {
@@ -82,7 +86,7 @@ class RegisterPage extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            this.props.register(this.state.username, this.state.email, this.state.password)
+            this.props.register(this.state.username, this.state.email, this.state.password, this.state.isAdmin)
         }
     }
 
@@ -92,23 +96,22 @@ class RegisterPage extends Component {
         if (registeredSuccessful) {
             return <Redirect to="/login"/>;
         }
+        console.log(this.state);
 
         return (
-            <Container>
-                <Row className="justify-content-center mt-3 mb-3">
-                    <Card>
-                        <Card.Body>
-                            <Form
-                                onSubmit={this.handleRegister}
-                                ref={(c) => {
+            <div className="formWrap mt-3 mb-3">
+                <div className='formInner'>
+                    <Card.Title>Create your account</Card.Title>
+                            <Form onSubmit={this.handleRegister}
+                                  ref={(c) => {
                                     this.form = c;
                                 }}
                             >
                                 <FormBT.Group>
                                     <FormBT.Label htmlFor="username">Username</FormBT.Label>
                                     <Input
+                                        className='w-100'
                                         type="text"
-                                        className="form-control"
                                         name="username"
                                         value={this.state.username}
                                         onChange={this.onChangeFormField}
@@ -119,8 +122,8 @@ class RegisterPage extends Component {
                                 <FormBT.Group>
                                     <FormBT.Label htmlFor="email">Email</FormBT.Label>
                                     <Input
+                                        className='w-100'
                                         type="text"
-                                        className="form-control"
                                         name="email"
                                         value={this.state.email}
                                         onChange={this.onChangeFormField}
@@ -128,15 +131,25 @@ class RegisterPage extends Component {
                                     />
                                 </FormBT.Group>
 
-                                <FormBT.Group className='alertMessageRegister'>
+                                <FormBT.Group>
                                     <FormBT.Label htmlFor="password">Password</FormBT.Label>
                                     <Input
+                                        className='w-100'
                                         type="password"
-                                        className="form-control"
                                         name="password"
                                         value={this.state.password}
                                         onChange={this.onChangeFormField}
                                         validations={[required, vpassword]}
+                                    />
+                                </FormBT.Group>
+
+                                <FormBT.Group className='isAdmin'>
+                                    <FormBT.Check
+                                        type="checkbox"
+                                        label="is admin"
+                                        checked={this.state.isAdmin}
+                                        name="isAdmin"
+                                        onChange={this.onChangeFormField}
                                     />
                                 </FormBT.Group>
 
@@ -145,9 +158,7 @@ class RegisterPage extends Component {
                                 </FormBT.Group>
                                 {message && (
                                     <FormBT.Group className='alertMessageRegister'>
-                                        <Alert
-                                            className={this.state.successful ? "alert alert-success" : "alert alert-danger"}
-                                            role="alert">
+                                        <Alert className="alert alert-danger" role="alert">
                                             {message}
                                         </Alert>
                                     </FormBT.Group>
@@ -162,10 +173,8 @@ class RegisterPage extends Component {
                                     }}
                                 />
                             </Form>
-                        </Card.Body>
-                    </Card>
-                </Row>
-            </Container>
+                </div>
+            </div>
         );
     }
 }
@@ -179,7 +188,7 @@ function mapStateToProps({
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        register: (username, email, password) => dispatch(registerSaga(username, email, password)),
+        register: (username, email, password, isAdmin) => dispatch(registerSaga(username, email, password, isAdmin)),
         registerInit: () => dispatch(registerInit()),
         clearMessage: () => dispatch(clearMessage()),
     }

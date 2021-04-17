@@ -1,10 +1,10 @@
 # toHabit
 
-This app is for creating and marking habits to make it your daily routine.
- - create habits by categories
+This app is for creating and marking profiles to make it your daily routine.
+ - create profiles by categories
  - create new category
- - mark habits done
- - change habit or delete it
+ - mark profiles done
+ - change profile or delete it
  - watch your progress on current week
  - watch TOP done and TOP by days in row
 

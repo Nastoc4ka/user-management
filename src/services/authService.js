@@ -1,10 +1,11 @@
 import {LoginError, RegistrationError} from "../errors";
 import {catchError, client} from './client';
 
-const login = ({username, password}) => {
-    return client.post("/auth/signin", {username, password})
+const login = ({email, password}) => {
+    return client.post("/auth/signin", {email, password})
         .then((response) => {
             localStorage.setItem("user", JSON.stringify(response.data));
+            console.log(response.data);
             return response.data;
         })
         .catch(catchError(LoginError));
@@ -12,8 +13,8 @@ const login = ({username, password}) => {
 
 const logout = () => localStorage.removeItem("user");
 
-const register = ({username, email, password}) => {
-    return client.post("/auth/signup", {username, email, password})
+const register = ({username, email, password, isAdmin}) => {
+    return client.post("/auth/signup", {username, email, password, isAdmin})
         .catch(catchError(RegistrationError));
 };
 

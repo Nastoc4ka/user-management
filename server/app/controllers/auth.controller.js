@@ -1,4 +1,5 @@
 const config = require("../config/auth.config");
+const db = require("../../db");
 const {getUserData, saveUserData} = require("../models");
 
 const jwt = require("jsonwebtoken");
@@ -29,35 +30,45 @@ const defaultCategories = [
     },
 ];
 
-exports.signup = (req, res) => {
-
-    const existUsers = getUserData();
-
-    const id = existUsers.length ? Math.max(...existUsers.map((user => user.id))) + 1 : 100000;
+exports.signup = async (req, res) => {
+    console.log(req.body);
 
     const userData = {
-        id,
         username: req.body.username,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password, 8),
-        habits: [],
-        categories: defaultCategories
+        isAdmin: req.body.isAdmin,
+        last_active: new Date,
     };
+    console.log(userData);
+    const newPerson = await createUser(userData).catch((e) => {
 
-    //append the user data
-    existUsers.push(userData);
-    //save the new user data
-    saveUserData(existUsers);
+        console.log(e.stack);
+    });
+
     res.status(201).send({success: true, msg: 'User data added successfully'})
 };
 
-exports.signin = (req, res) => {
-    const existUsers = getUserData();
+function createUser(user) {
+    const query = `INSERT INTO users (username, email, password, is_admin, last_active) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const values = [user.username, user.email, user.password, user.isAdmin, user.last_active];
+    return db.query(query, values);
+}
+
+exports.signin = async (req, res) => {
 
     const userToAuth = req.body;
 
-    //check if the username exist or not
-    const user = existUsers.find(user => user.username === userToAuth.username);
+    const queryUser = {
+        name: 'fetch-user',
+        text: 'SELECT * FROM users WHERE email = $1',
+        values: [userToAuth.email],
+    };
+
+    const {rows} = await db.query(queryUser);
+    const user = rows[0];
+
+    //check if the email exist or not
     if (!user) {
         return res.status(404).send({error: true, msg: 'User not found'})
     }
@@ -76,8 +87,39 @@ exports.signin = (req, res) => {
     }
 
     const accessToken = jwt.sign({id: user.id}, config.secret, {
-        expiresIn: 60 * 60 * 24 * 30 // 30 days
+        expiresIn: 60 * 60 * 24 // 1 day
     });
-
-    res.send({success: true, username: userToAuth.username, msg: 'User successfully authenticated', accessToken});
+    console.log(user);
+    res.send({success: true, isAdmin: user.is_admin, name: user.username, accessToken});
 };
+
+// exports.signRefreshToken = async (req, res) => {
+//     const {rows: existUsers} = await db.query('SELECT * FROM users');
+//
+//     const userToAuth = req.body;
+//
+//     //check if the email exist or not
+//     const user = existUsers.find(user => user.email == userToAuth.email);
+//     if (!user) {
+//         return res.status(404).send({error: true, msg: 'User not found'})
+//     }
+//
+//     const passwordIsValid = bcrypt.compareSync(
+//         userToAuth.password,
+//         user.password
+//     );
+//
+//     if (!passwordIsValid) {
+//         return res.status(401).send({
+//             error: true,
+//             token: null,
+//             msg: "Invalid Password!"
+//         });
+//     }
+//
+//     const accessToken = jwt.sign({id: user.id}, config.secret, {
+//         expiresIn: 60 * 60 * 24 * 30 // 30 days
+//     });
+//
+//     res.send({success: true, email: userToAuth.email, msg: 'token successfully refreshed', accessToken});
+// };

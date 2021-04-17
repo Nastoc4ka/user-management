@@ -10,17 +10,9 @@ module.exports = function (app) {
         next();
     });
 
-    app.get("/api/test/all", controller.allAccess);
-
-    app.get("/api/habits", [authJwt.verifyToken], controller.userHabits);
-    app.post("/api/habits", [authJwt.verifyToken], controller.userAddHabit);
-    app.put("/api/habits", [authJwt.verifyToken], controller.userUpdateHabit);
-    app.delete("/api/habits", [authJwt.verifyToken], controller.userDeleteHabit);
-
-    app.post("/api/habits/done", [authJwt.verifyToken], controller.userDoneHabit);
-
-
-    app.get("/api/categories", [authJwt.verifyToken], controller.userCategories);
-    app.post("/api/categories", [authJwt.verifyToken], controller.userAddCategory);
+    app.get("/api/profiles", [authJwt.verifyToken], controller.userProfiles);
+    app.post("/api/profiles", [authJwt.verifyToken], controller.userAddProfile);
+    app.put("/api/profiles", [authJwt.verifyToken], controller.userUpdateProfile);
+    app.delete("/api/profiles", [authJwt.verifyToken], controller.userDeleteProfile);
 
 };

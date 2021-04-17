@@ -4,29 +4,29 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 const initialState = {
     registeredSuccessful: false,
-    loading: false
+    loadingEditProfile: false
 };
 
 const authRegisterReducer = (state = initialState, action) => {
     switch (action.type) {
         case REGISTER_INIT:
             return {
-                loading: false,
+                loadingEditProfile: false,
                 registeredSuccessful: false,
             };
         case REGISTER_LOADING:
             return {
-                loading: true,
+                loadingEditProfile: true,
                 registeredSuccessful: false,
             };
         case REGISTER_FAIL:
             return {
-                loading: false,
+                loadingEditProfile: false,
                 registeredSuccessful: false,
             };
         case REGISTER_SUCCESS:
             return {
-                loading: false,
+                loadingEditProfile: false,
                 registeredSuccessful: true,
             };
         default:

@@ -13,12 +13,65 @@
     src: local('Train One'), url(../../fonts/Syne_Mono/SyneMono-Regular.ttf) format('truetype');
 }
 
+input {
+    background: transparent;
+    border: none !important;
+    border-bottom: 1px solid gray !important;
+}
+
+input:focus {
+    outline: none;
+}
+
+li {
+    list-style: none;
+}
+
 a {
     color: #A05F7E;
-    font-family: 'Syne Mono', monospace;
 }
 
 a:hover {
     text-decoration: none !important;
     color: darkslategrey;
 }
+
+.article {
+    flex: 1;
+    padding: 0 2rem;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f9fa !important;
+    font-size: 0.8em;
+}
+
+button {
+    font-size: 0.8rem !important;
+}
+
+.pageWrap {
+    display: flex;
+    flex-direction: column;
+    width: 100vm;
+    margin: 2rem 0;
+}
+
+.listWrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.modal-content {
+    border-bottom: none;
+    border-radius: 0.5rem !important;
+}
+
+.modal-header {
+    border-bottom: none;
+}
+

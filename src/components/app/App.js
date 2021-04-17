@@ -1,47 +1,39 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
-import React, {useEffect} from 'react';
+import React from 'react';
 import {connect} from 'react-redux';
 import {Route, Switch} from 'react-router-dom';
-import {categoriesRequestedSaga, logoutSaga, requestHabitsSaga, statisticsLoaded} from "../../redux/actions";
-import {HomePage, LoginPage, RegisterPage, StatisticsPage, WelcomePage} from '../../pages';
+import {logoutSaga} from "../../redux/actions";
+import {Dashboard, HomePage, LoginPage, Profiles, RegisterPage, Users, WelcomePage} from '../../pages';
 import Header from "../header";
-import Footer from "../footer";
-import {Col, Container, Row} from 'react-bootstrap';
+import {Col, Row} from 'react-bootstrap';
 import '../../fonts/New_Tegomin/NewTegomin-Regular.ttf';
 import './app.css';
 
 
 const App = (props) => {
-    const {user, isLoggedIn, requestHabits, fetchCategories, statisticsLoaded, logout} = props;
-    useEffect(() => {
-        if (user) {
-            requestHabits();
-            fetchCategories();
-            statisticsLoaded();
-        }
-    }, []);
+
+    const {user, isLoggedIn, logout} = props;
+
     return (
-        <Container role='main' className='main'>
-            <Row>
-                <Col>
+            <Row className='h-100'>
+                <Col className='h-100 main'>
                     <Header isLoggedIn={isLoggedIn}
                             user={user}
                             logout={logout}
                     />
-                    <Switch>
-                        <Route exact path='/' component={HomePage}/>
-                        <Route path='/login' component={LoginPage}/>
-                        <Route path='/register' component={RegisterPage}/>
-                        <Route path='/statistics' component={StatisticsPage}/>
-                        <Route path='/welcome' component={WelcomePage}/>
-                    </Switch>
-                    <Footer
-                        isLoggedIn={isLoggedIn}
-                        logout={logout}
-                    />
+                    <div className='article'>
+                        <Switch>
+                            <Route exact path='/' component={HomePage}/>
+                            <Route path='/login' component={LoginPage}/>
+                            <Route path='/register' component={RegisterPage}/>
+                            <Route path='/welcome' component={WelcomePage}/>
+                            <Route path='/profiles' component={Profiles}/>
+                            <Route path='/dashboard' component={Dashboard}/>
+                            <Route path='/users' component={Users}/>
+                        </Switch>
+                    </div>
                 </Col>
             </Row>
-        </Container>
     )
 };
 
@@ -51,9 +43,6 @@ function mapStateToProps({authLoginReducer: {user, isLoggedIn}}) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        requestHabits: () => dispatch(requestHabitsSaga()),
-        fetchCategories: () => dispatch(categoriesRequestedSaga()),
-        statisticsLoaded: () => dispatch(statisticsLoaded()),
         logout: () => dispatch(logoutSaga())
     }
 };

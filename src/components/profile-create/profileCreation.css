@@ -1,0 +1,28 @@
+.inputnewHabit {
+    padding-right: 0px;
+}
+
+.btn-outline-success.focus, .btn-outline-success:focus {
+    box-shadow: unset;
+}
+
+.btn-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 150px;
+    width: 150px;
+    margin-top: 2rem;
+}
+
+.plus-icon {
+    font-size: 3rem;
+    margin-bottom: 0.8rem;
+}
+
+.wrapInputs {
+    display: flex;
+    flex-direction: column;
+
+}

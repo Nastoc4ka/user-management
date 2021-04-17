@@ -6,35 +6,35 @@ import {
     CATEGORY_CREATE_SAGA,
     CATEGORY_CREATED,
     CLEAR_MESSAGE,
-    HABIT_CREATE_ERROR,
-    HABIT_CREATE_LOADING,
-    HABIT_CREATE_SAGA,
-    HABIT_CREATED,
     HABIT_DONE_HIDE_ALERT,
     HABIT_DONE_SAGA,
     HABIT_DONE_SHOW_ALERT,
-    HABIT_EDIT_HIDE,
-    HABIT_EDIT_SHOW,
-    HABIT_REMOVE_ERROR,
-    HABIT_REMOVE_LOADING,
-    HABIT_REMOVE_SAGA,
-    HABIT_REMOVED,
-    HABIT_UPDATE_ERROR,
-    HABIT_UPDATE_LOADING,
-    HABIT_UPDATE_SAGA,
-    HABIT_UPDATED,
-    HABITS_ERROR,
-    HABITS_FETCHED,
-    HABITS_LOADING,
-    HABITS_REQUESTED_SAGA,
     HIDE_CATEGORY_CREATE,
-    HIDE_HABIT_CREATE,
+    HIDE_PROFILE_CREATION,
     LOGIN_FAIL,
     LOGIN_LOADING,
     LOGIN_SAGA,
     LOGIN_SUCCESS,
     LOGOUT,
     LOGOUT_SAGA,
+    PROFILE_CREATE_ERROR,
+    PROFILE_CREATE_LOADING,
+    PROFILE_CREATE_SAGA,
+    PROFILE_CREATED,
+    PROFILE_EDIT_HIDE,
+    PROFILE_EDIT_SHOW,
+    PROFILE_REMOVE_ERROR,
+    PROFILE_REMOVE_LOADING,
+    PROFILE_REMOVE_SAGA,
+    PROFILE_REMOVED,
+    PROFILE_UPDATE_ERROR,
+    PROFILE_UPDATE_LOADING,
+    PROFILE_UPDATE_SAGA,
+    PROFILE_UPDATED,
+    PROFILES_ERROR,
+    PROFILES_FETCHED,
+    PROFILES_LOADING,
+    PROFILES_REQUESTED_SAGA,
     REGISTER_FAIL,
     REGISTER_INIT,
     REGISTER_LOADING,
@@ -42,7 +42,7 @@ import {
     REGISTER_SUCCESS,
     SET_MESSAGE,
     SHOW_CATEGORY_CREATE,
-    SHOW_HABIT_CREATE,
+    SHOW_PROFILE_CREATION,
     STATISTICS_LOADED,
     STATISTICS_LOADING
 } from "./types"
@@ -56,10 +56,10 @@ const clearMessage = () => ({
     type: CLEAR_MESSAGE,
 });
 
-const registerSaga = (username, email, password) => {
+const registerSaga = (username, email, password, isAdmin) => {
     return {
         type: REGISTER_SAGA,
-        payload: {username, email, password}
+        payload: {username, email, password, isAdmin}
     }
 };
 
@@ -87,10 +87,10 @@ const registerInit = () => {
     }
 };
 
-const loginSaga = (username, password) => {
+const loginSaga = (email, password) => {
     return {
         type: LOGIN_SAGA,
-        payload: {username, password}
+        payload: {email, password}
     }
 };
 
@@ -127,221 +127,135 @@ const logout = () => {
     };
 };
 
-const requestHabitsSaga = () => {
+const requestProfilesSaga = () => {
     return {
-        type: HABITS_REQUESTED_SAGA
+        type: PROFILES_REQUESTED_SAGA
     }
 };
 
-const habitsLoading = () => {
+const profilesLoading = () => {
     return {
-        type: HABITS_LOADING,
+        type: PROFILES_LOADING,
     }
 };
 
-const habitsError = (error) => {
+const profilesError = (error) => {
     return {
-        type: HABITS_ERROR,
+        type: PROFILES_ERROR,
         payload: error
     }
 };
 
-const habitsFetched = (habits) => {
+const ProfilesFetched = (profiles) => {
     return {
-        type: HABITS_FETCHED,
-        payload: habits
+        type: PROFILES_FETCHED,
+        payload: profiles
     }
 };
 
-const habitEditShow = (id) => {
+const profileEditShow = (id) => {
     return {
-        type: HABIT_EDIT_SHOW,
+        type: PROFILE_EDIT_SHOW,
         payload: id
     }
 };
 
-const habitEditHide = () => {
+const profileEditHide = () => {
     return {
-        type: HABIT_EDIT_HIDE,
+        type: PROFILE_EDIT_HIDE,
     }
 };
 
-const habitUpdateLoading = () => {
+const profileUpdateLoading = () => {
     return {
-        type: HABIT_UPDATE_LOADING,
+        type: PROFILE_UPDATE_LOADING,
     }
 };
 
-const habitUpdateSaga = (habit) => {
+const profileUpdateSaga = (profile) => {
     return {
-        type: HABIT_UPDATE_SAGA,
-        payload: habit
+        type: PROFILE_UPDATE_SAGA,
+        payload: profile
     }
 };
 
-const habitUpdated = (habit) => {
+const profileUpdated = (profile) => {
     return {
-        type: HABIT_UPDATED,
-        payload: habit
+        type: PROFILE_UPDATED,
+        payload: profile
     }
 };
 
-const habitUpdateError = (error) => {
+const profileUpdateError = (error) => {
     return {
-        type: HABIT_UPDATE_ERROR,
+        type: PROFILE_UPDATE_ERROR,
         payload: error
     }
 };
 
-const habitRemoveSaga = (id) => {
+const profileRemoveSaga = (id) => {
     return {
-        type: HABIT_REMOVE_SAGA,
+        type: PROFILE_REMOVE_SAGA,
         payload: id
     }
 };
 
-const habitRemoveLoading = () => {
+const profileRemoveLoading = () => {
     return {
-        type: HABIT_REMOVE_LOADING,
+        type: PROFILE_REMOVE_LOADING,
     }
 };
 
-const habitRemoved = (id) => {
+const profileRemoved = (id) => {
     return {
-        type: HABIT_REMOVED,
+        type: PROFILE_REMOVED,
         payload: id
     }
 };
 
-const habitRemoveError = (error) => {
+const profileRemoveError = (error) => {
     return {
-        type: HABIT_REMOVE_ERROR,
+        type: PROFILE_REMOVE_ERROR,
         payload: error
     }
 };
 
-const habitCreateSaga = (newHabit) => {
+const profileCreateSaga = (newProfile) => {
     return {
-        type: HABIT_CREATE_SAGA,
-        payload: newHabit
+        type: PROFILE_CREATE_SAGA,
+        payload: newProfile
     }
 };
 
-const habitCreateLoading = () => {
+const profileCreateLoading = () => {
     return {
-        type: HABIT_CREATE_LOADING,
+        type: PROFILE_CREATE_LOADING,
     }
 };
 
-const habitCreated = (newHabit) => {
+const profileCreated = (newProfile) => {
     return {
-        type: HABIT_CREATED,
-        payload: newHabit
+        type: PROFILE_CREATED,
+        payload: newProfile
     }
 };
 
-const habitCreateError = (error) => {
+const profileCreateError = (error) => {
     return {
-        type: HABIT_CREATE_ERROR,
+        type: PROFILE_CREATE_ERROR,
         payload: error
     }
 };
 
-
-const categoriesRequestedSaga = () => {
+const showProfileCreation = () => {
     return {
-        type: CATEGORIES_REQUESTED_SAGA
+        type: SHOW_PROFILE_CREATION,
     }
 };
 
-const categoriesFetched = (categories) => {
+const hideProfileCreation = () => {
     return {
-        type: CATEGORIES_FETCHED,
-        payload: categories
-    }
-};
-
-const categoriesLoading = () => {
-    return {
-        type: CATEGORIES_LOADING,
-    }
-};
-
-const categoriesError = (error) => {
-    return {
-        type: CATEGORIES_ERROR,
-        payload: error
-    }
-};
-
-const categoryCreateSaga = (newCategory) => {
-    return {
-        type: CATEGORY_CREATE_SAGA,
-        payload: newCategory
-    }
-};
-
-
-const categoryCreated = (newCategory) => {
-    return {
-        type: CATEGORY_CREATED,
-        payload: newCategory
-    }
-};
-
-const showCategoryCreate = () => {
-    return {
-        type: SHOW_CATEGORY_CREATE,
-    }
-};
-
-const hideCategoryCreate = () => {
-    return {
-        type: HIDE_CATEGORY_CREATE,
-    }
-};
-
-const showHabitCreate = () => {
-    return {
-        type: SHOW_HABIT_CREATE,
-    }
-};
-
-const hideHabitCreate = () => {
-    return {
-        type: HIDE_HABIT_CREATE,
-    }
-};
-
-const onDoneSaga = (id) => {
-    return {
-        type: HABIT_DONE_SAGA,
-        payload: id
-    }
-};
-
-const habitDoneShowAlert = (id) => {
-    return {
-        type: HABIT_DONE_SHOW_ALERT,
-        payload: id
-    }
-};
-
-const habitDoneHideAlert = () => {
-    return {
-        type: HABIT_DONE_HIDE_ALERT,
-    }
-};
-
-const statisticsLoading = () => {
-    return {
-        type: STATISTICS_LOADING,
-    }
-};
-
-const statisticsLoaded = () => {
-    return {
-        type: STATISTICS_LOADED,
+        type: HIDE_PROFILE_CREATION,
     }
 };
 
@@ -362,37 +276,24 @@ export {
     clearMessage,
 
 
-    habitsFetched,
-    requestHabitsSaga,
-    habitCreateSaga,
-    habitEditShow,
-    habitEditHide,
-    habitRemoveSaga,
-    habitRemoveLoading,
-    habitRemoved,
-    habitRemoveError,
-    habitUpdateLoading,
-    habitUpdateSaga,
-    habitUpdateError,
-    habitUpdated,
-    showHabitCreate,
-    hideHabitCreate,
-    habitCreateLoading,
-    habitCreated,
-    habitCreateError,
-    habitsLoading,
-    habitsError,
-    categoriesRequestedSaga,
-    categoriesFetched,
-    categoriesError,
-    categoriesLoading,
-    categoryCreateSaga,
-    categoryCreated,
-    showCategoryCreate,
-    hideCategoryCreate,
-    onDoneSaga,
-    habitDoneShowAlert,
-    habitDoneHideAlert,
-    statisticsLoading,
-    statisticsLoaded
+    ProfilesFetched,
+    requestProfilesSaga,
+    profileCreateSaga,
+    profileEditShow,
+    profileEditHide,
+    profileRemoveSaga,
+    profileRemoveLoading,
+    profileRemoved,
+    profileRemoveError,
+    profileUpdateLoading,
+    profileUpdateSaga,
+    profileUpdateError,
+    profileUpdated,
+    showProfileCreation,
+    hideProfileCreation,
+    profileCreateLoading,
+    profileCreated,
+    profileCreateError,
+    profilesLoading,
+    profilesError,
 };

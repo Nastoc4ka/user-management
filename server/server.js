@@ -1,7 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-
+const pool = require('./db');
 const app = express();
 
 const corsOptions = {
@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // simple route
 app.get("/", (req, res) => {
-    res.json({message: "Welcome to Habit BE application."});
+    res.json({message: "Welcome to user-management BE application."});
 });
 
 // routes

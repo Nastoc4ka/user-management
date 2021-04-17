@@ -1,4 +1,8 @@
-.alertMessageRegister {
+.alertMessage {
     max-width: 193px;
     font-size: 0.8rem;
+}
+
+.isAdmin {
+    margin-left: 100px;
 }

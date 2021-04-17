@@ -1,102 +1,66 @@
 const {findUserById, getUserData, saveUserData} = require('../models');
+const db = require("../../db");
 
 
-exports.allAccess = (req, res) => {
-    res.status(200).send("Welcome to habit app. Please sign in or register to make your first habits");
+exports.userProfiles = async (req, res) => {
+
+    const queryProfiles = {
+        name: 'get-profiles',
+        text: 'SELECT * FROM profiles WHERE user_id = $1',
+        values: [req.userId],
+    };
+
+    const {rows: profiles} = await db.query(queryProfiles);
+    res.status(200).json(profiles);
 };
 
-exports.userHabits = (req, res) => {
-    const existedUsers = getUserData();
-    const userIdx = existedUsers.findIndex(u => u.id === req.userId);
-    res.status(200).json(existedUsers[userIdx].habits);
+exports.userAddProfile = async (req, res) => {
+
+    const newProfile = {
+        ...req.body,
+        userId: req.userId
+    };
+
+    createProfile(newProfile).catch((e) => {
+        return res.status(400).send({error: true, msg: 'Profile wasn`t added'})
+    });
+
+    res.status(201).json({success: true});
 };
 
-exports.userAddHabit = (req, res) => {
-    const existedUsers = getUserData();
-    const userIdx = existedUsers.findIndex(u => u.id === req.userId);
+function createProfile(profile) {
+    const query = `INSERT INTO profiles (name, gender, birthdate, city, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`;
+    const values = [profile.name, profile.gender, profile.birthdate, profile.city, profile.userId];
+    return db.query(query, values);
+}
 
-    const id = existedUsers[userIdx].habits.length ? Math.max(...existedUsers[userIdx].habits.map(h => h.id)) + 1 : 10000;
-    const habit = {activity: [], ...req.body, id};
+exports.userUpdateProfile = async (req, res) => {
 
-    existedUsers[userIdx].habits.push(habit);
+    const updateProfile = {
+        text: 'UPDATE profiles SET name=$1, gender=$2, birthdate=$3, city=$4 WHERE id = $5',
+        values: [req.body.name, req.body.gender, req.body.birthdate, req.body.city, req.body.id]
+    };
 
-    saveUserData(existedUsers);
-
-    res.status(201).json(habit);
-};
-
-exports.userDoneHabit = (req, res) => {
-    const existedUsers = getUserData();
-    const userIdx = existedUsers.findIndex(u => u.id === req.userId);
-
-    const id = req.body.id;
-    if (!id) {
-        return res.status(400).send({error: true, msg: 'Bad request, id is missing'})
+    const {rows: profile} = await db.query(updateProfile);
+    if (!profile) {
+        return res.status(404).send({error: true, msg: 'Profile not found'})
     }
 
-    const habit = existedUsers[userIdx].habits.find(h => h.id === id);
-    habit.activity.push(Date.now());
-    saveUserData(existedUsers);
-
-    res.status(200).json(habit);
+    res.status(200).json('Profile updated');
 };
 
-exports.userUpdateHabit = (req, res) => {
-    const existedUsers = getUserData();
-    const userIdx = existedUsers.findIndex(u => u.id === req.userId);
+exports.userDeleteProfile = async (req, res) => {
+    const deleteProfile = {
+        name: 'delete-profile',
+        text: 'DELETE FROM profiles WHERE id = $1 RETURNING *',
+        values: [req.query.id],
+    };
 
-    const habitUpd = req.body;
-    const habitIdx = existedUsers[userIdx].habits.findIndex(h => h.id === habitUpd.id);
-    if (habitIdx === -1) {
-        return res.status(404).send({error: true, msg: 'Habit not found'})
+    const {rows: profileDeleted} = await db.query(deleteProfile);
+
+    if (profileDeleted.length === 0) {
+        return res.status(404).send({error: true, msg: 'Profile not found'})
     }
-
-    existedUsers[userIdx].habits[habitIdx] = habitUpd;
-
-    saveUserData(existedUsers);
-
-    res.status(200).json(habitUpd);
-};
-
-exports.userDeleteHabit = (req, res) => {
-    const existedUsers = getUserData();
-    const userIdx = existedUsers.findIndex(u => u.id === req.userId);
-
-    const habitId = req.query.id;
-    if (!habitId) {
-        return res.status(400).send({error: true, msg: 'Bad request, {id} parameter absent'})
-    }
-
-    const idx = existedUsers[userIdx].habits.findIndex(h => h.id === Number.parseInt(habitId));
-    if (idx === -1) {
-        return res.status(404).send({error: true, msg: 'Habit not found'})
-    }
-
-    const habits = existedUsers[userIdx].habits;
-
-    existedUsers[userIdx].habits = [...habits.slice(0, idx), ...habits.slice(idx + 1)];
-
-    saveUserData(existedUsers);
 
     res.status(200).json({success: true});
-};
-
-
-exports.userCategories = (req, res) => {
-    const user = findUserById(req.userId);
-    res.status(200).json(user.categories);
-};
-
-exports.userAddCategory = (req, res) => {
-    const existedUsers = getUserData();
-    const userIdx = existedUsers.findIndex(u => u.id === req.userId);
-
-    const id = existedUsers[userIdx].categories.length ? Math.max(...existedUsers[userIdx].categories.map(c => c.id)) + 1 : 1000;
-    const category = {...req.body, id};
-
-    existedUsers[userIdx].categories.push(category);
-
-    saveUserData(existedUsers);
-
-    res.status(200).json(category);
 };

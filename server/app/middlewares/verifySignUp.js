@@ -1,14 +1,14 @@
 const {getUserData} = require("../models");
+const db = require("../../db");
 
-checkDuplicateUsernameOrEmail = (req, res, next) => {
-    // Username
+checkDuplicateUsernameOrEmail = async (req, res, next) => {
 
-    const existUsers = getUserData();
+    const {rows: existUsers} = await db.query('SELECT email, email FROM users');
 
     const userToAuth = req.body;
 
-    //check if the username exist or not
-    const username = existUsers.find(user => user.username === userToAuth.username);
+    //check if the email exist or not
+    const username = existUsers.find(user => user.email === userToAuth.email);
     const email = existUsers.find(user => user.email === userToAuth.email);
 
     if (username) {

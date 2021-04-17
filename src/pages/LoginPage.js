@@ -7,15 +7,15 @@ import Input from "react-validation/build/input";
 import CheckButton from "react-validation/build/button";
 
 import {clearMessage, loginSaga} from "../redux/actions/index";
-import {Alert, Button, Card, Container, Form as FormBT, Row} from "react-bootstrap";
+import {Alert, Button, Card, Form as FormBT} from "react-bootstrap";
 import './login.css'
-import Spinner from "../components/spinner/spinner";
+import Spinner from "../components/spinner";
 
 const required = (value) => {
 
     if (!value.trim()) {
         return (
-            <Alert variant="danger" className='mt-2 alertMessageLogin' role="alert">
+            <Alert variant="danger" className='mt-2 alertMessage' role="alert">
                 This field is required!
             </Alert>
         );
@@ -29,7 +29,7 @@ class LoginPage extends Component {
         this.onChangeInput = this.onChangeInput.bind(this);
 
         this.state = {
-            username: "",
+            email: "",
             password: "",
             loading: false,
         };
@@ -55,7 +55,7 @@ class LoginPage extends Component {
         this.form.validateAll();
 
         if (this.checkBtn.context._errors.length === 0) {
-            this.props.login(this.state.username, this.state.password);
+            this.props.login(this.state.email, this.state.password);
             this.setState({
                 loading: false
             });
@@ -68,16 +68,15 @@ class LoginPage extends Component {
 
     render() {
         const {isLoggedIn, message, loading} = this.props;
-
+        console.log(isLoggedIn);
         if (isLoggedIn) {
-            return <Redirect to="/"/>;
+            return <Redirect to="/"/>
         }
 
         return (
-            <Container>
-                <Row className="justify-content-center mt-3 mb-3">
-                    <Card>
-                        <Card.Body>
+            <div className="formWrap mt-3 mb-3">
+                <div className='formInner'>
+                    <Card.Title>Sign in</Card.Title>
                             <Form
                                 onSubmit={this.handleLogin}
                                 ref={(c) => {
@@ -85,12 +84,12 @@ class LoginPage extends Component {
                                 }}
                             >
                                 <FormBT.Group>
-                                    <FormBT.Label htmlFor="username">Username</FormBT.Label>
+                                    <FormBT.Label htmlFor="email">Email</FormBT.Label>
                                     <Input
                                         className='w-100'
                                         type="text"
-                                        name="username"
-                                        value={this.state.username}
+                                        name="email"
+                                        value={this.state.email}
                                         onChange={this.onChangeInput}
                                         validations={[required]}
                                     />
@@ -135,10 +134,8 @@ class LoginPage extends Component {
                                     }}
                                 />
                             </Form>
-                        </Card.Body>
-                    </Card>
-                </Row>
-            </Container>
+                </div>
+            </div>
         );
     }
 }
@@ -155,7 +152,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        login: (username, password) => dispatch(loginSaga(username, password)),
+        login: (email, password) => dispatch(loginSaga(email, password)),
         clearMessage: () => dispatch(clearMessage()),
     }
 };

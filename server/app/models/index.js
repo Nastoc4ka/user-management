@@ -1,3 +1,4 @@
+const db = require("../../db");
 const fs = require('fs');
 
 //read the user data from json file
@@ -7,6 +8,7 @@ const saveUserData = (data) => {
 };
 //get the user data from json file
 const getUserData = () => {
+
     const jsonData = fs.readFileSync('users.json');
     return JSON.parse(jsonData)
 };

@@ -1,25 +1,17 @@
 import {combineReducers} from 'redux';
-import habitEditReducer from "./habitEditReducer";
-import habitsReducer from "./habitsReducer";
-import categoryReducer from "./categoryReducer";
-import statisticsReducer from "./statisticsReducer";
-import doneAlertReducer from "./doneAlertReducer";
+import profileEditReducer from "./profileEditReducer";
+import profilesReducer from "./profilesReducer";
 import messageReducer from "./messageReducer";
 import authRegisterReducer from "./authRegisterReducer";
 import authLoginReducer from "./authLoginReducer";
-import displayCategoryCreateReducer from "./displayCategoryCreateReducer";
-import displayHabitCreateReducer from "./displayHabitCreateReducer";
+import displayProfileCreateReducer from "./displayProfileCreateReducer";
 
 
 export const rootReducer = combineReducers({
-    habitEditReducer,
-    habitsReducer,
-    categoryReducer,
-    statisticsReducer,
-    doneAlertReducer,
+    profileEditReducer,
+    profilesReducer,
     messageReducer,
     authLoginReducer,
     authRegisterReducer,
-    displayCategoryCreateReducer,
-    displayHabitCreateReducer,
+    displayProfileCreateReducer,
 });
