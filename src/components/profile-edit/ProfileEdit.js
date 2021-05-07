@@ -46,7 +46,7 @@ class ProfileEdit extends Component {
         this.setState({
             ...initialState
         });
-        console.log(this.state);
+
         this.props.setShowEdit(false)
 
     };
@@ -89,52 +89,31 @@ class ProfileEdit extends Component {
                       }}>
                     <InputGroup className='w-100'>
                         <FormBT.Label className='mt-2'>name:</FormBT.Label>
-                        <FormControl ref={this.nameInputFocus}
-                                     name='name'
-                                     id="name"
+                        <FormControl ref={this.nameInputFocus} name='name' id="name"
                                      placeholder=""
                                      value={this.state.name}
                                      onChange={this.handleChange}
                                      className='inputNewHabit w-100'/>
                         <FormBT.Label className='mt-2'>gender:</FormBT.Label>
                         <div className="mb-3" onChange={this.handleChange}>
-                            <FormBT.Check
-                                inline
-                                name='gender'
-                                value='male'
-                                checked={this.state.gender === "male"}
-                                type="radio"
-                                id="default-radio"
-                                label="male"
+                            <FormBT.Check inline name='gender' value='male' checked={this.state.gender === "male"}
+                                          type="radio" id="default-radio" label="male"
                             />
-                            <FormBT.Check
-                                inline
-                                name='gender'
-                                value='female'
-                                checked={this.state.gender === "female"}
-                                type="radio"
-                                id="default-radio"
-                                label="female"
+                            <FormBT.Check inline name='gender' value='female'
+                                          checked={this.state.gender === "female"}
+                                          type="radio" id="default-radio" label="female"
                             />
                         </div>
                         <FormBT.Label className='mt-2'>birthdate:</FormBT.Label>
-                        <Input
-                            name='birthdate'
-                            id="birthdate"
-                            placeholder=""
-                            value={this.state.birthdate}
-                            onChange={this.handleChange}
-                            className='inputNewHabit w-100'
-                            validations={[birthdate]}
+                        <Input name='birthdate' id="birthdate" placeholder=""
+                               value={this.state.birthdate}
+                               onChange={this.handleChange}
+                               className='inputNewHabit w-100' validations={[birthdate]}
                         />
                         <FormBT.Label className='mt-2'>city:</FormBT.Label>
-                        <FormControl
-                            name='city'
-                            id="city"
-                            placeholder=""
-                            value={this.state.city}
-                            onChange={this.handleChange}
-                            className='inputNewHabit w-100'/>
+                        <FormControl name='city' id="city" placeholder=""
+                                     value={this.state.city}
+                                     onChange={this.handleChange} className='inputNewHabit w-100'/>
                         <Button variant="outline-success" type="submit">
                             <GrFormAdd/>
                         </Button>

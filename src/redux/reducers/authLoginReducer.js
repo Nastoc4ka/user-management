@@ -13,25 +13,25 @@ const authLoginReducer = (state = initialState, action) => {
         case LOGIN_LOADING:
             return {
                 ...state,
-                loadingEditProfile: true,
+                loading: true,
             };
         case LOGIN_SUCCESS:
             return {
                 isLoggedIn: true,
                 user: payload,
-                loadingEditProfile: false
+                loading: false
             };
         case LOGIN_FAIL:
             return {
                 isLoggedIn: false,
                 user: null,
-                loadingEditProfile: false
+                loading: false
             };
         case LOGOUT:
             return {
                 isLoggedIn: false,
                 user: null,
-                loadingEditProfile: false
+                loading: false
             };
         default:
             return state;

@@ -31,7 +31,6 @@ const defaultCategories = [
 ];
 
 exports.signup = async (req, res) => {
-    console.log(req.body);
 
     const userData = {
         username: req.body.username,
@@ -89,7 +88,6 @@ exports.signin = async (req, res) => {
     const accessToken = jwt.sign({id: user.id}, config.secret, {
         expiresIn: 60 * 60 * 24 // 1 day
     });
-    console.log(user);
     res.send({success: true, isAdmin: user.is_admin, name: user.username, accessToken});
 };
 

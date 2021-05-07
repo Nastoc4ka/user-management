@@ -1,4 +1,4 @@
-import {CategoryError, ProfileError} from "../errors";
+import {ProfileError} from "../errors";
 import {catchError, client} from './client';
 import authHeader from "./authHeader";
 
@@ -9,7 +9,6 @@ const doneHabit = (id) => {
 };
 
 const createProfile = (newProfile) => {
-    console.log(newProfile);
     return client.post(`/profiles`, {...newProfile}, {headers: authHeader()})
         .then(({data}) => data)
         .catch(catchError(ProfileError));
@@ -33,24 +32,23 @@ const getProfiles = () => {
         .catch(catchError(ProfileError));
 };
 
-const getCategories = () => {
-    return client.get(`/categories`, {headers: authHeader()})
+const getUsers = () => {
+    return client.get(`/users`, {headers: authHeader()})
         .then(({data}) => data)
-        .catch(catchError(CategoryError))
+        .catch(catchError(ProfileError));
 };
 
-const createCategory = (newCategory) => {
-    return client.post(`/categories`, {...newCategory}, {headers: authHeader()})
+const getDashboard = () => {
+    return client.get(`/dashboard`, {headers: authHeader()})
         .then(({data}) => data)
-        .catch(catchError(CategoryError))
+        .catch(catchError(ProfileError));
 };
 
 export default {
-    doneHabit,
     createProfile,
     updateProfile,
     removeProfile,
     getProfiles,
-    getCategories,
-    createCategory,
+    getUsers,
+    getDashboard,
 };

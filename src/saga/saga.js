@@ -1,5 +1,8 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import {
+    dashboardError,
+    dashboardFetched,
+    dashboardLoading,
     hideProfileCreation,
     loginFail,
     loginLoading,
@@ -13,7 +16,7 @@ import {
     profileRemoveError,
     profileRemoveLoading,
     profilesError,
-    ProfilesFetched,
+    profilesFetched,
     profilesLoading,
     profileUpdated,
     profileUpdateError,
@@ -22,23 +25,29 @@ import {
     registerLoading,
     registerSuccess,
     setMessage,
+    usersError,
+    usersFetched,
+    usersLoading,
 } from '../redux/actions';
 import {authService, profileService} from '../services';
 
 import {
+    DASHBOARD_REQUESTED_SAGA,
     LOGIN_SAGA,
     LOGOUT_SAGA,
     PROFILE_CREATE_SAGA,
     PROFILE_REMOVE_SAGA,
     PROFILE_UPDATE_SAGA,
     PROFILES_REQUESTED_SAGA,
-    REGISTER_SAGA
+    REGISTER_SAGA,
+    USERS_REQUESTED_SAGA
 } from "../redux/actions/types";
 import UnauthorizedError from "../errors/UnauthorizedError";
 
-
 export function* sagaWatcher() {
     yield takeEvery(PROFILES_REQUESTED_SAGA, fetchProfilesSaga);
+    yield takeEvery(USERS_REQUESTED_SAGA, fetchUsersSaga);
+    yield takeEvery(DASHBOARD_REQUESTED_SAGA, fetchDashboardSaga);
     yield takeEvery(PROFILE_REMOVE_SAGA, removeProfileSaga);
     yield takeEvery(PROFILE_CREATE_SAGA, createProfileSaga);
     yield takeEvery(PROFILE_UPDATE_SAGA, updateProfileSaga);
@@ -87,10 +96,32 @@ function* fetchProfilesSaga() {
     try {
         yield put(profilesLoading());
         const payload = yield call(profileService.getProfiles);
-        yield put(ProfilesFetched(payload));
+        yield put(profilesFetched(payload));
     } catch (error) {
         yield handleAuthError(error);
         yield put(profilesError(error));
+    }
+}
+
+function* fetchUsersSaga() {
+    try {
+        yield put(usersLoading());
+        const payload = yield call(profileService.getUsers);
+        yield put(usersFetched(payload));
+    } catch (error) {
+        yield handleAuthError(error);
+        yield put(usersError(error));
+    }
+}
+
+function* fetchDashboardSaga() {
+    try {
+        yield put(dashboardLoading());
+        const payload = yield call(profileService.getDashboard);
+        yield put(dashboardFetched(payload));
+    } catch (error) {
+        yield handleAuthError(error);
+        yield put(dashboardError(error));
     }
 }
 

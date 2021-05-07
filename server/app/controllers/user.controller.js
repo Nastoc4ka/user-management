@@ -14,6 +14,60 @@ exports.userProfiles = async (req, res) => {
     res.status(200).json(profiles);
 };
 
+exports.dashboard = async (req, res) => {
+
+    const queryUsersQuantity = {
+        name: 'get-users-quantity',
+        text: 'SELECT COUNT(*) FROM users',
+    };
+
+    const queryProfilesQuantity = {
+        name: 'get-profiles-quantity',
+        text: 'SELECT COUNT(*) FROM profiles',
+    };
+
+    const queryProfilesBirthdate = {
+        name: 'get-profiles-birthdate',
+        text: 'SELECT birthdate FROM profiles',
+    };
+
+    const {rows: [{count: users}]} = await db.query(queryUsersQuantity);
+    const {rows: [{count: profiles}]} = await db.query(queryProfilesQuantity);
+    const {rows: profilesBirthdate} = await db.query(queryProfilesBirthdate);
+    const profilesAdult = profilesBirthdate.filter(({birthdate}) => {
+        birthdate = +new Date(birthdate.replace(/(\d{2}).(\d{2}).(\d{4})/, "$2/$1/$3"));
+        const age = ~~((Date.now() - birthdate) / (31557600000));
+        console.log('age: ', age);
+
+        return age >= 18
+    }).length;
+
+    res.status(200).json({users, profiles, profilesAdult});
+};
+
+exports.users = async (req, res) => {
+
+    const queryUsers = {
+        name: 'get-users',
+        text: 'SELECT * FROM users'
+    };
+    const {rows: users} = await db.query(queryUsers);
+
+    const usersData = await Promise.all(users.map(async (user) => {
+        const {rows: [{count}]} = await queryQuantityOfUsersProfiles(user.id);
+        user.profilesQuantity = count;
+        return user
+    }));
+
+    res.status(200).json(usersData);
+};
+
+function queryQuantityOfUsersProfiles(userId) {
+    const query = 'SELECT COUNT(*) FROM profiles WHERE user_id = $1';
+    const values = [userId];
+    return db.query(query, values);
+}
+
 exports.userAddProfile = async (req, res) => {
 
     const newProfile = {

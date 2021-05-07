@@ -1,20 +1,13 @@
-# toHabit
+# user-managemet
 
-This app is for creating and marking profiles to make it your daily routine.
- - create profiles by categories
- - create new category
- - mark profiles done
- - change profile or delete it
- - watch your progress on current week
- - watch TOP done and TOP by days in row
 
 ## Getting started
 
-Use the package manager [npm](https://www.npmjs.com/get-npm) to install toHabit.
+Use the package manager [npm](https://www.npmjs.com/get-npm) to install.
 
 After downloading project, run the app(front-end) in the development mode.
 
-First open folder toHabit in your terminal:
+First open folder user-managemet in your terminal:
 
 ```bash
 npm install
@@ -47,22 +40,3 @@ serve -s build
 ```
 
 Open [http://localhost:5000](http://localhost:5000) to view it in the browser.
-
-## Technologies
-***
-Main list of technologies used within the project:
-
-   * react,
-   * redux,
-   * redux-saga,
-   * instance,
-   * bootstrap,
-   * chroma-js,
-   * moment,
-   * validator
-   * node.js
-   * express
-   
-Whole list can be found in package.json dependencies.
-
-Authentication & Authorization is implemented with JWT Authentication.

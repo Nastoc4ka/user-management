@@ -60,7 +60,6 @@ const profilesReducer = (state = initialState, action) => {
             };
         case PROFILE_UPDATED:
             const profile = action.payload;
-            console.log(profile);
             const idx = state.profiles.findIndex((prof) => prof.id === profile.id);
             return {
                 ...state,

@@ -5,7 +5,6 @@ const login = ({email, password}) => {
     return client.post("/auth/signin", {email, password})
         .then((response) => {
             localStorage.setItem("user", JSON.stringify(response.data));
-            console.log(response.data);
             return response.data;
         })
         .catch(catchError(LoginError));

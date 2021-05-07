@@ -68,7 +68,6 @@ class LoginPage extends Component {
 
     render() {
         const {isLoggedIn, message, loading} = this.props;
-        console.log(isLoggedIn);
         if (isLoggedIn) {
             return <Redirect to="/"/>
         }

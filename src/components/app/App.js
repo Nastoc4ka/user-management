@@ -8,6 +8,7 @@ import Header from "../header";
 import {Col, Row} from 'react-bootstrap';
 import '../../fonts/New_Tegomin/NewTegomin-Regular.ttf';
 import './app.css';
+import UserView from "../user-view";
 
 
 const App = (props) => {
@@ -29,7 +30,12 @@ const App = (props) => {
                             <Route path='/welcome' component={WelcomePage}/>
                             <Route path='/profiles' component={Profiles}/>
                             <Route path='/dashboard' component={Dashboard}/>
-                            <Route path='/users' component={Users}/>
+                            <Route exact path='/users' component={Users}/>
+                            <Route path='/users/:id' render={({match}) => {
+                                const {id} = match.params;
+                                <UserView userId={id}/>
+                            }
+                            }/>
                         </Switch>
                     </div>
                 </Col>

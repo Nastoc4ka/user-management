@@ -6,6 +6,10 @@ import {
     CATEGORY_CREATE_SAGA,
     CATEGORY_CREATED,
     CLEAR_MESSAGE,
+    DASHBOARD_ERROR,
+    DASHBOARD_FETCHED,
+    DASHBOARD_LOADING,
+    DASHBOARD_REQUESTED_SAGA,
     HABIT_DONE_HIDE_ALERT,
     HABIT_DONE_SAGA,
     HABIT_DONE_SHOW_ALERT,
@@ -44,7 +48,11 @@ import {
     SHOW_CATEGORY_CREATE,
     SHOW_PROFILE_CREATION,
     STATISTICS_LOADED,
-    STATISTICS_LOADING
+    STATISTICS_LOADING,
+    USERS_ERROR,
+    USERS_FETCHED,
+    USERS_LOADING,
+    USERS_REQUESTED_SAGA
 } from "./types"
 
 const setMessage = (message) => ({
@@ -146,10 +154,62 @@ const profilesError = (error) => {
     }
 };
 
-const ProfilesFetched = (profiles) => {
+const profilesFetched = (profiles) => {
     return {
         type: PROFILES_FETCHED,
         payload: profiles
+    }
+};
+
+const requestUsersSaga = () => {
+    return {
+        type: USERS_REQUESTED_SAGA
+    }
+};
+
+const usersLoading = () => {
+    return {
+        type: USERS_LOADING,
+    }
+};
+
+const usersError = (error) => {
+    return {
+        type: USERS_ERROR,
+        payload: error
+    }
+};
+
+const usersFetched = (profiles) => {
+    return {
+        type: USERS_FETCHED,
+        payload: profiles
+    }
+};
+
+const requestDashboardSaga = () => {
+    return {
+        type: DASHBOARD_REQUESTED_SAGA
+    }
+};
+
+const dashboardLoading = () => {
+    return {
+        type: DASHBOARD_LOADING,
+    }
+};
+
+const dashboardError = (error) => {
+    return {
+        type: DASHBOARD_ERROR,
+        payload: error
+    }
+};
+
+const dashboardFetched = (dashboardData) => {
+    return {
+        type: DASHBOARD_FETCHED,
+        payload: dashboardData
     }
 };
 
@@ -276,7 +336,7 @@ export {
     clearMessage,
 
 
-    ProfilesFetched,
+    profilesFetched,
     requestProfilesSaga,
     profileCreateSaga,
     profileEditShow,
@@ -296,4 +356,14 @@ export {
     profileCreateError,
     profilesLoading,
     profilesError,
+
+    requestUsersSaga,
+    usersLoading,
+    usersFetched,
+    usersError,
+
+    dashboardFetched,
+    dashboardError,
+    dashboardLoading,
+    requestDashboardSaga
 };

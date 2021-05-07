@@ -96,7 +96,6 @@ class RegisterPage extends Component {
         if (registeredSuccessful) {
             return <Redirect to="/login"/>;
         }
-        console.log(this.state);
 
         return (
             <div className="formWrap mt-3 mb-3">

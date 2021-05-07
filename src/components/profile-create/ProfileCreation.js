@@ -12,7 +12,7 @@ import ErrorIndicator from "../error-indicator";
 import Spinner from "../spinner";
 
 const birthdate = (value) => {
-    const dateExp = /^\s*(3[01]|[12][0-9]|0?[1-9])\.(1[012]|0?[1-9])\.((?:19|20)\d{2})\s*$/;
+    const dateExp = /^\s*(3[01]|[12][0-9]|0[1-9])\.(1[012]|0[1-9])\.((?:19|20)\d{2})\s*$/;
     if (!(dateExp.test(value.trim()))) {
         return (
             <Alert variant="danger" role="alert" className="mt-2 alertMessageRegister">
@@ -39,7 +39,6 @@ class ProfileCreation extends Component {
 
     handleChange = (e) => {
         this.setState({[e.target.name]: e.target.value});
-        console.log(this.state);
     };
 
     constructor(props) {
